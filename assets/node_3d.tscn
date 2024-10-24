@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dp3q1y3ey8pee"]
+[gd_scene load_steps=5 format=3 uid="uid://dp3q1y3ey8pee"]
 
 [ext_resource type="Texture2D" uid="uid://e1lwkap0l6o4" path="res://assets/textures/road-highway-seamless-texture-motion-footage-062005311_iconl.png" id="2_1oc3i"]
-[ext_resource type="Script" path="res://scripts/carfollowtest.gd" id="2_oq3lo"]
+[ext_resource type="PackedScene" uid="uid://btxoojgq4r3jy" path="res://scripts/car.tscn" id="2_avjfi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbyso"]
 albedo_texture = ExtResource("2_1oc3i")
@@ -9,13 +9,10 @@ uv1_scale = Vector3(0.7, 8, 0.8)
 
 [sub_resource type="Curve3D" id="Curve3D_yo4is"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 4.17725, -5.2276, 0, -6.16589, 5.2276, 0, 6.16589, 3.61911, 0, 32.2369, -12.8736, -1.85211, 6.12667, 12.8736, 1.85211, -6.12667, 38.4698, 0, 38.9389, -0.804253, 0, 13.4041, 0.804253, 0, -13.4041, 54.9568, 0, -0.737226, 3.75315, 0, 7.10418, -3.75315, 0, -7.10418, 50.1313, 0, -35.5879, 7.37225, 0, 3.61911, -7.37225, 0, -3.61911, 36.1911, 0, -46.7133, 9.51691, 0, -4.15527, -9.51691, 0, 4.15527, 11.3935, 0, -43.4963, 0, 0, 0, 0, 0, 0, -0.134041, 0, -22.3178, 0, 0, 0, 0, 0, 0, 0, 0, 4.17725),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 4.17725, -5.2276, 0, -6.16589, 5.2276, 0, 6.16589, 3.61911, 0, 32.2369, -12.8736, -1.85211, 6.12667, 12.8736, 1.85211, -6.12667, 38.4698, 0, 38.9389, -0.804253, 0, 13.4041, 0.804253, 0, -13.4041, 54.9568, 0, -0.737226, 3.75315, 0, 7.10418, -3.75315, 0, -7.10418, 50.1313, 0, -35.5879, 7.37225, 0, 3.61911, -7.37225, 0, -3.61911, 36.1911, 0, -46.7133, 9.51691, 0, -4.15527, -9.51691, 0, 4.15527, 11.3935, 0, -43.4963, -11.5317, 0, 0.913652, 11.5317, 0, -0.913652, -0.134041, 0, -22.3178, 0, 0, 0, 0, 0, 0, 0, 0, 4.17725),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 9
-
-[sub_resource type="BoxMesh" id="BoxMesh_sntee"]
-size = Vector3(2.15, 0.345, 0.96)
 
 [node name="Node3D" type="Node3D"]
 
@@ -39,14 +36,21 @@ material = SubResource("StandardMaterial3D_cbyso")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 curve = SubResource("Curve3D_yo4is")
 
-[node name="Car" type="PathFollow3D" parent="Road-Curved/Road-path"]
-transform = Transform3D(-0.991728, 0, -0.127914, 0, 0.99995, 0, 0.127912, 0, -0.991743, 0, 0, 4.17725)
-script = ExtResource("2_oq3lo")
+[node name="Car" parent="Road-Curved/Road-path" instance=ExtResource("2_avjfi")]
+transform = Transform3D(0.999941, 0, 0, 0, 0.99995, 0, 0, 0, 0.999955, -0.179934, 0, 15.0859)
+progress = 10.9143
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Road-Curved/Road-path/Car"]
-transform = Transform3D(0.12792, 0, 0.991788, 0, 1, 0, -0.991787, 0, 0.12792, 0.782768, 0, -0.0075078)
-mesh = SubResource("BoxMesh_sntee")
-skeleton = NodePath("")
+[node name="Car2" parent="Road-Curved/Road-path" instance=ExtResource("2_avjfi")]
+transform = Transform3D(0.999943, 0, 0, 0, 0.99995, 0, 0, 0, 0.999958, 0.586668, 0, 23.8022)
+progress = 19.6699
+
+[node name="Car3" parent="Road-Curved/Road-path" instance=ExtResource("2_avjfi")]
+transform = Transform3D(0.999943, 0, 0, 0, 0.99995, 0, 0, 0, 0.999958, 0, 0, 4.17725)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.174336, 0.984686, 0, -0.984686, -0.174336, -6.68161, 73.3493, -72.85)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.691677, 0.722207, 0, -0.722207, 0.691677, 0, 18, 0)
+light_energy = 2.185
+directional_shadow_max_distance = 8192.0
