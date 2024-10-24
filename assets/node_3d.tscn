@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp3q1y3ey8pee"]
+
+[sub_resource type="Curve3D" id="Curve3D_xaw5m"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, -10, 0, 0, 0, 0, 0, 0, 0, 0, 10),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tswwe"]
+size = Vector2(4, 20)
+
+[sub_resource type="Curve3D" id="Curve3D_lj1vp"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, -10),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Road" type="Node3D" parent="."]
+
+[node name="Path3D1" type="Path3D" parent="Road"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+curve = SubResource("Curve3D_xaw5m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Road"]
+mesh = SubResource("PlaneMesh_tswwe")
+
+[node name="Path3D2" type="Path3D" parent="Road"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+curve = SubResource("Curve3D_lj1vp")
