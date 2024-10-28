@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dp3q1y3ey8pee"]
+[gd_scene load_steps=5 format=3 uid="uid://dubngrhst8pmr"]
 
 [ext_resource type="Texture2D" uid="uid://e1lwkap0l6o4" path="res://assets/textures/road-highway-seamless-texture-motion-footage-062005311_iconl.png" id="2_1oc3i"]
-[ext_resource type="PackedScene" uid="uid://btxoojgq4r3jy" path="res://scripts/car.tscn" id="2_avjfi"]
+[ext_resource type="Script" path="res://assets/car_spawner.gd" id="2_j17vk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbyso"]
 albedo_texture = ExtResource("2_1oc3i")
@@ -35,17 +35,7 @@ material = SubResource("StandardMaterial3D_cbyso")
 [node name="Road-path" type="Path3D" parent="Road-Curved"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 curve = SubResource("Curve3D_yo4is")
-
-[node name="Car" parent="Road-Curved/Road-path" instance=ExtResource("2_avjfi")]
-transform = Transform3D(0.999941, 0, 0, 0, 0.99995, 0, 0, 0, 0.999955, -0.179934, 0, 15.0859)
-progress = 10.9143
-
-[node name="Car2" parent="Road-Curved/Road-path" instance=ExtResource("2_avjfi")]
-transform = Transform3D(0.999943, 0, 0, 0, 0.99995, 0, 0, 0, 0.999958, 0.586668, 0, 23.8022)
-progress = 19.6699
-
-[node name="Car3" parent="Road-Curved/Road-path" instance=ExtResource("2_avjfi")]
-transform = Transform3D(0.999943, 0, 0, 0, 0.99995, 0, 0, 0, 0.999958, 0, 0, 4.17725)
+script = ExtResource("2_j17vk")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.174336, 0.984686, 0, -0.984686, -0.174336, -6.68161, 73.3493, -72.85)

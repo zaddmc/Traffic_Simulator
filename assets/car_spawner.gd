@@ -4,9 +4,8 @@ var CARS = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in range(200):
-		var car = load("res://scripts/car.tscn").instantiate()
-		car.starting_offset = 3 * i
+	for i in range(20):
+		var car = Car.new_car(-5*i, 10)
 		CARS.append(car)
 		add_child(car)
 
