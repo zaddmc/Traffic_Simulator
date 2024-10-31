@@ -20,8 +20,10 @@ func _process(delta: float) -> void:
 static func new_car(starting_offset:float, max_speed:float = 0) -> Car:
 	var new_car: Car = my_scene.instantiate()
 	new_car.starting_offset = starting_offset
+	
 	if (max_speed == 0):
 		new_car.max_speed = randf_range(5, 15)
 	else:
 		new_car.max_speed = max_speed
+		
 	return new_car
