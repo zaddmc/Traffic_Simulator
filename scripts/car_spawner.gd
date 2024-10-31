@@ -2,12 +2,10 @@ extends Path3D
 
 var CARS = []
 @export var car_spawn_count: int = 10
-signal path_length
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var length = curve.get_baked_length()
-	path_length.emit(length)
+	#var length = curve.get_baked_length() # gets the length of the road/path
 
 	var fast_car = Car.new_car(10, 50)
 	CARS.append(fast_car)
