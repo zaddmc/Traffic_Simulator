@@ -9,7 +9,9 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.853, 0, 116.947)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.174336, 0.984686, 0, -0.984686, -0.174336, -6.68161, 54.4012, -32.5332)
+transform = Transform3D(1, 0, 0, 0, -0.174336, 0.984686, 0, -0.984686, -0.174336, 0.528717, 54.4012, 0.549473)
+projection = 1
+size = 305.815
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.691677, 0.722207, 0, -0.722207, 0.691677, 0, 18, 0)
