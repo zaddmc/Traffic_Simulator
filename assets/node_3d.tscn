@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bie6j54kxo805"]
+[gd_scene load_steps=4 format=3 uid="uid://bie6j54kxo805"]
 
-[ext_resource type="PackedScene" uid="uid://dyvck5vxo67k" path="res://assets/crossing.tscn" id="1_owlcq"]
-[ext_resource type="PackedScene" uid="uid://nugejt1q1eep" path="res://assets/straight_road.tscn" id="2_6nuu2"]
+[ext_resource type="PackedScene" uid="uid://b6jri2otc578r" path="res://assets/crossing.tscn" id="1_owlcq"]
+[ext_resource type="PackedScene" uid="uid://cyrdwy2yidhj2" path="res://assets/straight_road.tscn" id="2_6nuu2"]
+[ext_resource type="Script" path="res://scripts/road_baker.gd" id="2_dmp8q"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -19,6 +20,7 @@ light_energy = 2.185
 directional_shadow_max_distance = 8192.0
 
 [node name="Roads" type="Node3D" parent="."]
+script = ExtResource("2_dmp8q")
 
 [node name="Crossing" parent="Roads" instance=ExtResource("1_owlcq")]
 

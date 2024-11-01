@@ -3,11 +3,13 @@ extends PathFollow3D
 
 const my_scene: PackedScene = preload("res://scripts/car.tscn")
 static var CARS = []
+static var ROADS = []
 
 # Internal varibles for each car object
 var starting_offset: float
 var max_speed: float
 var speed: float
+var current_road: Path3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,6 +20,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var wanted_space = 0.05
 	var own_progress = self.get_progress_ratio()
+	#current_road.get_child(0).get_baked_length()
 	
 	var closest_car = CARS[0] if CARS[0] != self else CARS[1] 
 	for car in CARS:
@@ -46,6 +49,10 @@ static func new_car(starting_offset:float, max_speed:float = 0) -> Car:
 	else:
 		new_car.max_speed = max_speed
 	new_car.speed = new_car.max_speed
-		
+	
 	CARS.append(new_car)
 	return new_car
+
+static func set_baked_roads(roads) -> void:
+	ROADS = roads
+	return
