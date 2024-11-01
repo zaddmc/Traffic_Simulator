@@ -28,50 +28,58 @@ point_count = 2
 [node name="kryds" parent="." instance=ExtResource("1_s6wni")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.014)
 
-[node name="Path3DRx-z" type="Path3D" parent="."]
+[node name="Xin" type="Node3D" parent="."]
+
+[node name="Path3DRx-z" type="Path3D" parent="Xin"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.46196, 0, -1.5)
 curve = SubResource("Curve3D_kf004")
 
-[node name="Path3DRzx" type="Path3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.46446, 0, 8.49391)
-curve = SubResource("Curve3D_kf004")
-
-[node name="Path3DR-xz" type="Path3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -8.52944, 0, 1.4964)
-curve = SubResource("Curve3D_kf004")
-
-[node name="Path3DR-z-x" type="Path3D" parent="."]
-transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -1.53194, 0, -8.4975)
-curve = SubResource("Curve3D_kf004")
-
-[node name="Path3DLxz" type="Path3D" parent="."]
+[node name="Path3DLxz" type="Path3D" parent="Xin"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, -1.5)
 curve = SubResource("Curve3D_st4v5")
 
-[node name="Path3DLz-x" type="Path3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.49306, 0, 8.45743)
-curve = SubResource("Curve3D_st4v5")
-
-[node name="Path3DL-x-z" type="Path3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -8.46437, 0, 1.45049)
-curve = SubResource("Curve3D_st4v5")
-
-[node name="Path3DL-zx" type="Path3D" parent="."]
-transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -1.45743, 0, -8.50694)
-curve = SubResource("Curve3D_st4v5")
-
-[node name="Path3DSx-x" type="Path3D" parent="."]
+[node name="Path3DSx-x" type="Path3D" parent="Xin"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.4451, 0, -1.5)
 curve = SubResource("Curve3D_2bqpf")
 
-[node name="Path3DSz-z" type="Path3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.48903, 0, 8.41719)
+[node name="-Zin" type="Node3D" parent="."]
+
+[node name="Path3DR-z-x" type="Path3D" parent="-Zin"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -1.53194, 0, -8.4975)
+curve = SubResource("Curve3D_kf004")
+
+[node name="Path3DL-zx" type="Path3D" parent="-Zin"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -1.45743, 0, -8.50694)
+curve = SubResource("Curve3D_st4v5")
+
+[node name="Path3DS-zz" type="Path3D" parent="-Zin"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -1.47209, 0, -8.45607)
 curve = SubResource("Curve3D_2bqpf")
 
-[node name="Path3DS-xx" type="Path3D" parent="."]
+[node name="-Xin" type="Node3D" parent="."]
+
+[node name="Path3DR-xz" type="Path3D" parent="-Xin"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -8.52944, 0, 1.4964)
+curve = SubResource("Curve3D_kf004")
+
+[node name="Path3DL-x-z" type="Path3D" parent="-Xin"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -8.46437, 0, 1.45049)
+curve = SubResource("Curve3D_st4v5")
+
+[node name="Path3DS-xx" type="Path3D" parent="-Xin"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -8.42817, 0, 1.46112)
 curve = SubResource("Curve3D_2bqpf")
 
-[node name="Path3DS-zz" type="Path3D" parent="."]
-transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -1.47209, 0, -8.45607)
+[node name="Zin" type="Node3D" parent="."]
+
+[node name="Path3DRzx" type="Path3D" parent="Zin"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.46446, 0, 8.49391)
+curve = SubResource("Curve3D_kf004")
+
+[node name="Path3DLz-x" type="Path3D" parent="Zin"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.49306, 0, 8.45743)
+curve = SubResource("Curve3D_st4v5")
+
+[node name="Path3DSz-z" type="Path3D" parent="Zin"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.48903, 0, 8.41719)
 curve = SubResource("Curve3D_2bqpf")
