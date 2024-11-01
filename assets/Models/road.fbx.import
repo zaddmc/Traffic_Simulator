@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://put1q32dxneq"
-path="res://.godot/imported/carmodel.glb-47e14374f66e5fee025b3ca77a0c68c6.scn"
+uid="uid://dd3m3apuqnv63"
+path="res://.godot/imported/road.fbx-f4ac71be75cd53b02b79724134ea05a4.scn"
 
 [deps]
 
-source_file="res://assets/Models/carmodel.glb"
-dest_files=["res://.godot/imported/carmodel.glb-47e14374f66e5fee025b3ca77a0c68c6.scn"]
+source_file="res://assets/Models/road.fbx"
+dest_files=["res://.godot/imported/road.fbx-f4ac71be75cd53b02b79724134ea05a4.scn"]
 
 [params]
 
@@ -27,10 +27,11 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=false
+animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
-gltf/naming_version=1
-gltf/embedded_image_handling=1
+fbx/importer=0
+fbx/allow_geometry_helper_nodes=false
+fbx/embedded_image_handling=1
