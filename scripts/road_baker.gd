@@ -1,12 +1,13 @@
 extends Node3D
 
 var road_dict = {}
+var roads = []
 var temp_car = preload("res://scripts/car.tscn").instantiate()
 var temp_car_2 = preload("res://scripts/car.tscn").instantiate() 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var roads = recursive_road_finder(self)
+	roads = recursive_road_finder(self)
 	for road in roads:
 		road.add_child(temp_car)
 		temp_car.set_progress_ratio(1)
@@ -23,8 +24,10 @@ func _ready() -> void:
 		road.remove_child(temp_car)
 
 	# Giving the result to the cars
-	print(road_dict)
+	#print(road_dict)
 	Car.set_baked_roads(road_dict)
+	
+	spawn_cars()
 	return
 
 func recursive_road_finder(input):
@@ -36,6 +39,13 @@ func recursive_road_finder(input):
 		var return_value = []
 		for child in input.get_children():
 			var result = recursive_road_finder(child)
-			if result != null:# or result == []:
+			if result != null:
 				return_value.append_array(result)
-		return return_value	
+		return return_value
+
+@export var car_spawn_count: int = 10
+func spawn_cars():
+	for i in car_spawn_count:
+		var car = Car.new_car(0, 10)
+		roads.pick_random().add_child(car)
+	return

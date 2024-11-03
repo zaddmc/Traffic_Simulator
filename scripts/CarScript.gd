@@ -3,7 +3,7 @@ extends PathFollow3D
 
 const my_scene: PackedScene = preload("res://scripts/car.tscn")
 static var CARS = []
-static var ROADS = []
+static var ROAD_DICT = []
 
 # Internal varibles for each car object
 var starting_offset: float
@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 			
 	self.set_progress(self.get_progress()+delta*speed)
 
-static func new_car(starting_offset:float, max_speed:float = 0) -> Car:
+static func new_car(starting_offset:float = 0, max_speed:float = 0) -> Car:
 	var new_car: Car = my_scene.instantiate()
 	new_car.starting_offset = starting_offset
 	
@@ -53,6 +53,6 @@ static func new_car(starting_offset:float, max_speed:float = 0) -> Car:
 	CARS.append(new_car)
 	return new_car
 
-static func set_baked_roads(roads) -> void:
-	ROADS = roads
+static func set_baked_roads(road_dict) -> void:
+	ROAD_DICT = road_dict
 	return

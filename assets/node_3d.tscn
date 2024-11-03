@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bie6j54kxo805"]
+[gd_scene load_steps=4 format=3 uid="uid://dubngrhst8pmr"]
 
-[ext_resource type="PackedScene" uid="uid://b6jri2otc578r" path="res://assets/crossing.tscn" id="1_owlcq"]
-[ext_resource type="PackedScene" uid="uid://cyrdwy2yidhj2" path="res://assets/straight_road.tscn" id="2_6nuu2"]
+[ext_resource type="PackedScene" path="res://assets/crossing.tscn" id="1_owlcq"]
+[ext_resource type="PackedScene" path="res://assets/straight_road.tscn" id="2_6nuu2"]
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="2_dmp8q"]
 
 [node name="Node3D" type="Node3D"]
