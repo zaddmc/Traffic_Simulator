@@ -1,0 +1,83 @@
+[gd_scene load_steps=4 format=3 uid="uid://bie6j54kxo805"]
+
+[ext_resource type="PackedScene" uid="uid://b6jri2otc578r" path="res://scenes/crossing.tscn" id="1_owlcq"]
+[ext_resource type="PackedScene" uid="uid://cyrdwy2yidhj2" path="res://scenes/straight_road.tscn" id="2_6nuu2"]
+[ext_resource type="Script" path="res://scripts/road_baker.gd" id="2_dmp8q"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Crossing9" parent="." instance=ExtResource("1_owlcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.853, 0, 116.947)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.528717, 54.4012, 0.549473)
+projection = 1
+size = 305.815
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.691677, 0.722207, 0, -0.722207, 0.691677, 0, 18, 0)
+light_energy = 2.185
+directional_shadow_max_distance = 8192.0
+
+[node name="Roads" type="Node3D" parent="."]
+script = ExtResource("2_dmp8q")
+car_spawn_count = null
+
+[node name="Crossing" parent="Roads" instance=ExtResource("1_owlcq")]
+
+[node name="StraightRoad" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.0879, 0, -0.0219847)
+
+[node name="StraightRoad2" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.8241, 0, -0.0439693)
+
+[node name="StraightRoad3" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.026, 0.135, 57.856)
+
+[node name="StraightRoad4" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -59.156)
+
+[node name="Crossing2" parent="Roads" instance=ExtResource("1_owlcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.83, 0, -0.0536267)
+
+[node name="Crossing3" parent="Roads" instance=ExtResource("1_owlcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.952, 0, -0.00478995)
+
+[node name="Crossing4" parent="Roads" instance=ExtResource("1_owlcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0179562, 0, -116.995)
+
+[node name="Crossing5" parent="Roads" instance=ExtResource("1_owlcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0197109, 0, 116.954)
+
+[node name="StraightRoad5" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.0218, 0, 117.088)
+
+[node name="StraightRoad6" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.9875, 0, 116.961)
+
+[node name="StraightRoad7" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.1777, 0, -116.891)
+
+[node name="StraightRoad8" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.8317, 0, -117.019)
+
+[node name="StraightRoad9" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -116.841, 0, 57.736)
+
+[node name="StraightRoad10" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -116.759, 0, -59.186)
+
+[node name="StraightRoad11" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 116.917, 0, 57.819)
+
+[node name="StraightRoad12" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 117.032, 0, -59.132)
+
+[node name="Crossing6" parent="Roads" instance=ExtResource("1_owlcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.973, 0, -117.041)
+
+[node name="Crossing7" parent="Roads" instance=ExtResource("1_owlcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.766, 0, -116.848)
+
+[node name="Crossing8" parent="Roads" instance=ExtResource("1_owlcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.786, 0, 117.011)

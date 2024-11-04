@@ -56,3 +56,14 @@ func spawn_cars():
 	for i in car_spawn_count:
 		Car.new_car(roads.pick_random(), 0, 10)
 	return
+
+	
+
+func _process(delta: float) -> void:
+	thread_update_cars(delta)
+	
+	
+func thread_update_cars(delta):
+	for x in Car.CARS:
+		x.update_car(delta)
+		
