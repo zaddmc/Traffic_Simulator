@@ -34,10 +34,8 @@ func update_car(delta: float) -> void:
 
 func change_road(new_road:Path3D):
 	# Empty previous roads
-	current_road.remove_child(self)
+	self.reparent(new_road)
 	current_roads = []
-	
-	new_road.add_child(self)
 	self.set_progress_ratio(0)
 	current_road = new_road
 	current_roads.append(new_road)
