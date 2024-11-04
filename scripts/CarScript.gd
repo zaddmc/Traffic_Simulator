@@ -24,7 +24,17 @@ func update_car(delta: float) -> void:
 	var own_progress = self.get_progress_ratio()
 	#current_road.get_child(0).get_baked_length()
 
-	
+	for car in cars_on_same_road:
+		if car == self: continue
+
+		var prog_diff_loop = car.get_progress_ratio() - own_progress
+		if prog_diff_loop < 0:
+			prog_diff_loop = 1 + prog_diff_loop
+
+		if prog_diff_loop < wanted_space:
+			break
+		else:
+			self.speed = self.max_speed
 
 	if own_progress >= 0.99:
 		change_road(ROAD_DICT[current_road].pick_random())
