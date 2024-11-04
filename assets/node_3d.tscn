@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dubngrhst8pmr"]
 
+[ext_resource type="PackedScene" uid="uid://c0umqtkdhpinp" path="res://assets/crossing.tscn" id="1_owlcq"]
 [ext_resource type="PackedScene" uid="uid://dwxyleas04ytj" path="res://assets/straight_road.tscn" id="2_6nuu2"]
-[ext_resource type="PackedScene" uid="uid://cmajgl67gxv13" path="res://scripts/car.tscn" id="2_b8qkv"]
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="2_dmp8q"]
 
 [node name="Node3D" type="Node3D"]
@@ -18,10 +18,13 @@ directional_shadow_max_distance = 8192.0
 
 [node name="Roads" type="Node3D" parent="."]
 script = ExtResource("2_dmp8q")
-
-[node name="temp_car" parent="Roads" instance=ExtResource("2_b8qkv")]
-
-[node name="temp_car_2" parent="Roads" instance=ExtResource("2_b8qkv")]
+car_spawn_count = 1
 
 [node name="StraightRoad" parent="Roads" instance=ExtResource("2_6nuu2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.503, 0, -0.022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.7822, 0, -0.022)
+
+[node name="Crossing2" parent="Roads" instance=ExtResource("1_owlcq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.83, 0, -0.0536267)
+
+[node name="StraightRoad2" parent="Roads" instance=ExtResource("2_6nuu2")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -116.801, 0, -58.1541)

@@ -2,34 +2,34 @@ extends Node3D
 
 var road_dict = {}
 var roads = []
-@onready var temp_car = self.get_child(0) #preload("res://scripts/car.tscn").instantiate()
-@onready var temp_car_2 = self.get_child(1) #preload("res://scripts/car.tscn").instantiate() 
 
 # Called when the node enters the scene tree for the first time.
-
 func _ready() -> void:
 	call_deferred("_on_all_loaded")
 
 func _on_all_loaded():
 	roads = recursive_road_finder(self)
-	self.remove_child(temp_car)
-	self.remove_child(temp_car_2)
 	for road in roads:
-		road.add_child(temp_car)
-		temp_car.set_progress_ratio(1)
 		
 		var close_roads = []
+		var backup_list = []
 		for rod in roads:
-			rod.add_child(temp_car_2)
-			temp_car_2.set_progress_ratio(0)
-			var space_between = (temp_car_2.get_child(0).global_position - temp_car.get_child(0).global_position).length()
-			print(str(temp_car_2.global_position) + str(temp_car.global_position))
-			if space_between <= 0.1:
+			var points1 = road.get_curve().get_baked_points()
+			var point1 = road.to_global(points1[points1.size()-1])
+			var points2 = rod.get_curve().get_baked_points()
+			var point2 = rod.to_global(points2[0])
+			var space_between = (point1 - point2).length()
+			#print(str(point1) + str(point2))
+			#print(space_between)
+			if space_between <= 1:
 				close_roads.append(rod)
-			rod.remove_child(temp_car_2)
+			elif space_between <= 5:
+				backup_list.append(rod)
 
+		if close_roads == []:
+			close_roads = backup_list
+			
 		road_dict[road] = close_roads
-		road.remove_child(temp_car)
 
 	# Giving the result to the cars
 	print(road_dict)

@@ -48,6 +48,7 @@ func change_road(new_road:Path3D):
 	current_roads = []
 	
 	new_road.add_child(self)
+	self.set_progress_ratio(0)
 	current_road = new_road
 	current_roads.append(new_road)
 	current_roads.append_array(ROAD_DICT[new_road])
