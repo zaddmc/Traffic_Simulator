@@ -18,6 +18,9 @@ point_count = 3
 
 [node name="Turn" type="Node3D"]
 
+[node name="sving" parent="." instance=ExtResource("1_76o7q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.483, 0)
+
 [node name="Path3D" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0237559, 0)
 curve = SubResource("Curve3D_whysx")
@@ -25,5 +28,3 @@ curve = SubResource("Curve3D_whysx")
 [node name="Path3D2" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0237559, 0)
 curve = SubResource("Curve3D_ddox2")
-
-[node name="sving" parent="." instance=ExtResource("1_76o7q")]
