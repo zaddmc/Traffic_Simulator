@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtt68bsbp8pvu"]
+[gd_scene load_steps=6 format=3 uid="uid://bektlde38ngdi"]
 
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="1_kje1j"]
 [ext_resource type="PackedScene" uid="uid://b6jri2otc578r" path="res://scenes/crossing.tscn" id="2_qifxb"]
@@ -9,9 +9,9 @@
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -119.141, 53.5385, -56.7789)
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -0.47068, 53.5385, -2.60332)
 projection = 1
-size = 305.815
+size = 547.795
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.691677, 0.722207, 0, -0.722207, 0.691677, 0, 18, 0)
