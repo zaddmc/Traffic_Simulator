@@ -57,12 +57,11 @@ func spawn_cars():
 		Car.new_car(get_tree().get_nodes_in_group("straight_group").pick_random(), randf(), 10)
 	return
 
-<<<<<<< HEAD
 	
 func update_trafficlight():
 	for fish in get_tree().get_nodes_in_group("TrafficLights"):
 		fish.update_trafficlight()
-=======
+
 func setup_traffic_light_timer():
 	var timer = Timer.new()
 	add_child(timer)
@@ -74,7 +73,6 @@ func setup_traffic_light_timer():
 
 func _on_traffic_light_timer_timeout():
 	print("i am a timer")
->>>>>>> 1e4e420191dbe0a0cd064b7d774837db58d5db2f
 
 func _process(delta: float) -> void:
 	thread_update_cars(delta)
