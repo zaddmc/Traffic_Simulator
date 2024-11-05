@@ -21,7 +21,7 @@ func _on_all_loaded():
 			var space_between = (point1 - point2).length()
 			#print(str(point1) + str(point2))
 			#print(space_between)
-			if space_between <= 1:
+			if space_between <= 2:
 				close_roads.append(rod)
 			elif space_between <= 5:
 				backup_list.append(rod)
@@ -54,7 +54,7 @@ func recursive_road_finder(input):
 @export var car_spawn_count: int = 10
 func spawn_cars():
 	for i in car_spawn_count:
-		Car.new_car(roads.pick_random(), 0, 10)
+		Car.new_car(get_tree().get_nodes_in_group("straight_group").pick_random(), randf(), 10)
 	return
 
 	
