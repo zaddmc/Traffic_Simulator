@@ -18,7 +18,7 @@ directional_shadow_max_distance = 8192.0
 
 [node name="Roads" type="Node3D" parent="."]
 script = ExtResource("2_dmp8q")
-car_spawn_count = 100
+car_spawn_count = 200
 
 [node name="StraightRoad" parent="Roads" instance=ExtResource("2_6nuu2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.7822, 0, -0.022)
