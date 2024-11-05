@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="1_kje1j"]
 [ext_resource type="PackedScene" uid="uid://b6jri2otc578r" path="res://scenes/crossing.tscn" id="2_qifxb"]
 [ext_resource type="PackedScene" uid="uid://cyrdwy2yidhj2" path="res://scenes/straight_road.tscn" id="3_nbbnh"]
-[ext_resource type="PackedScene" uid="uid://dl5eucu7ar32q" path="res://scenes/sving.tscn" id="4_vyr17"]
-[ext_resource type="PackedScene" uid="uid://b8lvywg2vvcid" path="res://scenes/tkryds.tscn" id="5_25o3c"]
+[ext_resource type="PackedScene" uid="uid://dqir1qby3luku" path="res://scenes/turn.tscn" id="4_yokyt"]
+[ext_resource type="PackedScene" uid="uid://mrcvxrvwh13c" path="res://scenes/t_cross.tscn" id="5_kwr6f"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -46,16 +46,16 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.06, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 117.001)
 
 [node name="Crossing5" parent="Roads" instance=ExtResource("2_qifxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.035, 0, -117.026)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.035, 0, -116.896)
 
 [node name="StraightRoad5" parent="Roads" instance=ExtResource("3_nbbnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.589, 0, -117.003)
 
 [node name="StraightRoad6" parent="Roads" instance=ExtResource("3_nbbnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.495, 0, -117.018)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.495, 0, -116.848)
 
 [node name="Crossing6" parent="Roads" instance=ExtResource("2_qifxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.036, 0, -117.055)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.001, 0, -116.835)
 
 [node name="StraightRoad7" parent="Roads" instance=ExtResource("3_nbbnh")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -116.962, 0, -58.493)
@@ -64,7 +64,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -116.9
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.505, 0, 117.001)
 
 [node name="Crossing7" parent="Roads" instance=ExtResource("2_qifxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.046, 0, 116.993)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.981, 0, 116.993)
 
 [node name="StraightRoad9" parent="Roads" instance=ExtResource("3_nbbnh")]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -116.998, 0, 58.486)
@@ -84,47 +84,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.378, 0, 116.98)
 [node name="Crossing9" parent="Roads" instance=ExtResource("2_qifxb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 117.022, 0, -116.986)
 
-[node name="sving" parent="Roads" instance=ExtResource("4_vyr17")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 134.067, 0, -116.927)
-
-[node name="sving2" parent="Roads" instance=ExtResource("4_vyr17")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 117.001, 0, -133.956)
-
 [node name="StraightRoad13" parent="Roads" instance=ExtResource("3_nbbnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.6028, 0, -134.012)
 
-[node name="sving3" parent="Roads" instance=ExtResource("4_vyr17")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -116.946, 0, -134.106)
-
 [node name="StraightRoad14" parent="Roads" instance=ExtResource("3_nbbnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.483, 0, -134.162)
-
-[node name="sving4" parent="Roads" instance=ExtResource("4_vyr17")]
-transform = Transform3D(-1, 3.82137e-15, 8.74228e-08, -3.82137e-15, 1, -8.74228e-08, -8.74228e-08, -8.74228e-08, -1, -133.975, 0, -116.974)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.443, 0, -133.932)
 
 [node name="StraightRoad15" parent="Roads" instance=ExtResource("3_nbbnh")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -133.973, 0, -58.45)
 
-[node name="sving5" parent="Roads" instance=ExtResource("4_vyr17")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -134.122, 0, 117.015)
-
 [node name="StraightRoad16" parent="Roads" instance=ExtResource("3_nbbnh")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -134.131, 0, 58.515)
-
-[node name="sving6" parent="Roads" instance=ExtResource("4_vyr17")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -116.988, 0, 133.98)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -133.891, 0, 58.515)
 
 [node name="StraightRoad17" parent="Roads" instance=ExtResource("3_nbbnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.459, 0, 133.983)
 
-[node name="sving7" parent="Roads" instance=ExtResource("4_vyr17")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.888, 0, 134.047)
-
 [node name="StraightRoad18" parent="Roads" instance=ExtResource("3_nbbnh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.398, 0, 134.057)
-
-[node name="sving8" parent="Roads" instance=ExtResource("4_vyr17")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 133.886, 0, 116.951)
 
 [node name="StraightRoad19" parent="Roads" instance=ExtResource("3_nbbnh")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 133.865, 0, 58.385)
@@ -132,14 +108,38 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 133.86
 [node name="StraightRoad20" parent="Roads" instance=ExtResource("3_nbbnh")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 134.096, 0, -58.456)
 
-[node name="Tkryds" parent="Roads" instance=ExtResource("5_25o3c")]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 133.951, 0, 0.015)
+[node name="Turn" parent="Roads" instance=ExtResource("4_yokyt")]
+transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -134.032, 0, -117.009)
 
-[node name="Tkryds2" parent="Roads" instance=ExtResource("5_25o3c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07, 0, -134.012)
+[node name="Turn2" parent="Roads" instance=ExtResource("4_yokyt")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -116.933, 0, -133.879)
 
-[node name="Tkryds3" parent="Roads" instance=ExtResource("5_25o3c")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -133.981, 0, 0.066)
+[node name="TCross" parent="Roads" instance=ExtResource("5_kwr6f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.078, 0, -133.901)
 
-[node name="Tkryds4" parent="Roads" instance=ExtResource("5_25o3c")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.023, 0, 133.988)
+[node name="Turn3" parent="Roads" instance=ExtResource("4_yokyt")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 134.076, 0, -116.935)
+
+[node name="Turn4" parent="Roads" instance=ExtResource("4_yokyt")]
+transform = Transform3D(-4.37114e-08, 4.37114e-08, 1, -4.37114e-08, 1, -4.37114e-08, -1, -4.37114e-08, -4.37114e-08, 117.009, 0, -133.977)
+
+[node name="TCross2" parent="Roads" instance=ExtResource("5_kwr6f")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 133.942, 0, 0.00949377)
+
+[node name="Turn5" parent="Roads" instance=ExtResource("4_yokyt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 133.887, 0, 116.953)
+
+[node name="Turn6" parent="Roads" instance=ExtResource("4_yokyt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.806, 0, 134.04)
+
+[node name="TCross3" parent="Roads" instance=ExtResource("5_kwr6f")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.0231616, 0, 134.036)
+
+[node name="Turn7" parent="Roads" instance=ExtResource("4_yokyt")]
+transform = Transform3D(-4.37114e-08, -4.37114e-08, -1, 4.37114e-08, 1, -4.37114e-08, 1, -4.37114e-08, -4.37114e-08, -116.951, 0, 134.009)
+
+[node name="Turn8" parent="Roads" instance=ExtResource("4_yokyt")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -133.906, 0, 117.014)
+
+[node name="TCross4" parent="Roads" instance=ExtResource("5_kwr6f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -133.958, 0, 0.0958598)
