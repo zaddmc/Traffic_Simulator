@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b8lvywg2vvcid"]
 
-[ext_resource type="PackedScene" path="res://assets/Models/Tkryds.fbx" id="1_lmx1q"]
+[ext_resource type="PackedScene" uid="uid://deoor7ix1fp0" path="res://assets/Models/Tkryds.fbx" id="1_lmx1q"]
 
 [sub_resource type="Curve3D" id="Curve3D_sh12i"]
 _data = {
@@ -47,34 +47,28 @@ point_count = 4
 [node name="Tkryds" instance=ExtResource("1_lmx1q")]
 
 [node name="Plane" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 7.54979e-08, 0, -7.54979e-08, 1, 0, -1.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 7.54979e-08, 0, -7.54979e-08, 1, 0, 0, 0)
 
 [node name="-xIn" type="Node3D" parent="." index="1"]
 
 [node name="Path3D" type="Path3D" parent="-xIn" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.069, 0)
 curve = SubResource("Curve3D_sh12i")
 
 [node name="Path3D2" type="Path3D" parent="-xIn" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.069, 0)
 curve = SubResource("Curve3D_24yy5")
 
 [node name="zIn" type="Node3D" parent="." index="2"]
 
 [node name="Path3D" type="Path3D" parent="zIn" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.069, 0)
 curve = SubResource("Curve3D_8wxju")
 
 [node name="Path3D2" type="Path3D" parent="zIn" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.069, 0)
 curve = SubResource("Curve3D_685im")
 
 [node name="Xin" type="Node3D" parent="." index="3"]
 
 [node name="Path3D" type="Path3D" parent="Xin" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.069, 0)
 curve = SubResource("Curve3D_312ou")
 
 [node name="Path3D2" type="Path3D" parent="Xin" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.069, 0)
 curve = SubResource("Curve3D_66gou")
