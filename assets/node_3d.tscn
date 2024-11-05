@@ -1,13 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://dtt68bsbp8pvu"]
 
-[ext_resource type="PackedScene" uid="uid://c0umqtkdhpinp" path="res://assets/crossing.tscn" id="1_owlcq"]
-[ext_resource type="PackedScene" uid="uid://cmpb6j3chklgs" path="res://assets/straight_road.tscn" id="2_6nuu2"]
-[ext_resource type="PackedScene" uid="uid://dwxyleas04ytj" path="res://assets/straight_road.tscn" id="2_6nuu2"]
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="2_dmp8q"]
 [ext_resource type="PackedScene" uid="uid://b6jri2otc578r" path="res://scenes/crossing.tscn" id="2_p5o4g"]
 [ext_resource type="PackedScene" uid="uid://cyrdwy2yidhj2" path="res://scenes/straight_road.tscn" id="3_7jxlh"]
-[ext_resource type="PackedScene" path="res://scenes/sving.tscn" id="4_jmh70"]
-[ext_resource type="PackedScene" path="res://scenes/tkryds.tscn" id="5_ocun5"]
+[ext_resource type="PackedScene" uid="uid://dl5eucu7ar32q" path="res://scenes/sving.tscn" id="4_jmh70"]
+[ext_resource type="PackedScene" uid="uid://b8lvywg2vvcid" path="res://scenes/tkryds.tscn" id="5_ocun5"]
 
 [node name="Node3D" type="Node3D"]
 
