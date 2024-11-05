@@ -6,6 +6,7 @@ var roads = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	call_deferred("_on_all_loaded")
+	setup_traffic_light_timer()
 
 func _on_all_loaded():
 	roads = recursive_road_finder(self)
@@ -19,9 +20,8 @@ func _on_all_loaded():
 			var points2 = rod.get_curve().get_baked_points()
 			var point2 = rod.to_global(points2[0])
 			var space_between = (point1 - point2).length()
-			#print(str(point1) + str(point2))
-			#print(space_between)
-			if space_between <= 1:
+
+			if space_between <= 2:
 				close_roads.append(rod)
 			elif space_between <= 5:
 				backup_list.append(rod)
@@ -32,7 +32,7 @@ func _on_all_loaded():
 		road_dict[road] = close_roads
 
 	# Giving the result to the cars
-	print(road_dict)
+	#print(road_dict)
 	Car.set_baked_roads(road_dict)
 
 	spawn_cars()
@@ -54,16 +54,31 @@ func recursive_road_finder(input):
 @export var car_spawn_count: int = 10
 func spawn_cars():
 	for i in car_spawn_count:
-		Car.new_car(roads.pick_random(), 0, 10)
+		Car.new_car(get_tree().get_nodes_in_group("straight_group").pick_random(), randf(), 10)
 	return
 
+<<<<<<< HEAD
 	
+func update_trafficlight():
+	for fish in get_tree().get_nodes_in_group("TrafficLights"):
+		fish.update_trafficlight()
+=======
+func setup_traffic_light_timer():
+	var timer = Timer.new()
+	add_child(timer)
+	timer.wait_time = 1
+	timer.one_shot = false
+	timer.start()
+	timer.connect("timeout", _on_traffic_light_timer_timeout)
+
+
+func _on_traffic_light_timer_timeout():
+	print("i am a timer")
+>>>>>>> 1e4e420191dbe0a0cd064b7d774837db58d5db2f
 
 func _process(delta: float) -> void:
 	thread_update_cars(delta)
-	
-	
+
 func thread_update_cars(delta):
 	for x in Car.CARS:
 		x.update_car(delta)
-		
