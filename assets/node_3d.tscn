@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dtt68bsbp8pvu"]
 
-[ext_resource type="PackedScene" path="res://assets/crossing.tscn" id="1_owlcq"]
+[ext_resource type="PackedScene" uid="uid://c0umqtkdhpinp" path="res://assets/crossing.tscn" id="1_owlcq"]
 [ext_resource type="PackedScene" uid="uid://cmpb6j3chklgs" path="res://assets/straight_road.tscn" id="2_6nuu2"]
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="2_dmp8q"]
 

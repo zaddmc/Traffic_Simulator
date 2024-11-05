@@ -58,6 +58,9 @@ func spawn_cars():
 	return
 
 	
+func update_trafficlight():
+	for fish in get_tree().get_nodes_in_group("TrafficLights"):
+		fish.update_trafficlight()
 
 func _process(delta: float) -> void:
 	thread_update_cars(delta)

@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0umqtkdhpinp"]
+[gd_scene load_steps=6 format=3 uid="uid://c0umqtkdhpinp"]
 
+[ext_resource type="Script" path="res://assets/TrafficLight.gd" id="1_polba"]
 [ext_resource type="PackedScene" uid="uid://c3sldim2l1jir" path="res://assets/Models/kryds.fbx" id="1_s6wni"]
 
 [sub_resource type="Curve3D" id="Curve3D_kf004"]
@@ -23,7 +24,8 @@ _data = {
 }
 point_count = 2
 
-[node name="Crossing" type="Node3D"]
+[node name="Crossing" type="Node3D" groups=["TrafficLights"]]
+script = ExtResource("1_polba")
 
 [node name="kryds" parent="." instance=ExtResource("1_s6wni")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.014)
