@@ -15,7 +15,6 @@ run/main_scene="res://assets/node_3d.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
-[global_group]
+[rendering]
 
-TrafficLights=""
-straight_group=""
+textures/light_projectors/filter=4

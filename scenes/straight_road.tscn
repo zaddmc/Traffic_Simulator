@@ -19,12 +19,11 @@ point_count = 2
 [node name="StraightRoad" type="Node3D"]
 
 [node name="road" parent="." instance=ExtResource("1_e8vf2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.8266, 0, 0)
 
 [node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.3, 0, 1.59166)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.0703, 0, 1.59166)
 curve = SubResource("Curve3D_50v47")
 
 [node name="Path3D2" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.7, 0, -1.37255)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.9297, 0, -1.37255)
 curve = SubResource("Curve3D_li8kj")
