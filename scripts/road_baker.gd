@@ -11,7 +11,7 @@ func _ready() -> void:
 func _on_all_loaded():
 	roads = recursive_road_finder(self)
 	for road in roads:
-		
+
 		var close_roads = []
 		var backup_list = []
 		for rod in roads:
@@ -28,7 +28,7 @@ func _on_all_loaded():
 
 		if close_roads == []:
 			close_roads = backup_list
-			
+
 		road_dict[road] = close_roads
 
 	# Giving the result to the cars
@@ -58,7 +58,6 @@ func spawn_cars():
 	return
 
 
-	
 func update_trafficlight():
 	for fish in get_tree().get_nodes_in_group("TrafficLights"):
 		fish.update_trafficlight()
@@ -74,7 +73,6 @@ func setup_traffic_light_timer():
 
 func _on_traffic_light_timer_timeout():
 	print("i am a timer")
-
 
 func _process(delta: float) -> void:
 	thread_update_cars(delta)
