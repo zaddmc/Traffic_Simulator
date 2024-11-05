@@ -17,4 +17,8 @@ config/icon="res://icon.svg"
 
 [global_group]
 
+<<<<<<< HEAD
 TrafficLights=""
+=======
+straight_group=""
+>>>>>>> 1e4e420191dbe0a0cd064b7d774837db58d5db2f
