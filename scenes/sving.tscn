@@ -22,9 +22,9 @@ point_count = 3
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, -0.495, 0)
 
 [node name="Path3D" type="Path3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.495, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0237559, 0)
 curve = SubResource("Curve3D_rg17e")
 
 [node name="Path3D2" type="Path3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.495, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0237559, 0)
 curve = SubResource("Curve3D_6qoig")
