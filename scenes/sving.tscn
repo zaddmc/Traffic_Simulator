@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dl5eucu7ar32q"]
 
-[ext_resource type="PackedScene" path="res://assets/Models/sving.fbx" id="1_ksjs0"]
+[ext_resource type="PackedScene" uid="uid://dxt5sgnsh6hlg" path="res://assets/Models/sving.fbx" id="1_ksjs0"]
 
 [sub_resource type="Curve3D" id="Curve3D_rg17e"]
 _data = {
@@ -18,10 +18,13 @@ point_count = 3
 
 [node name="sving" instance=ExtResource("1_ksjs0")]
 
+[node name="Plane_001" parent="." index="0"]
+transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, -0.495, 0)
+
 [node name="Path3D" type="Path3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.495, 0)
 curve = SubResource("Curve3D_rg17e")
 
 [node name="Path3D2" type="Path3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.495, 0)
 curve = SubResource("Curve3D_6qoig")
