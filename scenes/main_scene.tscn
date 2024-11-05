@@ -20,7 +20,7 @@ directional_shadow_max_distance = 8192.0
 
 [node name="Roads" type="Node3D" parent="."]
 script = ExtResource("1_kje1j")
-car_spawn_count = 3000
+car_spawn_count = 200
 
 [node name="Crossing" parent="Roads" instance=ExtResource("2_qifxb")]
 
