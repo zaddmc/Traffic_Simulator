@@ -35,4 +35,4 @@ func update_trafficlight():
 		wait(6)
 		iswaiting = false
 		return
-	
+	return
