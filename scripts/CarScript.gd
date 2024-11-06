@@ -70,7 +70,7 @@ static func new_car(road:Path3D, starting_offset:float = 0, max_speed:float = 0)
 	new_car.current_road = road
 	new_car.change_road(road)
 	
-	new_car.set_progress_ratio(starting_offset) 
+	new_car.set_progress(starting_offset) 
 	
 	if (max_speed == 0):
 		new_car.max_speed = randf_range(5, 15)

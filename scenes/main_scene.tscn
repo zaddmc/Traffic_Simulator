@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="1_kje1j"]
 [ext_resource type="PackedScene" uid="uid://b6jri2otc578r" path="res://scenes/crossing.tscn" id="2_qifxb"]
 [ext_resource type="PackedScene" uid="uid://cyrdwy2yidhj2" path="res://scenes/straight_road.tscn" id="3_nbbnh"]
-[ext_resource type="PackedScene" uid="uid://dqir1qby3luku" path="res://scenes/turn.tscn" id="4_yokyt"]
-[ext_resource type="PackedScene" uid="uid://mrcvxrvwh13c" path="res://scenes/t_cross.tscn" id="5_kwr6f"]
+[ext_resource type="PackedScene" uid="uid://qgpa66bltvgm" path="res://scenes/turn.tscn" id="4_yokyt"]
+[ext_resource type="PackedScene" uid="uid://bqni0mrwh76q" path="res://scenes/t_cross.tscn" id="5_kwr6f"]
 
 [node name="Node3D" type="Node3D"]
 
