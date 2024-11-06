@@ -23,7 +23,7 @@ _data = {
 }
 point_count = 2
 
-[node name="Crossing" type="Node3D"]
+[node name="Crossing" type="Node3D" groups=["TrafficLights"]]
 
 [node name="kryds" parent="." instance=ExtResource("1_s6wni")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.014)
