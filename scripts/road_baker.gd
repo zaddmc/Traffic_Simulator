@@ -73,6 +73,7 @@ func setup_traffic_light_timer():
 
 func _on_traffic_light_timer_timeout():
 	print("i am a timer")
+	update_trafficlight()
 
 func _process(delta: float) -> void:
 	thread_update_cars(delta)

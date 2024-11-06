@@ -1,46 +1,38 @@
 class_name TrafficLight
 extends Node3D
 
-var road_xin
-var road_nzin
-var road_nxin
-var road_zin
-var roads = []
-
-var xin_open = false
-var nxin_open = false
-var nzin_open = false
-var zin_open = false
-var roadselect = []
-
+var road_xin = false
+var road_nzin = false
+var road_nxin = false
+var road_zin = false
+var roads = [] #list of roads in crossing
+var roadselect = [] #bool of every road, if true let cars through
+var lightselect = 0 #selects which road to let through
 var iswaiting = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	road_xin = get_child(1)
-	road_nzin = get_child(2)
-	road_nxin = get_child(3)
-	road_zin = get_child(4)
-	roads.append(road_xin)
-	roads.append(road_nxin)
-	roads.append(road_zin)
-	roads.append(road_nzin)
-	roadselect.append(xin_open)
-	roadselect.append(nxin_open)
-	roadselect.append(zin_open)
-	roadselect.append(nzin_open)
+	roads = get_children()
+	roads.remove_at(0)
+	roadselect.append(road_xin)
+	roadselect.append(road_nzin)
+	roadselect.append(road_nxin)
+	roadselect.append(road_zin)
 
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
 
-func update_trafficlight() -> void:
+func update_trafficlight():
 	if iswaiting == false:
-		for n in range(len(roads)):
-			iswaiting = true
-			roadselect[n] = true
-			print(roadselect[n])
-			wait(5)
-			roadselect[n] = false
-			wait(1)
-			iswaiting = false
-		
+		iswaiting = true
+		for i in range(roadselect.size()): roadselect[i] = false 
+		wait(1)
+		roadselect[lightselect-1] = true
+		if lightselect < roads.size():
+			lightselect = lightselect+1
+		else:
+			lightselect = 0
+		wait(6)
+		iswaiting = false
+		return
+	
