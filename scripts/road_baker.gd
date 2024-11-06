@@ -75,7 +75,7 @@ func update_trafficlight():
 func setup_traffic_light_timer():
 	var timer = Timer.new()
 	add_child(timer)
-	timer.wait_time = 1
+	timer.wait_time = 10
 	timer.one_shot = false
 	timer.start()
 	timer.connect("timeout", _on_traffic_light_timer_timeout)

@@ -43,10 +43,12 @@ func update_car(delta: float) -> void:
 		hold_back_for_traffic_light = not crossing.get("roadselect")[crossing_own_section.get_index() - 1]
 			
 			
-	if space_to_crossing > wanted_space and hold_back_for_traffic_light:
+	if space_to_crossing < wanted_space and hold_back_for_traffic_light:
 		self.speed = 0
 	elif space_to_next_car_best < wanted_space:
-		if self.speed > 1:
+		if self.speed > 1.5:
+			self.speed = 0
+		elif self.speed > 1:
 			self.speed *= 0.9
 	else:
 		self.speed = self.max_speed
