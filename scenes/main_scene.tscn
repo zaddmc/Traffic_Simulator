@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bektlde38ngdi"]
 
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="1_kje1j"]
-[ext_resource type="PackedScene" uid="uid://c16ngu7w7ubvm" path="res://scenes/large_turn.tscn" id="2_ptmkj"]
+[ext_resource type="PackedScene" path="res://scenes/large_turn.tscn" id="2_ptmkj"]
 [ext_resource type="PackedScene" uid="uid://b6jri2otc578r" path="res://scenes/crossing.tscn" id="2_qifxb"]
 [ext_resource type="PackedScene" uid="uid://cyrdwy2yidhj2" path="res://scenes/straight_road.tscn" id="3_nbbnh"]
 [ext_resource type="PackedScene" uid="uid://qgpa66bltvgm" path="res://scenes/turn.tscn" id="4_yokyt"]
