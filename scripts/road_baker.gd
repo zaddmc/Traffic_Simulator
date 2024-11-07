@@ -4,11 +4,8 @@ var road_dict = {}
 var roads = []
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	call_deferred("_on_all_loaded")
-	setup_traffic_light_timer()
 
-func _on_all_loaded():
+func start():
 	roads = recursive_road_finder(self)
 	for road in roads:
 
@@ -34,8 +31,6 @@ func _on_all_loaded():
 	# Giving the result to the cars
 	#print(road_dict)
 	Car.set_baked_roads(road_dict)
-
-	spawn_cars()
 	return
 
 func recursive_road_finder(input):
@@ -51,8 +46,7 @@ func recursive_road_finder(input):
 				return_value.append_array(result)
 		return return_value
 
-@export var car_spawn_count: int = 10
-func spawn_cars():
+func spawn_cars(car_spawn_count: int = 10):
 	var spawnable_roads = get_tree().get_nodes_in_group("road_allow_spawn")
 	var spacing = spawnable_roads[0].get_curve().get_baked_length() / (car_spawn_count / spawnable_roads.size() + 1)
 	var itteration = (car_spawn_count / spawnable_roads.size())
@@ -68,26 +62,39 @@ func spawn_cars():
 	return
 
 
-func update_trafficlight():
-	for fish in get_tree().get_nodes_in_group("TrafficLights"):
-		fish.update_trafficlight()
+@export var point_distance: float = 0.2
+func find_divering_paths():
+	for road in roads:
+		var roadpoints = road.get_curve().get_baked_points()
+		if roadpoints.size() > 0:
+			var roadpoint1 = road.to_global(roadpoints[0])
+		
+			for rod in roads:
+				if rod != road:
+					var rodpoints = rod.get_curve().get_baked_points()
+					if rodpoints.size() > 0:
+						var rodpoint1 = rod.to_global(rodpoints[0])
+						var distance = (rodpoint1 - roadpoint1).length()
+						if distance < point_distance:
+							if road.get_parent().get_name() == "Roads":
+								var DivPath = Node3D.new()
+								add_child(DivPath)
+								DivPath.add_to_group("div_path")
+								rod.reparent(DivPath)
+								road.reparent(DivPath)
+							else:
+								rod.reparent(road.get_parent())
+		else:
+			print(road.get_name())
 
-func setup_traffic_light_timer():
-	var timer = Timer.new()
-	add_child(timer)
-	timer.wait_time = 10
-	timer.one_shot = false
-	timer.start()
-	timer.connect("timeout", _on_traffic_light_timer_timeout)
+func assign_traffic_lights():
+	var crossing = get_tree().get_nodes_in_group("TrafficLights")
+	for n in crossing:
+		var timer = Timer.new()
+		timer.autostart = false
+		timer.timeout()
+		n.set_script("res://scripts/TrafficLight.gd")
+		n.add_child(timer)
+		n.set_process(true)		
 
 
-func _on_traffic_light_timer_timeout():
-	print("i am a timer")
-	update_trafficlight()
-
-func _process(delta: float) -> void:
-	thread_update_cars(delta)
-
-func thread_update_cars(delta):
-	for x in Car.CARS:
-		x.update_car(delta)
