@@ -1,7 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6jri2otc578r"]
+[gd_scene load_steps=8 format=3 uid="uid://b6jri2otc578r"]
 
 [ext_resource type="PackedScene" uid="uid://c3sldim2l1jir" path="res://assets/Models/kryds.fbx" id="1_s6wni"]
 [ext_resource type="Script" path="res://scripts/TrafficLight.gd" id="1_v3w8p"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cls7n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_liotj"]
+diffuse_mode = 3
+albedo_color = Color(0.558365, 0.0665867, 0.00640134, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_kf004"]
 _data = {
@@ -29,6 +35,29 @@ script = ExtResource("1_v3w8p")
 
 [node name="kryds" parent="." instance=ExtResource("1_s6wni")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.014)
+
+[node name="LightColor" type="MeshInstance3D" parent="kryds"]
+transform = Transform3D(0.000820315, 1, 0, -1, 0.000820315, 0, 0, 0, 1, -1.71509, 3.16241, -5.17539)
+mesh = SubResource("CylinderMesh_cls7n")
+surface_material_override/0 = SubResource("StandardMaterial3D_liotj")
+
+[node name="LightColor2" type="MeshInstance3D" parent="kryds"]
+transform = Transform3D(0.00216417, -0.999998, 0, 0.999998, 0.00216417, 0, 0, 0, 1, 1.9282, 2.91559, 5.10481)
+mesh = SubResource("CylinderMesh_cls7n")
+skeleton = NodePath("../LightColor")
+surface_material_override/0 = SubResource("StandardMaterial3D_liotj")
+
+[node name="LightColor3" type="MeshInstance3D" parent="kryds"]
+transform = Transform3D(-2.96807e-05, 0.00733024, 0.999973, -0.999992, -0.00404905, -2.85135e-11, 0.00404894, -0.999965, 0.00733029, -4.3549, 2.91207, 1.58466)
+mesh = SubResource("CylinderMesh_cls7n")
+skeleton = NodePath("../LightColor2")
+surface_material_override/0 = SubResource("StandardMaterial3D_liotj")
+
+[node name="LightColor4" type="MeshInstance3D" parent="kryds"]
+transform = Transform3D(2.20483e-06, 0.00268778, 0.999996, -1, 0.000820315, 4.12977e-15, -0.000820312, -0.999996, 0.00268778, 5.72626, 3.16241, -1.75718)
+mesh = SubResource("CylinderMesh_cls7n")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_liotj")
 
 [node name="Xin" type="Node3D" parent="."]
 
@@ -85,3 +114,5 @@ curve = SubResource("Curve3D_st4v5")
 [node name="Path3DSz-z" type="Path3D" parent="Zin"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.48903, 0, 8.41719)
 curve = SubResource("Curve3D_2bqpf")
+
+[editable path="kryds"]
