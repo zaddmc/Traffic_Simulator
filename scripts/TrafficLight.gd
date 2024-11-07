@@ -1,10 +1,6 @@
 class_name TrafficLight
 extends Node3D
 
-var road_xin = false
-var road_nzin = false
-var road_nxin = false
-var road_zin = false
 var roads = [] #list of roads in crossing
 var roadselect = [] #bool of every road, if true let cars through
 var lightselect = 0 #selects which road to let through
@@ -14,10 +10,9 @@ var iswaiting = false
 func _ready() -> void:
 	roads = get_children()
 	roads.remove_at(0)
-	roadselect.append(road_xin)
-	roadselect.append(road_nzin)
-	roadselect.append(road_nxin)
-	roadselect.append(road_zin)
+	for n in roads.size():
+		roadselect.append(false)
+	print(roadselect)
 
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
