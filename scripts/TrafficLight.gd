@@ -12,7 +12,6 @@ func _ready() -> void:
 	roads.remove_at(0)
 	for n in roads.size():
 		roadselect.append(false)
-	print(roadselect)
 
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
