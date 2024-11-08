@@ -1296,6 +1296,7 @@ curve = SubResource("Curve3D_42iwf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02223, 0, 0.471531)
 
 [node name="Path3D125" type="Path3D" parent="cross3/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.945, 0, -0.615)
 curve = SubResource("Curve3D_v1guo")
 
 [node name="Path3D4" type="Path3D" parent="cross3/Node3D"]

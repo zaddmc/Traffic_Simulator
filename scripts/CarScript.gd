@@ -15,7 +15,7 @@ var cars_on_same_road = []
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update_car(delta: float) -> void:
-	var wanted_space = 5
+	var wanted_space = 0
 	var current_road_length = current_road.get_curve().get_baked_length()
 
 	var closest_car = null
@@ -37,18 +37,23 @@ func update_car(delta: float) -> void:
 	var crossing_own_section = current_roads[1].get_parent()
 	var crossing = crossing_own_section.get_parent()
 	var crossing_name = crossing.get_child(0).get_name()
-	var hold_back_for_traffic_light:bool = false
+	var can_drive:bool = true
 	var space_to_crossing = current_road_length - self.get_progress()
-	if crossing_name == "kryds":# or crossing_name == "Tkryds":
-		hold_back_for_traffic_light = not crossing.get("roadselect")[crossing_own_section.get_index() - 1]
+	var mainparent = get_parent().get_parent().get_parent()
+	if mainparent.is_in_group("TrafficLights"):
+		can_drive = mainparent.call("get_status", get_parent().get_parent())
+		print(can_drive)
 			
-			
-	if space_to_crossing < wanted_space and hold_back_for_traffic_light:
+	if space_to_crossing > wanted_space and not can_drive:
 		self.speed = 0
+		print("step1")
 	elif space_to_next_car_best < wanted_space:
+		print("step2")
 		if self.speed > 1.5:
+			print("step3")
 			self.speed = 0
 		elif self.speed > 1:
+			print("step4")
 			self.speed *= 0.9
 	else:
 		self.speed = self.max_speed

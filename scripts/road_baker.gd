@@ -89,12 +89,26 @@ func find_divering_paths():
 
 func assign_traffic_lights(light_timer, light_auto_start):
 	var crossing = get_tree().get_nodes_in_group("TrafficLights")
+	var script = load("res://scripts/TrafficLight.gd") 
+	const lightsphere: PackedScene = preload("res://scenes/light.tscn")
 	for n in crossing:
+		var directions = n.get_children()
+		for d in directions:
+			var light = lightsphere.instantiate()
+			d.add_child(light)
+			light.position = ((d.get_child(0)).to_global(((d.get_child(0)).get_curve().get_baked_points()[0])) + Vector3(0, 5, 0))
+
+		
+
+
 		var timer = Timer.new()
 		timer.autostart = light_auto_start 
 		timer.wait_time = light_timer
 		n.add_child(timer)
-		n.set_script(load("res://scripts/TrafficLight.gd"))
+		n.set_script(script)
 		n.set_process(true)	
-		print(n.get_name())
 		n.call("start")
+
+
+
+
