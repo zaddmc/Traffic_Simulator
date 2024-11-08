@@ -22,3 +22,5 @@ directional_shadow_max_distance = 8192.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.978, -0.135, -15.025)
 
 [node name="Roads2" parent="." instance=ExtResource("3_0mlr0")]
+light_timer = null
+light_auto_start = true

@@ -7,7 +7,10 @@ var lightselect = 0 #selects which road to let through
 var iswaiting = false
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func start() -> void:
+	print("rstrst")
+	var timer = get_child(-1)
+	timer.timeout.connect(update_trafficlight)
 	roads = get_children()
 	roads.remove_at(0)
 	for n in roads.size():
@@ -17,6 +20,7 @@ func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
 
 func update_trafficlight():
+	print("timer")
 	if iswaiting == false:
 		iswaiting = true
 		for i in range(roadselect.size()): roadselect[i] = false 
