@@ -6,7 +6,7 @@
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_x7um8")
-car_spawn_count = null
+lights_on = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -0.47068, 53.5385, -2.60332)
@@ -22,5 +22,3 @@ directional_shadow_max_distance = 8192.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.978, -0.135, -15.025)
 
 [node name="Roads2" parent="." instance=ExtResource("3_0mlr0")]
-light_timer = null
-light_auto_start = true

@@ -87,9 +87,7 @@ func find_divering_paths():
 		else:
 			print(road.get_name())
 
-@export var light_timer: float = 10
-@export var light_auto_start: bool = false
-func assign_traffic_lights():
+func assign_traffic_lights(light_timer, light_auto_start):
 	var crossing = get_tree().get_nodes_in_group("TrafficLights")
 	for n in crossing:
 		var timer = Timer.new()
