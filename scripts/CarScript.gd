@@ -13,12 +13,11 @@ var current_road: Path3D
 var current_roads = []
 var cars_on_same_road = []
 
+var closest_car = null
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func update_car(delta: float) -> void:
-	var wanted_space = 0
+func update_car(delta: float, wanted_space: float) -> void:
 	var current_road_length = current_road.get_curve().get_baked_length()
 
-	var closest_car = null
 	var space_to_next_car_best: float = 1000
 	for car in cars_on_same_road:
 		if car == self: continue
@@ -36,24 +35,18 @@ func update_car(delta: float) -> void:
 
 	var crossing_own_section = current_roads[1].get_parent()
 	var crossing = crossing_own_section.get_parent()
-	var crossing_name = crossing.get_child(0).get_name()
 	var can_drive:bool = true
 	var space_to_crossing = current_road_length - self.get_progress()
 	var mainparent = get_parent().get_parent().get_parent()
 	if mainparent.is_in_group("TrafficLights"):
 		can_drive = mainparent.call("get_status", get_parent().get_parent())
-		print(can_drive)
 			
 	if space_to_crossing > wanted_space and not can_drive:
 		self.speed = 0
-		print("step1")
 	elif space_to_next_car_best < wanted_space:
-		print("step2")
 		if self.speed > 1.5:
-			print("step3")
 			self.speed = 0
 		elif self.speed > 1:
-			print("step4")
 			self.speed *= 0.9
 	else:
 		self.speed = self.max_speed
@@ -63,6 +56,7 @@ func update_car(delta: float) -> void:
 		change_road(ROAD_DICT[current_road].pick_random())
 
 	self.set_progress(self.get_progress()+delta*speed)
+	draw_path_to_closest()
 	return
 
 func change_road(new_road:Path3D):
@@ -103,3 +97,15 @@ static func new_car(road:Path3D, starting_offset:float = 0, max_speed:float = 0)
 static func set_baked_roads(road_dict) -> void:
 	ROAD_DICT = road_dict
 	return
+
+func draw_path_to_closest():
+	var path: Path3D = get_child(-1)
+	if closest_car != null:
+		path.show()
+		var next_position: Vector3 = closest_car.position 
+		path.get_curve().set_point_position(1,path.get_parent().to_local((next_position)))
+		print(next_position, "  ", path.get_parent().to_local((next_position)))
+	else:
+		path.hide()
+	
+	

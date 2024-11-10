@@ -30,7 +30,6 @@ func update_trafficlight():
 	roads[current_light].get_child(-1).get_child(0).set_surface_override_material(0,material_green)
 
 func get_status(node: Node3D) -> bool:
-	print(light_dic)
 	return(light_dic[node])
 
  

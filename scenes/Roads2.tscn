@@ -1033,7 +1033,6 @@ point_count = 2
 
 [node name="Roads" type="Node3D"]
 script = ExtResource("1_h6xg4")
-point_distance = null
 
 [node name="Path3D" type="Path3D" parent="." groups=["road_allow_spawn"]]
 curve = SubResource("Curve3D_7bcl8")

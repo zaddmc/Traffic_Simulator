@@ -1,7 +1,9 @@
 extends Node3D
 @export var car_spawn_count: int = 10
+@export var wanted_space: float = 3
 @export var light_time: float = 10 
 @export var lights_on: bool = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,4 +29,4 @@ func _process(delta: float) -> void:
 
 func update_cars(delta: float):
 	for car in Car.CARS:
-		car.update_car(delta)
+		car.update_car(delta, wanted_space)
