@@ -56,7 +56,6 @@ func update_car(delta: float, wanted_space: float) -> void:
 		change_road(ROAD_DICT[current_road].pick_random())
 
 	self.set_progress(self.get_progress()+delta*speed)
-	draw_path_to_closest()
 	return
 
 func change_road(new_road:Path3D):
@@ -98,14 +97,5 @@ static func set_baked_roads(road_dict) -> void:
 	ROAD_DICT = road_dict
 	return
 
-func draw_path_to_closest():
-	var path: Path3D = get_child(-1)
-	if closest_car != null:
-		path.show()
-		var next_position: Vector3 = closest_car.position 
-		path.get_curve().set_point_position(1,path.get_parent().to_local((next_position)))
-		print(next_position, "  ", path.get_parent().to_local((next_position)))
-	else:
-		path.hide()
 	
 	
