@@ -6,7 +6,7 @@
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_x7um8")
-car_spawn_count = 500
+car_spawn_count = 200
 wanted_space = 3.48
 lights_on = true
 

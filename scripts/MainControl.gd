@@ -13,7 +13,7 @@ func _ready() -> void:
 func _on_all_loaded():
 	var roads = get_node("road_paths") # Gets road_baker.gd script
 	roads.bake_roads()
-	roads.spawn_cars(car_spawn_count)
+	roads.spawn_cars(car_spawn_count, wanted_space)
 	roads.assign_traffic_lights(light_time, lights_on)
 	return
 
@@ -27,5 +27,5 @@ func _process(delta: float) -> void:
 
 func update_cars(delta: float):
 	for car in Car.CARS:
-		car.update_car(delta, wanted_space)
+		car.update_car(delta)
 	return
