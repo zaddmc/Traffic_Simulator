@@ -16,21 +16,17 @@ func start() -> void:
 	roads.remove_at(roads.size()-1)
 	for n in roads:
 		light_dic[n] = false
-		n.get_child(-1).get_child(0).set_surface_override_material(0,material_red)
-
+		n.get_child(-1).get_child(0).set_surface_override_material(0, material_red)
 
 func update_trafficlight():
 	light_dic[roads[current_light]] = false
-	roads[current_light].get_child(-1).get_child(0).set_surface_override_material(0,material_red)
+	roads[current_light].get_child(-1).get_child(0).set_surface_override_material(0, material_red)
 	if current_light < len(roads)-1:
 		current_light += 1 
 	else:
 		current_light = 0
 	light_dic[roads[current_light]] = true
-	roads[current_light].get_child(-1).get_child(0).set_surface_override_material(0,material_green)
+	roads[current_light].get_child(-1).get_child(0).set_surface_override_material(0, material_green)
 
 func get_status(node: Node3D) -> bool:
 	return(light_dic[node])
-
- 
-		

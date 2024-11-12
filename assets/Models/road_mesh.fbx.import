@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://wlgtl62f3oam"
-path="res://.godot/imported/ManyRoads.fbx-8244287b882305a24e4f71190a3bacf4.scn"
+path="res://.godot/imported/road_mesh.fbx-cfb675763ea563504bb0f4008eeb9727.scn"
 
 [deps]
 
-source_file="res://assets/Models/ManyRoads.fbx"
-dest_files=["res://.godot/imported/ManyRoads.fbx-8244287b882305a24e4f71190a3bacf4.scn"]
+source_file="res://assets/Models/road_mesh.fbx"
+dest_files=["res://.godot/imported/road_mesh.fbx-cfb675763ea563504bb0f4008eeb9727.scn"]
 
 [params]
 

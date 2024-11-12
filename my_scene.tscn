@@ -1,7 +1,7 @@
 [gd_scene load_steps=65 format=3 uid="uid://dbitrx8rfuvnr"]
 
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="1_m6v73"]
-[ext_resource type="PackedScene" uid="uid://wlgtl62f3oam" path="res://assets/Models/ManyRoads.fbx" id="2_08ib4"]
+[ext_resource type="PackedScene" uid="uid://wlgtl62f3oam" path="res://assets/Models/road_mesh.fbx" id="2_08ib4"]
 
 [sub_resource type="Curve3D" id="Curve3D_7bcl8"]
 _data = {
@@ -452,7 +452,6 @@ directional_shadow_max_distance = 8192.0
 
 [node name="Roads" type="Node3D" parent="."]
 script = ExtResource("1_m6v73")
-point_distance = null
 
 [node name="Path3D" type="Path3D" parent="Roads"]
 curve = SubResource("Curve3D_7bcl8")

@@ -12,13 +12,14 @@ var speed: float
 var current_road: Path3D
 var current_roads = []
 var cars_on_same_road = []
-
 var closest_car = null
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update_car(delta: float, wanted_space: float) -> void:
 	var current_road_length = current_road.get_curve().get_baked_length()
 
-	var space_to_next_car_best: float = 1000
+	# Find next car
+	var space_to_next_car_best: float = 1000 # Starting value
 	for car in cars_on_same_road:
 		if car == self: continue
 
@@ -32,25 +33,28 @@ func update_car(delta: float, wanted_space: float) -> void:
 			space_to_next_car_best = space_to_next_car
 			closest_car = car
 
-
+	# Get information about next crossing
 	var crossing_own_section = current_roads[1].get_parent()
 	var crossing = crossing_own_section.get_parent()
-	var can_drive:bool = true
-	var space_to_crossing = current_road_length - self.get_progress()
-	var mainparent = get_parent().get_parent().get_parent()
-	if mainparent.is_in_group("TrafficLights"):
-		can_drive = mainparent.call("get_status", get_parent().get_parent())
-			
-	if space_to_crossing > wanted_space and not can_drive:
+	var is_light_green:bool = true
+	var distance_to_crossing = current_road_length - self.get_progress()
+	
+	# Determine if next traffic light is green
+	if crossing.is_in_group("TrafficLights"):
+		is_light_green = crossing.call("get_status", crossing_own_section)
+	
+	# Logic for speed settings
+	if distance_to_crossing < wanted_space and not is_light_green:
 		self.speed = 0
+		
 	elif space_to_next_car_best < wanted_space:
 		if self.speed > 1.5:
 			self.speed = 0
 		elif self.speed > 1:
 			self.speed *= 0.9
+			
 	else:
 		self.speed = self.max_speed
-
 
 	if self.get_progress_ratio() >= 0.99:
 		change_road(ROAD_DICT[current_road].pick_random())

@@ -8,15 +8,14 @@ extends Node3D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	call_deferred("_on_all_loaded")
-	
-
-	pass # Replace with function body.
+	return
 
 func _on_all_loaded():
-	var roads = get_node("Roads2")
-	roads.start()
+	var roads = get_node("road_paths") # Gets road_baker.gd script
+	roads.bake_roads()
 	roads.spawn_cars(car_spawn_count)
 	roads.assign_traffic_lights(light_time, lights_on)
+	return
 
 
 
@@ -24,9 +23,9 @@ func _on_all_loaded():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	update_cars(delta)
-	pass
-
+	return
 
 func update_cars(delta: float):
 	for car in Car.CARS:
 		car.update_car(delta, wanted_space)
+	return

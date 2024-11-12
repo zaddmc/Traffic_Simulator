@@ -5,7 +5,7 @@ var roads = []
 
 # Called when the node enters the scene tree for the first time.
 
-func start():
+func bake_roads():
 	roads = recursive_road_finder(self)
 	for road in roads:
 
@@ -38,7 +38,7 @@ func recursive_road_finder(input):
 		return [input]
 	elif input is MeshInstance3D:
 		return null
-	else: # Presumably Node3D, that is kind of treated as a list
+	else: # Presumably Node3D, which is kind of treated as a list
 		var return_value = []
 		for child in input.get_children():
 			var result = recursive_road_finder(child)
@@ -49,7 +49,7 @@ func recursive_road_finder(input):
 func spawn_cars(car_spawn_count: int = 10):
 	var spawnable_roads = get_tree().get_nodes_in_group("road_allow_spawn")
 	var spacing = spawnable_roads[0].get_curve().get_baked_length() / (car_spawn_count / spawnable_roads.size() + 1)
-	var itteration = (car_spawn_count / spawnable_roads.size())
+	var itteration:int = (car_spawn_count / spawnable_roads.size())
 	print(spacing)
 	var spawned_cars = 0
 	while true:
@@ -60,7 +60,6 @@ func spawn_cars(car_spawn_count: int = 10):
 			spawned_cars += 1
 		itteration -= 1
 	return
-
 
 @export var point_distance: float = 0.2
 func find_divering_paths():
@@ -98,9 +97,6 @@ func assign_traffic_lights(light_timer, light_auto_start):
 			d.add_child(light)
 			light.position = ((d.get_child(0)).to_global(((d.get_child(0)).get_curve().get_baked_points()[0])) + Vector3(0, 5, 0))
 
-		
-
-
 		var timer = Timer.new()
 		timer.autostart = light_auto_start 
 		timer.wait_time = light_timer
@@ -108,7 +104,3 @@ func assign_traffic_lights(light_timer, light_auto_start):
 		n.set_script(script)
 		n.set_process(true)	
 		n.call("start")
-
-
-
-

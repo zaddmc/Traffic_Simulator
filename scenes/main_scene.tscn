@@ -1,14 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://bektlde38ngdi"]
 
 [ext_resource type="Script" path="res://scripts/MainControl.gd" id="1_x7um8"]
-[ext_resource type="PackedScene" uid="uid://wlgtl62f3oam" path="res://assets/Models/ManyRoads.fbx" id="2_n6a5q"]
-[ext_resource type="PackedScene" uid="uid://vsukhu6d8u4" path="res://scenes/Roads2.tscn" id="3_0mlr0"]
+[ext_resource type="PackedScene" uid="uid://wlgtl62f3oam" path="res://assets/Models/road_mesh.fbx" id="2_n6a5q"]
+[ext_resource type="PackedScene" uid="uid://vsukhu6d8u4" path="res://scenes/road_paths.tscn" id="3_0mlr0"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_x7um8")
-car_spawn_count = 25
+car_spawn_count = 500
 wanted_space = 3.48
-light_time = null
 lights_on = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -21,7 +20,9 @@ transform = Transform3D(1, 0, 0, 0, 0.691677, 0.722207, 0, -0.722207, 0.691677, 
 light_energy = 2.185
 directional_shadow_max_distance = 8192.0
 
-[node name="ManyRoads" parent="." instance=ExtResource("2_n6a5q")]
+[node name="road_mesh" parent="." instance=ExtResource("2_n6a5q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.099, -0.135, -14.473)
 
-[node name="Roads2" parent="." instance=ExtResource("3_0mlr0")]
+[node name="road_paths" parent="." instance=ExtResource("3_0mlr0")]
+
+[editable path="road_paths"]
