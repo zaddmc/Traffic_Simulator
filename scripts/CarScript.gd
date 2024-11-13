@@ -65,7 +65,9 @@ func update_car(delta: float) -> void:
 		is_light_green = crossing.call("get_status", crossing_own_section)
 	
 	# Logic for speed settings
-	if distance_to_crossing < wanted_space and not is_light_green or not shortest_incoming or crossings_contains_invalid_cars:
+	if (distance_to_crossing < wanted_space and not is_light_green 
+		or not shortest_incoming 
+		or distance_to_crossing < wanted_space and crossings_contains_invalid_cars):
 		self.speed = 0
 		
 	elif shortest_distance - self.get_progress() < wanted_space:
