@@ -70,14 +70,22 @@ func update_car(delta: float) -> void:
 		or distance_to_crossing < wanted_space and crossings_contains_invalid_cars):
 		self.speed = 0
 		
+	elif shortest_distance - self.get_progress() < wanted_space * 2 and shortest_distance - self.get_progress() > wanted_space and self.speed > 2:
+		self.speed = self.speed -0.2
+		
 	elif shortest_distance - self.get_progress() < wanted_space:
 		if self.speed > 1.5:
+			self.speed *= 0.6*delta
+		elif self.speed <= 1:
 			self.speed = 0
-		elif self.speed > 1:
-			self.speed *= 0.9
 			
 	else:
-		self.speed = self.max_speed
+		if self.speed < 1:
+			self.speed = 1
+		elif self.speed > self.max_speed:
+			self.speed += 6*delta
+		else:
+			self.speed = self.max_speed
 
 	if self.get_progress_ratio() >= 0.99:
 		change_road(ROAD_DICT[current_road].pick_random())
