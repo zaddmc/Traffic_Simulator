@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://yhubftciq00e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3wy7t"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_2sisd"]
+material = SubResource("StandardMaterial3D_3wy7t")
+
+[node name="light" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_2sisd")
+skeleton = NodePath("../..")

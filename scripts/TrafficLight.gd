@@ -2,52 +2,31 @@ class_name TrafficLight
 extends Node3D
 
 var roads = [] #list of roads in crossing
-var roadselect = [] #bool of every road, if true let cars through
-var lightselect = 0 #selects which road to let through
-var iswaiting = false
-var Colorred = Color.hex(0xfa0a0aff)
-var Colorgreen = Color.hex(0x1adb14ff)
-var new_material = StandardMaterial3D.new()
-
-
+var light_dic = {}
+var current_light = 0
+var material_green = StandardMaterial3D.new()
+var material_red = StandardMaterial3D.new()#selects which road to let through
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func start() -> void:
+	material_green.albedo_color = Color(0,1,0)
+	material_red.albedo_color = Color(1,0,0)
+	var timer = get_child(-1)
+	timer.timeout.connect(update_trafficlight)
 	roads = get_children()
-	roads.remove_at(0)
-	for n in roads.size():
-		roadselect.append(false)
-	Switch_Ligts_Color()
-
-func wait(seconds: float) -> void:
-	await get_tree().create_timer(seconds).timeout
-	
+	roads.remove_at(roads.size()-1)
+	for n in roads:
+		light_dic[n] = false
+		n.get_child(-1).get_child(0).set_surface_override_material(0, material_red)
 
 func update_trafficlight():
-	if iswaiting == false:
-		iswaiting = true
-		for i in range(roadselect.size()): roadselect[i] = false 
-		Switch_Ligts_Color()
-		print(roadselect)
-		await wait(2)
-		roadselect[lightselect-1] = true
-		if lightselect < roads.size():
-			lightselect = lightselect+1
-		else:
-			lightselect = 0
-		iswaiting = false
-		Switch_Ligts_Color()
-		print(roadselect)
-		return
-	return
-func Switch_Ligts_Color():
-	if true in roadselect:
-		new_material.albedo_color = Colorgreen
-		get_child(0).get_child(1).material_override = new_material
-		print("balls")
+	light_dic[roads[current_light]] = false
+	roads[current_light].get_child(-1).get_child(0).set_surface_override_material(0, material_red)
+	if current_light < len(roads)-1:
+		current_light += 1
 	else:
-		new_material.albedo_color = Colorred
-		get_child(0).get_child(1).material_override = new_material
-		print("penis")
-	
+		current_light = 0
+	light_dic[roads[current_light]] = true
+	roads[current_light].get_child(-1).get_child(0).set_surface_override_material(0, material_green)
 
-		
+func get_status(node: Node3D) -> bool:
+	return(light_dic[node])

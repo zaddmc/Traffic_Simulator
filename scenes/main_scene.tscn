@@ -1,13 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://bektlde38ngdi"]
+[gd_scene load_steps=4 format=3 uid="uid://bektlde38ngdi"]
 
-[ext_resource type="Script" path="res://scripts/road_baker.gd" id="1_kje1j"]
-[ext_resource type="PackedScene" uid="uid://c16ngu7w7ubvm" path="res://scenes/large_turn.tscn" id="2_ptmkj"]
-[ext_resource type="PackedScene" uid="uid://b6jri2otc578r" path="res://scenes/crossing.tscn" id="2_qifxb"]
-[ext_resource type="PackedScene" uid="uid://cyrdwy2yidhj2" path="res://scenes/straight_road.tscn" id="3_nbbnh"]
-[ext_resource type="PackedScene" uid="uid://qgpa66bltvgm" path="res://scenes/turn.tscn" id="4_yokyt"]
-[ext_resource type="PackedScene" uid="uid://bqni0mrwh76q" path="res://scenes/t_cross.tscn" id="5_kwr6f"]
+[ext_resource type="Script" path="res://scripts/MainControl.gd" id="1_x7um8"]
+[ext_resource type="PackedScene" uid="uid://wlgtl62f3oam" path="res://assets/Models/road_mesh.fbx" id="2_n6a5q"]
+[ext_resource type="PackedScene" uid="uid://vsukhu6d8u4" path="res://scenes/road_paths.tscn" id="3_0mlr0"]
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_x7um8")
+car_spawn_count = 200
+wanted_space = 3.48
+lights_on = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -0.47068, 53.5385, -2.60332)
@@ -19,50 +20,9 @@ transform = Transform3D(1, 0, 0, 0, 0.691677, 0.722207, 0, -0.722207, 0.691677, 
 light_energy = 2.185
 directional_shadow_max_distance = 8192.0
 
-[node name="Roads" type="Node3D" parent="."]
-script = ExtResource("1_kje1j")
-car_spawn_count = 200
+[node name="road_mesh" parent="." instance=ExtResource("2_n6a5q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.099, -0.135, -14.473)
 
-[node name="LargeTurn" parent="Roads" instance=ExtResource("2_ptmkj")]
+[node name="road_paths" parent="." instance=ExtResource("3_0mlr0")]
 
-[node name="TCross" parent="Roads" instance=ExtResource("5_kwr6f")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 58.467, 0, 8.499)
-
-[node name="TCross2" parent="Roads" instance=ExtResource("5_kwr6f")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -58.49, 0, 8.496)
-
-[node name="StraightRoad" parent="Roads" instance=ExtResource("3_nbbnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034, 0, 8.485)
-
-[node name="StraightRoad2" parent="Roads" instance=ExtResource("3_nbbnh")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -58.481, 0, 66.996)
-
-[node name="StraightRoad3" parent="Roads" instance=ExtResource("3_nbbnh")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 58.48, 0, 67.003)
-
-[node name="Crossing" parent="Roads" instance=ExtResource("2_qifxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.391, 0, 125.504)
-
-[node name="LargeTurn2" parent="Roads" instance=ExtResource("2_ptmkj")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 66.904, 0, 183.99)
-
-[node name="TCross3" parent="Roads" instance=ExtResource("5_kwr6f")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 58.433, 0, 242.478)
-
-[node name="StraightRoad4" parent="Roads" instance=ExtResource("3_nbbnh")]
-transform = Transform3D(-4.37114e-08, -4.37114e-08, -1, 4.37114e-08, 1, -4.37114e-08, 1, -4.37114e-08, -4.37114e-08, 58.442, 0, 184.017)
-
-[node name="StraightRoad5" parent="Roads" instance=ExtResource("3_nbbnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.057, 0, 242.409)
-
-[node name="Turn" parent="Roads" instance=ExtResource("4_yokyt")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -58.62, 0, 242.423)
-
-[node name="StraightRoad6" parent="Roads" instance=ExtResource("3_nbbnh")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -58.621, 0, 183.977)
-
-[node name="TCross4" parent="Roads" instance=ExtResource("5_kwr6f")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -58.601, 0, 125.428)
-
-[node name="StraightRoad7" parent="Roads" instance=ExtResource("3_nbbnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0, 125.506)
+[editable path="road_paths"]
