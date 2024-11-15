@@ -10,18 +10,19 @@ var roads = []
 func bake_roads():
 	roads = recursive_road_finder(self)
 	for road in roads:
-
+		var points1 = road.get_curve().get_baked_points()
+		var point1 = road.to_global(points1[points1.size()-1])
 		var close_roads = []
 		var backup_list = []
 		for rod in roads:
-			var points1 = road.get_curve().get_baked_points()
-			var point1 = road.to_global(points1[points1.size()-1])
 			var points2 = rod.get_curve().get_baked_points()
 			var point2 = rod.to_global(points2[0])
 			var space_between = (point1 - point2).length()
-
 			if space_between <= 2:
 				close_roads.append(rod)
+				rod.get_curve().set_point_position(0,rod.to_local(point1))
+
+
 			elif space_between <= 5:
 				backup_list.append(rod)
 
@@ -34,6 +35,11 @@ func bake_roads():
 				inv_road_dict[croad].append(road)
 			else:
 				inv_road_dict[croad] = [road]
+	for droad in inv_road_dict:
+		var point1 = droad.get_curve().get_point_position(0)
+		for eroad in inv_road_dict[droad]:
+			eroad.get_curve().set_point_position(eroad.get_curve().get_point_count() -1, point1)
+
 
 	# Giving the result to the cars
 	#print(road_dict)
