@@ -18,7 +18,7 @@ var closest_car = null
 var wanted_space:float
 var velocity_debug:bool
 var breaking:bool = false
-
+var material: StandardMaterial3D = StandardMaterial3D.new()	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update_car(delta: float) -> void:
 	var current_road_length = current_road.get_curve().get_baked_length()
@@ -60,26 +60,31 @@ func update_car(delta: float) -> void:
 			if road in ROAD_DICT[current_road]: continue
 			if road.get_child_count() != 0:
 				crossings_contains_invalid_cars = true
+				material.albedo_color = Color(1,0,1)
 				break
+
 
 	# Determine if next traffic light is green
 	if crossing.is_in_group("TrafficLights"):
 		is_light_green = crossing.call("get_status", crossing_own_section)
+	if is_light_green:
+		material.albedo_color = Color(1,1,0) # yellow
 	
 	# Logic for speed settings
 	if (distance_to_crossing < wanted_space and not is_light_green 
 		or not shortest_incoming 
 		or distance_to_crossing < wanted_space and crossings_contains_invalid_cars):
 		self.speed = 0
+		material.albedo_color = Color(speed/max_speed,0,1) # blue
 		
 	elif shortest_distance - self.get_progress() < wanted_space * 2 and shortest_distance - self.get_progress() > wanted_space and self.speed > 2:
 		self.speed = self.speed -0.2
-		breaking = true
+		material.albedo_color = Color(speed/max_speed,0,0) # red
 		
 	elif shortest_distance - self.get_progress() < wanted_space:
 		if self.speed > 1.5:
 			self.speed *= 0.6*delta
-			breaking = true
+			material.albedo_color = Color(speed/max_speed,0,0) # red
 		elif self.speed <= 1:
 			self.speed = 0
 			
@@ -90,7 +95,7 @@ func update_car(delta: float) -> void:
 			self.speed += 6*delta
 		else:
 			self.speed = self.max_speed
-		breaking = false
+		material.albedo_color = Color(0,speed/max_speed,0) # green
 
 	if self.get_progress_ratio() >= 0.99:
 		change_road(ROAD_DICT[current_road].pick_random())
@@ -116,7 +121,7 @@ func change_road(new_road:Path3D):
 
 	return
 
-static func new_car(road:Path3D, starting_offset:float = 0, max_speed:float = 0, wanted_space:float = 2, velocity_debug:bool = false) -> Car:
+static func new_car(road:Path3D, starting_offset:float = 0, max_speed:float = 13.88, wanted_space:float = 2, velocity_debug:bool = false) -> Car:
 	var new_car: Car = my_scene.instantiate()
 	road.add_child(new_car)
 	new_car.current_road = road
@@ -146,10 +151,5 @@ static func set_crossings_dict(crossings_dict):
 	CROSSINGS_DICT = crossings_dict
 	return
 func update_car_color():
-	var material: StandardMaterial3D = StandardMaterial3D.new()	
-	if breaking:
-		material.albedo_color = Color(speed/max_speed, 0, 0)
-	else:
-		material.albedo_color = Color(0, speed/max_speed, 0)
 	self.get_child(0).get_child(0).set_surface_override_material(0, material)
 	
