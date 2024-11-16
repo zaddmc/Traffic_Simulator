@@ -16,6 +16,7 @@ var current_roads = []
 var cars_on_same_road = []
 var closest_car = null
 var wanted_space:float
+var velocity_debug:bool
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update_car(delta: float) -> void:
@@ -91,6 +92,8 @@ func update_car(delta: float) -> void:
 		change_road(ROAD_DICT[current_road].pick_random())
 
 	self.set_progress(self.get_progress()+delta*speed)
+	if velocity_debug:
+		update_car_color()	
 	return
 
 func change_road(new_road:Path3D):
@@ -109,14 +112,14 @@ func change_road(new_road:Path3D):
 
 	return
 
-static func new_car(road:Path3D, starting_offset:float = 0, max_speed:float = 0, wanted_space:float = 2) -> Car:
+static func new_car(road:Path3D, starting_offset:float = 0, max_speed:float = 0, wanted_space:float = 2, velocity_debug:bool = false) -> Car:
 	var new_car: Car = my_scene.instantiate()
 	road.add_child(new_car)
 	new_car.current_road = road
 	new_car.change_road(road)
 	
 	new_car.wanted_space = wanted_space
-	
+	new_car.velocity_debug = velocity_debug	
 	new_car.set_progress(starting_offset) 
 	
 	if (max_speed == 0):
@@ -138,3 +141,8 @@ static func set_baked_roads(road_dict, inv_road_dict) -> void:
 static func set_crossings_dict(crossings_dict):
 	CROSSINGS_DICT = crossings_dict
 	return
+func update_car_color():
+	var material: StandardMaterial3D = StandardMaterial3D.new()	
+	material.albedo_color = Color(0, speed/max_speed, 0)
+	self.get_child(0).get_child(0).set_surface_override_material(0, material)
+	

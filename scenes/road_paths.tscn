@@ -1033,6 +1033,7 @@ point_count = 7
 
 [node name="Roads" type="Node3D"]
 script = ExtResource("1_h6xg4")
+point_distance = null
 
 [node name="cross" type="Node3D" parent="." groups=["TrafficLights"]]
 

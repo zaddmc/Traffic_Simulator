@@ -59,7 +59,7 @@ func recursive_road_finder(input):
 				return_value.append_array(result)
 		return return_value
 
-func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2):
+func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debug:bool = false):
 	if car_spawn_count <= 0:
 		car_spawn_count = 10
 	var spawnable_roads = get_tree().get_nodes_in_group("road_allow_spawn")
@@ -74,7 +74,7 @@ func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2):
 			var road_len = road.get_curve().get_baked_length()
 			var spot_on_road = road_len - wanted_space * itteration
 			if spot_on_road > wanted_space:
-				Car.new_car(road, spot_on_road, 10, wanted_space)
+				Car.new_car(road, spot_on_road, 10, wanted_space, velocity_debug)
 				spawned_cars += 1
 		if spawned_cars_before == spawned_cars or spawned_cars >= car_spawn_count:
 			break

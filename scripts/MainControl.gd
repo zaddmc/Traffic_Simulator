@@ -3,7 +3,7 @@ extends Node3D
 @export var wanted_space: float = 3
 @export var light_time: float = 10 
 @export var lights_on: bool = false
-
+@export var velocity_debug: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,7 +13,7 @@ func _ready() -> void:
 func _on_all_loaded():
 	var roads = get_node("road_paths") # Gets road_baker.gd script
 	roads.bake_roads()
-	roads.spawn_cars(car_spawn_count, wanted_space)
+	roads.spawn_cars(car_spawn_count, wanted_space, velocity_debug)
 	roads.assign_traffic_lights(light_time, lights_on)
 	return
 
