@@ -8,6 +8,7 @@
 script = ExtResource("1_x7um8")
 car_spawn_count = 200
 wanted_space = 3.48
+light_time = null
 lights_on = true
 velocity_debug = true
 
@@ -25,6 +26,6 @@ directional_shadow_max_distance = 8192.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.099, -0.135, -14.473)
 
 [node name="road_paths" parent="." instance=ExtResource("3_0mlr0")]
-point_distance = null
+point_distance = 0.2
 
 [editable path="road_paths"]

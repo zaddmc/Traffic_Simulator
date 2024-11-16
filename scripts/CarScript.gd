@@ -17,6 +17,7 @@ var cars_on_same_road = []
 var closest_car = null
 var wanted_space:float
 var velocity_debug:bool
+var breaking:bool = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update_car(delta: float) -> void:
@@ -73,10 +74,12 @@ func update_car(delta: float) -> void:
 		
 	elif shortest_distance - self.get_progress() < wanted_space * 2 and shortest_distance - self.get_progress() > wanted_space and self.speed > 2:
 		self.speed = self.speed -0.2
+		breaking = true
 		
 	elif shortest_distance - self.get_progress() < wanted_space:
 		if self.speed > 1.5:
 			self.speed *= 0.6*delta
+			breaking = true
 		elif self.speed <= 1:
 			self.speed = 0
 			
@@ -87,6 +90,7 @@ func update_car(delta: float) -> void:
 			self.speed += 6*delta
 		else:
 			self.speed = self.max_speed
+		breaking = false
 
 	if self.get_progress_ratio() >= 0.99:
 		change_road(ROAD_DICT[current_road].pick_random())
@@ -143,6 +147,9 @@ static func set_crossings_dict(crossings_dict):
 	return
 func update_car_color():
 	var material: StandardMaterial3D = StandardMaterial3D.new()	
-	material.albedo_color = Color(0, speed/max_speed, 0)
+	if breaking:
+		material.albedo_color = Color(speed/max_speed, 0, 0)
+	else:
+		material.albedo_color = Color(0, speed/max_speed, 0)
 	self.get_child(0).get_child(0).set_surface_override_material(0, material)
 	
