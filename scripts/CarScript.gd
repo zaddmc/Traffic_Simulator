@@ -18,7 +18,7 @@ var closest_car = null
 var wanted_space:float
 var velocity_debug:bool
 var breaking:bool = false
-var material: StandardMaterial3D = StandardMaterial3D.new()	
+var material: StandardMaterial3D = StandardMaterial3D.new()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update_car(delta: float) -> void:
 	match get_car_action(delta):
