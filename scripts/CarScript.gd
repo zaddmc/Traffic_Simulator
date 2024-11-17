@@ -19,37 +19,36 @@ var wanted_space:float
 var velocity_debug:bool
 var breaking:bool = false
 var material: StandardMaterial3D = StandardMaterial3D.new()
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
+
 func update_car(delta: float) -> void:
 	match get_car_action(delta):
 		"full_stop":
 			self.speed = 0
-			material.albedo_color = Color(speed/max_speed,0,1) # blue
+			material.albedo_color = Color(speed/max_speed,0,1) # Blue
 		"light_brake":
 			self.speed -= 0.2
-			material.albedo_color = Color(speed/max_speed,0,0) # red
+			material.albedo_color = Color(speed/max_speed,0,0) # Red
 		"hard_brake":
 			self.speed *= 0.6*delta
-			material.albedo_color = Color(speed/max_speed,0,0) # red
+			material.albedo_color = Color(speed/max_speed,0,0) # Red
 		"stop":
 			self.speed = 0
 		"accelerate":
 			self.speed += 6*delta
-			material.albedo_color = Color(0,speed/max_speed,0) # green
+			material.albedo_color = Color(0,speed/max_speed,0) # Green
 		"max_speed":
 			self.speed = self.max_speed
-			material.albedo_color = Color(0,speed/max_speed,0) # green
+			material.albedo_color = Color(0,speed/max_speed,0) # Green
 		"change_road":
 			change_road(ROAD_DICT[current_road].pick_random())
 		_:
 			self.speed = 0 
-			material.albedo_color = Color(1,1,1) # white
-
-		
+			material.albedo_color = Color(1,1,1) # White
 
 	self.set_progress(self.get_progress()+delta*speed)
 	if velocity_debug:
-		update_car_color()	
+		update_car_color()
 	return
 
 func change_road(new_road:Path3D):
