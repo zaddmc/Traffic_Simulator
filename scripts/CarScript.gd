@@ -185,9 +185,13 @@ func get_car_action() -> String:
 	return "11"
 
 func determine_speed_action(delta:float) -> String:
+	var crossing_is_open:bool = (is_next_road_crossing() and is_next_crossing_green() and is_next_crossing_open())
+	
 	
 	
 	return "Case not handled fix it"
+
+
 
 func is_next_crossing_green(road_to_check:Path3D = current_roads[1]) -> bool:
 	"""Determins whether the next crossing is green"""
