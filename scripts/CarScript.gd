@@ -24,27 +24,18 @@ var reaction_time:float # in miliseconds
 func update_car(delta: float) -> void:
 	match determine_speed_action(delta):
 		"full_stop":
-			self.speed = 0
-			material.albedo_color = Color(speed/max_speed,0,1) # Blue
-		"light_brake":
+			material.albedo_color = Color((speed/2)/max_speed+0.5, 0, 1) # Blue
+		"brake":
 			de_accelerate()
-			material.albedo_color = Color(speed/max_speed,0,0) # Red
-		"hard_brake":
-			self.speed *= 0.6*delta
-			material.albedo_color = Color(speed/max_speed,0,0) # Red
-		"stop":
-			self.speed = 0
+			material.albedo_color = Color((speed/2)/max_speed+0.5, 0, 0) # Red
 		"accelerate":
 			accelerate()
-			material.albedo_color = Color(0,speed/max_speed,0) # Green
-		"max_speed":
-			self.speed = self.max_speed
-			material.albedo_color = Color(0,speed/max_speed,0) # Green
+			material.albedo_color = Color(0, (speed/2)/max_speed+0.5, 0) # Green
 		"change_road":
 			change_road(ROAD_DICT[current_road].pick_random())
 		var others:
 			print(others)
-			self.speed = 0 
+			speed = 0
 			material.albedo_color = Color(1,1,0) # Yellow
 
 	self.set_progress(self.get_progress()+delta*speed)
@@ -105,96 +96,119 @@ wanted_space_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0
 	new_car_.de_acceleration = de_acceleration_
 
 	new_car_.loop = false
+	add_button(new_car_)
 	
 	CARS.append(new_car_)
 	return new_car_
 
+static func add_button(car):
+	var mesh = car.get_child(0).get_child(0)
+	
+	var area_node = Area3D.new()
+	mesh.add_child(area_node)
+	
+	var collision_shape = CollisionShape3D.new()
+	
+	var box_shape = BoxShape3D.new()
+	box_shape.size = mesh.get_aabb().size
+	
+	collision_shape.shape = box_shape
+	area_node.add_child(collision_shape)
+	
+	var ev = InputEventAction.new()
+	ev.action = "car_pressed"
+	
+	Input.parse_input_event(ev)
+	area_node.input_event
+	#===================================================== DO SOME MORE HERE ============================
+	return
+
 func update_car_color():
 	self.get_child(0).get_child(0).set_surface_override_material(0, material)
-
-func get_car_action() -> String:
-	var current_road_length = current_road.get_curve().get_baked_length()
-	var self_index = self.get_index()
-	var shortest_distance:float = 1000
-
-	if self_index <= 0: # Front runner on own road
-		for first_road in current_roads:
-			if first_road == current_road: continue
-			if first_road.get_child_count() <= 0:
-				continue
-			var distance = first_road.get_child(-1).get_progress()
-			if distance < shortest_distance:
-				shortest_distance = distance + current_road_length
-	else:
-		shortest_distance = current_road.get_child(self_index - 1).get_progress()
-
-	var current_distance = self.get_progress()
-	var current_remaing_distance = current_road_length - current_distance
-	var incoming_roads = INV_ROAD_DICT[current_roads[1]]
-	var shortest_incoming:bool = true
-	# merging
-	for iroad in incoming_roads:
-		if iroad == current_road: continue
-		if iroad.get_child_count() == 0: continue
-		var hello = iroad.get_curve().get_baked_length() - iroad.get_child(0).get_progress()
-		if hello < current_remaing_distance:
-			shortest_incoming = false
-
-	# Get information about next crossing
-	var crossing_own_section = current_roads[1].get_parent()
-	var crossing = crossing_own_section.get_parent()
-	var is_light_green:bool = true
-	var distance_to_crossing = current_road_length - self.get_progress()
-	
-	# Determine if next crossing contains cars on other paths
-	var next_road_is_full:bool = false
-	if crossing.is_in_group("TrafficLights"):
-		for road in CROSSINGS_DICT[crossing]:
-			if road in ROAD_DICT[current_road]: continue
-			for roads_connected in ROAD_DICT[current_road]:
-				if (roads_connected.get_parent().is_in_group("TrafficLights") == false 
-				and roads_connected != current_road and roads_connected.get_child_count() != 0):
-					if self.position.distance_to(roads_connected.get_child(-1).position) < 1500:
-						next_road_is_full = true
-						material.albedo_color = Color(1,0,1) # Pink
-						break
-
-	if self.get_progress_ratio() >= 0.99:
-		return "change_road"
-	# Determine if next traffic light is green
-	if crossing.is_in_group("TrafficLights"):
-		is_light_green = crossing.call("get_status", crossing_own_section)
-
-	# Logic for speed settings
-	if (distance_to_crossing < wanted_space and not is_light_green 
-		or not shortest_incoming 
-		or distance_to_crossing < wanted_space and next_road_is_full):
-		return "full_stop"
-
-	elif shortest_distance - self.get_progress() < get_stopping_distance() and shortest_distance - self.get_progress() > wanted_space and self.speed > 2:
-		return "light_brake"
-
-	elif shortest_distance - self.get_progress() < wanted_space:
-		if self.speed > 1.5:
-			return "hard_brake"
-		elif self.speed <= 1:
-			return "stop"
-
-	else:
-		if self.speed > self.max_speed:
-			return "accelerate"
-		else:
-			return "max_speed"
-	return "11"
 
 func determine_speed_action(delta:float) -> String:
 	var crossing_is_open:bool = (is_next_road_crossing() and is_next_crossing_green() and is_next_crossing_open())
 	
+	# Determine wheter next car is a problem or not
+	var next_car = get_next_car_safe() # Remember it returns a tuple
+	var next_car_distance:float = 0
+	var is_next_car_blocking:bool = next_car[1]
+	if is_next_car_blocking: # It seems weird to check this, but it so far is saying that if there is another car in the vicinity it can check if its problematic
+		next_car_distance = get_next_car_distance(next_car[0])
+		is_next_car_blocking = next_car_distance > wanted_space + get_stopping_distance(true)
 	
+	# The way to add logic is to find all the reasons to brake/hold back for something, and if there is nothing to stop for, allow it drive.
+	if is_next_car_blocking:
+		return "brake"
+
+	if not crossing_is_open:
+		return "brake"
+
+	return "accelerate"
+
+#==================================================
+# Helper Functions to determine next speed setting
+#==================================================
+func get_next_car_safe_searchdepth():
+	"""To be implemented"""
+	return false
+
+func get_next_car_safe(start_car:PathFollow3D = self):
+	"""Returns a psuedo tuple where [0] is the resulting car or start_car, and [1] is a bool determining if result is start_car"""
+	var result = get_next_car_unsafe(start_car)
+	return [result, result != self]
+
+func get_next_car_unsafe(start_car:PathFollow3D = self) -> PathFollow3D:
+	"""Returns the closest car with a search depth of next set of roads,
+	IMPORTANT! It will return the input car if it doesnt find another, preferbly use 'get_next_car_safe'"""
+	var start_car_index = start_car.get_index()
+	if start_car_index == 0: # The car is the furthest car ahead on its current road
+		return get_next_car_helper(start_car, start_car.current_road)[0]
+	else: # Assuming index is a positive integer that is within range
+		return start_car.get_parent().get_child(start_car_index - 1)
+
+func get_next_car_helper(original_car:PathFollow3D, road_to_check:Path3D):
+	var pot_cars = []
+	for road in ROAD_DICT[road_to_check]:
+		if road.get_child_count() == 0: continue
+		pot_cars.append(road.get_child(-1))
 	
-	return "Case not handled fix it"
+	match len(pot_cars):
+		0: return [original_car]
+		1: return pot_cars
+		_: # Cursed way of finding best car
+			var pot_cars_length = []
+			for car in pot_cars:
+				pot_cars_length.append([car, get_next_car_distance(car, original_car)])
+			var best_car = pot_cars_length[0]
+			for car in pot_cars_length:
+				if car[1] < best_car[1]:
+					best_car = car
+			return best_car
 
+func get_next_car_distance(car_to_check:PathFollow3D, start_car:PathFollow3D = self) -> float:
+	if start_car.current_road == car_to_check.current_road:
+		return car_to_check.get_progress() - start_car.get_progress()
+	else:
+		return get_road_length(start_car) - start_car.get_progress() + car_to_check.get_progress()
 
+func get_next_car_distance_long(car_to_check:PathFollow3D, start_car:PathFollow3D = self, roads_inbetween = []) -> float:
+	"""An extension of 'get_next_car_distance' that simply adds the length of roads in between the 2 cars
+	It is not expected to be used, tho it has been made for any usage it will never see"""
+	var distance:float = get_next_car_distance(car_to_check, start_car)
+	for road in roads_inbetween:
+		distance += get_road_length(road)
+	return distance
+
+func get_road_length(object_to_check = current_road) -> float:
+	"""Returns the length of given object assuming it to be either a Path3D or PathFollow3D"""
+	if object_to_check is Path3D:
+		return object_to_check.get_curve().get_baked_length()
+	elif object_to_check is PathFollow3D:
+		return object_to_check.get_parent().get_curve().get_baked_length()
+	else:
+		assert(false, "Function 'get_road_length' was given invalid type: %s" % typeof(object_to_check))
+		return -1
 
 func is_next_crossing_green(road_to_check:Path3D = current_roads[1]) -> bool:
 	"""Determins whether the next crossing is green"""
