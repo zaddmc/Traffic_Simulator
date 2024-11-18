@@ -17,9 +17,6 @@ func _on_all_loaded():
 	roads.spawn_cars(car_spawn_count, wanted_space, velocity_debug)
 	return
 
-
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	update_cars(delta)
