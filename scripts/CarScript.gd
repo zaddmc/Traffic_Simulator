@@ -134,15 +134,17 @@ func get_car_action(delta:float) -> String:
 	var distance_to_crossing = current_road_length - self.get_progress()
 	
 	# Determine if next crossing contains cars on other paths
-	var crossings_contains_invalid_cars:bool = false
+	var next_road_is_full:bool = false
 	if crossing.is_in_group("TrafficLights"):
 		for road in CROSSINGS_DICT[crossing]:
 			if road in ROAD_DICT[current_road]: continue
-			if road.get_child_count() != 0:
-				crossings_contains_invalid_cars = true
-				material.albedo_color = Color(1,0,1) # pink
-				break
-
+			for roads_connected in ROAD_DICT[current_road]:
+				if (roads_connected.get_parent().is_in_group("TrafficLights") == false 
+				and roads_connected != current_road and roads_connected.get_child_count() != 0):
+					if self.position.distance_to(roads_connected.get_child(-1).position) < 1500:
+						next_road_is_full = true
+						material.albedo_color = Color(1,0,1) # Pink
+						break
 
 	if self.get_progress_ratio() >= 0.99:
 		return "change_road"
@@ -153,7 +155,7 @@ func get_car_action(delta:float) -> String:
 	# Logic for speed settings
 	if (distance_to_crossing < wanted_space and not is_light_green 
 		or not shortest_incoming 
-		or distance_to_crossing < wanted_space and crossings_contains_invalid_cars):
+		or distance_to_crossing < wanted_space and next_road_is_full):
 		return "full_stop"
 		
 	elif shortest_distance - self.get_progress() < wanted_space * 2 and shortest_distance - self.get_progress() > wanted_space and self.speed > 2:
