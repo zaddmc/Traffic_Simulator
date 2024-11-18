@@ -42,7 +42,7 @@ func bake_roads():
 
 
 	# Giving the result to the cars
-	print(road_dict)
+	#print(road_dict)
 	Car.set_baked_roads(road_dict, inv_road_dict)
 	return
 
@@ -74,7 +74,7 @@ func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debu
 			var road_len = road.get_curve().get_baked_length()
 			var spot_on_road = road_len - wanted_space * itteration
 			if spot_on_road > wanted_space:
-				Car.new_car(road, spot_on_road, 10, wanted_space, velocity_debug)
+				Car.new_car(road, spot_on_road, 10, velocity_debug, wanted_space, [1.1,0.1], [0.9, 0.1], 20)
 				spawned_cars += 1
 		if spawned_cars_before == spawned_cars or spawned_cars >= car_spawn_count:
 			break
