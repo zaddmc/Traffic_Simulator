@@ -8,6 +8,9 @@ static var ROAD_DICT
 static var INV_ROAD_DICT
 static var CROSSINGS_DICT
 
+# Debug related
+@export var overridding_color:Color
+
 # Internal varibles for each car object
 var max_speed: float
 var speed: float
@@ -19,8 +22,6 @@ var velocity_debug:bool
 var breaking:bool = false
 var material: StandardMaterial3D = StandardMaterial3D.new()
 var reaction_time:float # in miliseconds
-var color_overridden:bool = false # Color can be overridden by user
-var overridding_color:Color
 
 func update_car(delta: float) -> void:
 	match determine_speed_action(delta):
@@ -41,7 +42,7 @@ func update_car(delta: float) -> void:
 
 	self.set_progress(self.get_progress()+delta*speed)
 	if velocity_debug:
-		if color_overridden:
+		if is_in_group("selected_car"):
 			material.albedo_color = overridding_color
 		update_car_color()
 	return
@@ -105,18 +106,11 @@ wanted_space_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0
 	return new_car_
 
 static func add_button(car):
+	"""Doesnt actually add a button, it just changes the size of a collision part of the car, tho it doesnt collide with anything but the mouse"""
 	var mesh = car.get_child(0).get_child(0)
-	
 	var area_node = mesh.get_child(0)
-	
 	var collision_node = area_node.get_child(0)
-	 
 	collision_node.shape.size = mesh.get_aabb().size
-	
-	
-	
-
-
 	return
 
 func update_car_color():
@@ -245,10 +239,10 @@ static func set_crossings_dict(crossings_dict) -> void:
 	CROSSINGS_DICT = crossings_dict
 	return
 
-
-func _on_area_3d_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
+func _on_area_3d_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed == true:
-			color_overridden = true
-			overridding_color = Color(1,1,1) # White
-			print("i am called")
+			if is_in_group("selected_car"):
+				remove_from_group("selected_car")
+			else:
+				add_to_group("selected_car")

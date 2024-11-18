@@ -19,6 +19,7 @@ config/icon="res://assets/textures/icon.svg"
 
 road_allow_spawn=""
 TrafficLights=""
+selected_car="cars that has been selected by user"
 
 [rendering]
 
