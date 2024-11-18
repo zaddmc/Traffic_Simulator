@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2omyb7g6ds56"]
+[gd_scene load_steps=4 format=3 uid="uid://b2omyb7g6ds56"]
 
 [ext_resource type="Script" path="res://scripts/CarScript.gd" id="1_2aw4a"]
 [ext_resource type="PackedScene" uid="uid://rfc5mjf3uxhn" path="res://assets/Models/carmodel.fbx" id="2_335if"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5auih"]
 
 [node name="Car" type="PathFollow3D"]
 transform = Transform3D(0.999943, 0, 0, 0, 0.99995, 0, 0, 0, 0.999958, 0, 0, 0.0174198)
@@ -9,5 +11,12 @@ script = ExtResource("1_2aw4a")
 
 [node name="carmodel2" parent="." instance=ExtResource("2_335if")]
 transform = Transform3D(-3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0.0185097, 0, -0.112033)
+
+[node name="Area3D" type="Area3D" parent="carmodel2/Car" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="carmodel2/Car/Area3D"]
+shape = SubResource("BoxShape3D_5auih")
+
+[connection signal="input_event" from="carmodel2/Car/Area3D" to="." method="_on_area_3d_input_event"]
 
 [editable path="carmodel2"]

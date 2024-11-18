@@ -19,7 +19,8 @@ var velocity_debug:bool
 var breaking:bool = false
 var material: StandardMaterial3D = StandardMaterial3D.new()
 var reaction_time:float # in miliseconds
-
+var color_overridden:bool = false # Color can be overridden by user
+var overridding_color:Color
 
 func update_car(delta: float) -> void:
 	match determine_speed_action(delta):
@@ -40,6 +41,8 @@ func update_car(delta: float) -> void:
 
 	self.set_progress(self.get_progress()+delta*speed)
 	if velocity_debug:
+		if color_overridden:
+			material.albedo_color = overridding_color
 		update_car_color()
 	return
 
@@ -104,23 +107,16 @@ wanted_space_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0
 static func add_button(car):
 	var mesh = car.get_child(0).get_child(0)
 	
-	var area_node = Area3D.new()
-	mesh.add_child(area_node)
+	var area_node = mesh.get_child(0)
 	
-	var collision_shape = CollisionShape3D.new()
+	var collision_node = area_node.get_child(0)
+	 
+	collision_node.shape.size = mesh.get_aabb().size
 	
-	var box_shape = BoxShape3D.new()
-	box_shape.size = mesh.get_aabb().size
 	
-	collision_shape.shape = box_shape
-	area_node.add_child(collision_shape)
 	
-	var ev = InputEventAction.new()
-	ev.action = "car_pressed"
-	
-	Input.parse_input_event(ev)
-	area_node.input_event
-	#===================================================== DO SOME MORE HERE ============================
+
+
 	return
 
 func update_car_color():
@@ -248,3 +244,11 @@ static func set_baked_roads(road_dict, inv_road_dict) -> void:
 static func set_crossings_dict(crossings_dict) -> void:
 	CROSSINGS_DICT = crossings_dict
 	return
+
+
+func _on_area_3d_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed == true:
+			color_overridden = true
+			overridding_color = Color(1,1,1) # White
+			print("i am called")
