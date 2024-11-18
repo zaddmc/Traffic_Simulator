@@ -18,12 +18,12 @@ func bake_roads():
 			var points2 = rod.get_curve().get_baked_points()
 			var point2 = rod.to_global(points2[0])
 			var space_between = (point1 - point2).length()
-			if space_between <= 2:
+			if space_between <= 5:
 				close_roads.append(rod)
 				rod.get_curve().set_point_position(0,rod.to_local(point1))
 
 
-			elif space_between <= 5:
+			elif space_between <= 20:
 				backup_list.append(rod)
 
 		if close_roads == []:
@@ -36,13 +36,13 @@ func bake_roads():
 			else:
 				inv_road_dict[croad] = [road]
 	for droad in inv_road_dict:
-		var point1 = droad.get_curve().get_point_position(0)
+		var point3 = droad.get_curve().get_point_position(0)
 		for eroad in inv_road_dict[droad]:
-			eroad.get_curve().set_point_position(eroad.get_curve().get_point_count() -1, point1)
+			eroad.get_curve().set_point_position(eroad.get_curve().get_point_count() -1, point3)
 
 
 	# Giving the result to the cars
-	#print(road_dict)
+	print(road_dict)
 	Car.set_baked_roads(road_dict, inv_road_dict)
 	return
 
@@ -122,7 +122,7 @@ func assign_traffic_lights(light_timer, light_auto_start):
 
 			var light = lightsphere.instantiate()
 			d.add_child(light)
-			light.position = ((d.get_child(0)).to_global(((d.get_child(0)).get_curve().get_baked_points()[0])) + Vector3(0, 5, 0))
+			light.position = ((d.get_child(0).get_curve().get_baked_points()[0]) + Vector3(0, 3, 0))
 
 		var timer = Timer.new()
 		timer.autostart = light_auto_start 
