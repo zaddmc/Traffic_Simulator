@@ -9,7 +9,8 @@ static var INV_ROAD_DICT
 static var CROSSINGS_DICT
 
 # Debug related
-@export var overridding_color:Color
+@export var selected_color:Color
+@export var highlighted_color:Color
 
 # Internal varibles for each car object
 var max_speed: float
@@ -41,9 +42,12 @@ func update_car(delta: float) -> void:
 			material.albedo_color = Color(1,1,0) # Yellow
 
 	self.set_progress(self.get_progress()+delta*speed)
+	
 	if velocity_debug:
 		if is_in_group("selected_car"):
-			material.albedo_color = overridding_color
+			material.albedo_color = selected_color
+		if is_in_group("highlighted_car"):
+			material.albedo_color = highlighted_color
 		update_car_color()
 	return
 
@@ -56,6 +60,7 @@ func de_accelerate() -> bool:
 		self.speed = new_speed
 		return true
 	else:
+		self.speed = 0
 		return false
 
 var acceleration # def = [1.1, 0.1] # First part of acceleration is multiplier and second is constant
@@ -67,6 +72,7 @@ func accelerate() -> bool:
 		self.speed = new_speed
 		return true
 	else:
+		self.speed = max_speed
 		return false
 
 func change_road(new_road:Path3D):
@@ -125,13 +131,21 @@ func determine_speed_action(delta:float) -> String:
 	var is_next_car_blocking:bool = next_car[1]
 	if is_next_car_blocking: # It seems weird to check this, but it so far is saying that if there is another car in the vicinity it can check if its problematic
 		next_car_distance = get_next_car_distance(next_car[0])
-		is_next_car_blocking = next_car_distance > wanted_space + get_stopping_distance(true)
-	
+		is_next_car_blocking = next_car_distance < wanted_space + get_stopping_distance(true)
+
+	# For debug printout
+	if is_in_group("selected_car"):
+		print(get_distance_next_road())
+		pass
+
 	# The way to add logic is to find all the reasons to brake/hold back for something, and if there is nothing to stop for, allow it drive.
+	if self.get_progress_ratio() > 0.99:
+		return "change_road"
+
 	if is_next_car_blocking:
 		return "brake"
 
-	if not crossing_is_open:
+	if not crossing_is_open and is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true):
 		return "brake"
 
 	return "accelerate"
@@ -139,9 +153,9 @@ func determine_speed_action(delta:float) -> String:
 #==================================================
 # Helper Functions to determine next speed setting
 #==================================================
-func get_next_car_safe_searchdepth():
+func get_next_car_searchdepth():
 	"""To be implemented"""
-	return false
+	return null
 
 func get_next_car_safe(start_car:PathFollow3D = self):
 	"""Returns a psuedo tuple where [0] is the resulting car or start_car, and [1] is a bool determining if result is start_car"""
@@ -190,6 +204,9 @@ func get_next_car_distance_long(car_to_check:PathFollow3D, start_car:PathFollow3
 		distance += get_road_length(road)
 	return distance
 
+func get_distance_next_road(road_to_check:Path3D = current_road, car_to_check:PathFollow3D = self) -> float:
+	return get_road_length(road_to_check) - car_to_check.get_progress()
+
 func get_road_length(object_to_check = current_road) -> float:
 	"""Returns the length of given object assuming it to be either a Path3D or PathFollow3D"""
 	if object_to_check is Path3D:
@@ -215,6 +232,7 @@ func is_next_crossing_open(road_to_check:Path3D = current_roads[1]) -> bool:
 	for road in CROSSINGS_DICT[crossing]:
 		if road in ROAD_DICT[current_road]: continue
 		if road.get_child_count() != 0:
+			color_cars(road.get_children())
 			return false
 	return true
 
@@ -228,7 +246,8 @@ func is_next_road_crossing(road_to_check:Path3D = current_roads[1]) -> bool:
 func get_stopping_distance(is_max_distance:bool = false) -> float:
 	var v = self.speed if not is_max_distance else self.max_speed
 	var f = de_acceleration[0]
-	return (0.278 * reaction_time * v) + v*v / (254 * f)
+	var t = reaction_time * 0.001 # Reaction time is in miliseconds but the formula needs it in seconds
+	return (0.278 * t * v) + v*v / (254 * f)
 
 static func set_baked_roads(road_dict, inv_road_dict) -> void:
 	ROAD_DICT = road_dict
@@ -237,6 +256,12 @@ static func set_baked_roads(road_dict, inv_road_dict) -> void:
 
 static func set_crossings_dict(crossings_dict) -> void:
 	CROSSINGS_DICT = crossings_dict
+	return
+
+func color_cars(cars_to_color = []):
+	if self.is_in_group("selected_car"):
+		for car in cars_to_color:
+			car.add_to_group("highlighted_car")
 	return
 
 func _on_area_3d_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
