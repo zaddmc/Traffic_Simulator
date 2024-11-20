@@ -24,7 +24,10 @@ var breaking:bool = false
 var material: StandardMaterial3D = StandardMaterial3D.new()
 var reaction_time:float # in miliseconds
 
+
 func update_car(delta: float) -> void:
+	"""Called by MainControl, to update the cars in their new state.
+	But it mainly does coloring for the cars and the final call of the solution from 'determine_speed_action'"""
 	match determine_speed_action(delta):
 		"full_stop":
 			material.albedo_color = Color((speed/2)/max_speed+0.5, 0, 1) # Blue
@@ -51,77 +54,6 @@ func update_car(delta: float) -> void:
 		update_car_color()
 	return
 
-var de_acceleration # def = [0.9, 0.1] # First part of acceleration is multiplier and second is constant aswell as the minimum value before flatlining zero
-func de_accelerate() -> bool:
-	"""Returns true if it changed speed"""
-	var old_speed = self.speed
-	var new_speed = old_speed * de_acceleration[0] - de_acceleration[1]
-	if new_speed >= de_acceleration[1]:
-		self.speed = new_speed
-		return true
-	else:
-		self.speed = 0
-		return false
-
-var acceleration # def = [1.1, 0.1] # First part of acceleration is multiplier and second is constant
-func accelerate() -> bool:
-	"""Returns true if it changed speed"""
-	var old_speed = self.speed
-	var new_speed = old_speed * acceleration[0] + acceleration[1]
-	if new_speed <= max_speed:
-		self.speed = new_speed
-		return true
-	else:
-		self.speed = max_speed
-		return false
-
-func change_road(new_road:Path3D):
-	self.reparent(new_road)
-	self.set_progress_ratio(0)
-	current_road = new_road
-
-	current_roads = []
-	current_roads.append(new_road)
-	current_roads.append_array(ROAD_DICT[new_road])
-	return
-
-static func new_car(road_:Path3D, starting_offset_:float = 0, max_speed_:float = 13.88, velocity_debug_:bool = false,
-wanted_space_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0.1], reaction_time_:float = 50) -> Car:
-	var new_car_: Car = my_scene.instantiate()
-	road_.add_child(new_car_)
-	new_car_.current_road = road_
-	new_car_.change_road(road_)
-	
-	new_car_.wanted_space = wanted_space_
-	new_car_.velocity_debug = velocity_debug_
-	new_car_.set_progress(starting_offset_) 
-	new_car_.reaction_time = reaction_time_
-	
-	if (max_speed_ == 0):
-		new_car_.max_speed = randf_range(5, 15)
-	else:
-		new_car_.max_speed = max_speed_
-	new_car_.speed = new_car_.max_speed
-	new_car_.acceleration = acceleration_
-	new_car_.de_acceleration = de_acceleration_
-
-	new_car_.loop = false
-	add_button(new_car_)
-	
-	CARS.append(new_car_)
-	return new_car_
-
-static func add_button(car):
-	"""Doesnt actually add a button, it just changes the size of a collision part of the car, tho it doesnt collide with anything but the mouse"""
-	var mesh = car.get_child(0).get_child(0)
-	var area_node = mesh.get_child(0)
-	var collision_node = area_node.get_child(0)
-	collision_node.shape.size = mesh.get_aabb().size
-	return
-
-func update_car_color():
-	self.get_child(0).get_child(0).set_surface_override_material(0, material)
-
 func determine_speed_action(delta:float) -> String:
 	var crossing_is_open:bool = (is_next_road_crossing() and is_next_crossing_green() and is_next_crossing_open())
 	
@@ -135,7 +67,7 @@ func determine_speed_action(delta:float) -> String:
 
 	# For debug printout
 	if is_in_group("selected_car"):
-		print(get_distance_next_road())
+		#print(get_distance_next_road())
 		pass
 
 	# The way to add logic is to find all the reasons to brake/hold back for something, and if there is nothing to stop for, allow it drive.
@@ -249,6 +181,33 @@ func get_stopping_distance(is_max_distance:bool = false) -> float:
 	var t = reaction_time * 0.001 # Reaction time is in miliseconds but the formula needs it in seconds
 	return (0.278 * t * v) + v*v / (254 * f)
 
+var de_acceleration # def = [0.9, 0.1] # First part of acceleration is multiplier and second is constant aswell as the minimum value before flatlining zero
+func de_accelerate() -> bool:
+	"""Returns true if it changed speed"""
+	var old_speed = self.speed
+	var new_speed = old_speed * de_acceleration[0] - de_acceleration[1]
+	if new_speed >= de_acceleration[1]:
+		self.speed = new_speed
+		return true
+	else:
+		self.speed = 0
+		return false
+
+var acceleration # def = [1.1, 0.1] # First part of acceleration is multiplier and second is constant
+func accelerate() -> bool:
+	"""Returns true if it changed speed"""
+	var old_speed = self.speed
+	var new_speed = old_speed * acceleration[0] + acceleration[1]
+	if new_speed <= max_speed:
+		self.speed = new_speed
+		return true
+	else:
+		self.speed = max_speed
+		return false
+
+#====================================================================
+# Externally called helper functions and other miscellaneous helpers
+#====================================================================
 static func set_baked_roads(road_dict, inv_road_dict) -> void:
 	ROAD_DICT = road_dict
 	INV_ROAD_DICT = inv_road_dict
@@ -257,6 +216,53 @@ static func set_baked_roads(road_dict, inv_road_dict) -> void:
 static func set_crossings_dict(crossings_dict) -> void:
 	CROSSINGS_DICT = crossings_dict
 	return
+
+func change_road(new_road:Path3D):
+	self.reparent(new_road)
+	self.set_progress_ratio(0)
+	current_road = new_road
+
+	current_roads = []
+	current_roads.append(new_road)
+	current_roads.append_array(ROAD_DICT[new_road])
+	return
+
+static func new_car(road_:Path3D, starting_offset_:float = 0, max_speed_:float = 13.88, velocity_debug_:bool = false,
+wanted_space_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0.1], reaction_time_:float = 50) -> Car:
+	var new_car_: Car = my_scene.instantiate()
+	road_.add_child(new_car_)
+	new_car_.current_road = road_
+	new_car_.change_road(road_)
+	
+	new_car_.wanted_space = wanted_space_
+	new_car_.velocity_debug = velocity_debug_
+	new_car_.set_progress(starting_offset_) 
+	new_car_.reaction_time = reaction_time_
+	
+	if (max_speed_ == 0):
+		new_car_.max_speed = randf_range(5, 15)
+	else:
+		new_car_.max_speed = max_speed_
+	new_car_.speed = new_car_.max_speed
+	new_car_.acceleration = acceleration_
+	new_car_.de_acceleration = de_acceleration_
+
+	new_car_.loop = false
+	add_button(new_car_)
+	
+	CARS.append(new_car_)
+	return new_car_
+
+static func add_button(car):
+	"""Doesnt actually add a button, it just changes the size of a collision part of the car, tho it doesnt collide with anything but the mouse"""
+	var mesh = car.get_child(0).get_child(0)
+	var area_node = mesh.get_child(0)
+	var collision_node = area_node.get_child(0)
+	collision_node.shape.size = mesh.get_aabb().size
+	return
+
+func update_car_color():
+	self.get_child(0).get_child(0).set_surface_override_material(0, material)
 
 func color_cars(cars_to_color = []):
 	if self.is_in_group("selected_car"):
