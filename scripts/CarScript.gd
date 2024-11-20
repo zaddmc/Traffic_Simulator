@@ -23,6 +23,7 @@ var velocity_debug:bool
 var breaking:bool = false
 var material: StandardMaterial3D = StandardMaterial3D.new()
 var reaction_time:float # in miliseconds
+var next_road:Path3D
 
 
 func update_car(delta: float) -> void:
@@ -38,7 +39,7 @@ func update_car(delta: float) -> void:
 			accelerate()
 			material.albedo_color = Color(0, (speed/2)/max_speed+0.5, 0) # Green
 		"change_road":
-			change_road(ROAD_DICT[current_road].pick_random())
+			change_road(next_road)
 		var others:
 			print(others)
 			speed = 0
@@ -61,6 +62,10 @@ func determine_speed_action(delta:float) -> String:
 	var next_car = get_next_car_safe() # Remember it returns a tuple
 	var next_car_distance:float = 0
 	var is_next_car_blocking:bool = next_car[1]
+	var free_space:bool = true
+	if ROAD_DICT[next_road][0].get_child_count() != 0:
+		free_space = ROAD_DICT[next_road][0].get_child(-1).get_progress() > wanted_space
+	
 	if is_next_car_blocking: # It seems weird to check this, but it so far is saying that if there is another car in the vicinity it can check if its problematic
 		next_car_distance = get_next_car_distance(next_car[0])
 		is_next_car_blocking = next_car_distance < wanted_space + get_stopping_distance(true)
@@ -77,7 +82,7 @@ func determine_speed_action(delta:float) -> String:
 	if is_next_car_blocking:
 		return "brake"
 
-	if not crossing_is_open and is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true):
+	if not crossing_is_open and is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true) and free_space:
 		return "brake"
 
 	return "accelerate"
@@ -149,11 +154,11 @@ func get_road_length(object_to_check = current_road) -> float:
 		assert(false, "Function 'get_road_length' was given invalid type: %s" % typeof(object_to_check))
 		return -1
 
-func is_next_crossing_green(road_to_check:Path3D = current_roads[1]) -> String:
+func is_next_crossing_green(road_to_check:Path3D = current_roads[1]) -> bool:
 	"""Determins whether the next crossing is green"""
 	var crossing_own_section = road_to_check.get_parent()
 	var crossing = crossing_own_section.get_parent()
-	return crossing.call("get_status", crossing_own_section)
+	return crossing.call("get_status", crossing_own_section) == "green"
 
 func is_next_crossing_open(road_to_check:Path3D = current_roads[1]) -> bool:
 	"""Determins whether next crossing or given crossing (based of road) contains cars other than own direction"""
@@ -225,6 +230,8 @@ func change_road(new_road:Path3D):
 	current_roads = []
 	current_roads.append(new_road)
 	current_roads.append_array(ROAD_DICT[new_road])
+	
+	next_road = ROAD_DICT[current_road].pick_random()
 	return
 
 static func new_car(road_:Path3D, starting_offset_:float = 0, max_speed_:float = 13.88, velocity_debug_:bool = false,
