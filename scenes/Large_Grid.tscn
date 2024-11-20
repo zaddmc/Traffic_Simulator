@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://h3dpew7xm5m2"]
+
+[ext_resource type="Script" path="res://scripts/MainControl.gd" id="1_mqax2"]
+
+[node name="LargeGrid" type="Node3D"]
+script = ExtResource("1_mqax2")

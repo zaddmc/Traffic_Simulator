@@ -2,7 +2,7 @@ class_name Car
 extends PathFollow3D
 
 # Collective varibles all instances can acces
-const my_scene: PackedScene = preload("res://scenes/car.tscn")
+const my_scene: PackedScene = preload("res://prefabs/car.tscn")
 static var CARS = []
 static var ROAD_DICT
 static var INV_ROAD_DICT

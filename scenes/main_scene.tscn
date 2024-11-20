@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/MainControl.gd" id="1_x7um8"]
 [ext_resource type="PackedScene" uid="uid://wlgtl62f3oam" path="res://assets/Models/road_mesh.fbx" id="2_n6a5q"]
 [ext_resource type="Script" path="res://scripts/camera_control.gd" id="2_xlvej"]
-[ext_resource type="PackedScene" uid="uid://vsukhu6d8u4" path="res://scenes/road_paths.tscn" id="3_0mlr0"]
+[ext_resource type="PackedScene" uid="uid://vsukhu6d8u4" path="res://prefabs/road_paths.tscn" id="4_2veom"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_x7um8")
@@ -26,7 +26,7 @@ directional_shadow_max_distance = 8192.0
 [node name="road_mesh" parent="." instance=ExtResource("2_n6a5q")]
 transform = Transform3D(3.76, 0, 0, 0, 3.76, 0, 0, 0, 3.76, 41.367, 2.545, -92.362)
 
-[node name="road_paths" parent="." instance=ExtResource("3_0mlr0")]
+[node name="road_paths" parent="." instance=ExtResource("4_2veom")]
 transform = Transform3D(3.76, 0, 0, 0, 3.76, 0, 0, 0, 3.76, -108.598, 2.915, -35.485)
 point_distance = 0.2
 

@@ -18,12 +18,12 @@ func bake_roads():
 			var points2 = rod.get_curve().get_baked_points()
 			var point2 = rod.to_global(points2[0])
 			var space_between = (point1 - point2).length()
-			if space_between <= 5:
+			if space_between <= 2:
 				close_roads.append(rod)
 				rod.get_curve().set_point_position(0,rod.to_local(point1))
 
 
-			elif space_between <= 20:
+			elif space_between <= 5:
 				backup_list.append(rod)
 
 		if close_roads == []:
@@ -36,9 +36,11 @@ func bake_roads():
 			else:
 				inv_road_dict[croad] = [road]
 	for droad in inv_road_dict:
-		var point3 = droad.get_curve().get_point_position(0)
+		var point3 = droad.to_global(droad.get_curve().get_point_position(0))
 		for eroad in inv_road_dict[droad]:
-			eroad.get_curve().set_point_position(eroad.get_curve().get_point_count() -1, point3)
+			var temp_points = eroad.get_curve().get_baked_points()
+			if (point3 - eroad.to_global(temp_points[temp_points.size()-1])).length() < 1:
+				eroad.get_curve().set_point_position(eroad.get_curve().get_point_count() -1, eroad.to_local(point3))
 
 
 	# Giving the result to the cars
@@ -110,7 +112,7 @@ func find_divering_paths():
 func assign_traffic_lights(light_timer, light_auto_start):
 	var crossings = get_tree().get_nodes_in_group("TrafficLights")
 	var script = load("res://scripts/TrafficLight.gd") 
-	const lightsphere: PackedScene = preload("res://scenes/light.tscn")
+	const lightsphere: PackedScene = preload("res://prefabs/light.tscn")
 	for n in crossings:
 		var directions = n.get_children()
 		for d in directions:
