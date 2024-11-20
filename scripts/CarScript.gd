@@ -149,7 +149,7 @@ func get_road_length(object_to_check = current_road) -> float:
 		assert(false, "Function 'get_road_length' was given invalid type: %s" % typeof(object_to_check))
 		return -1
 
-func is_next_crossing_green(road_to_check:Path3D = current_roads[1]) -> bool:
+func is_next_crossing_green(road_to_check:Path3D = current_roads[1]) -> String:
 	"""Determins whether the next crossing is green"""
 	var crossing_own_section = road_to_check.get_parent()
 	var crossing = crossing_own_section.get_parent()

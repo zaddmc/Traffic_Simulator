@@ -125,7 +125,7 @@ func assign_traffic_lights(light_timer, light_auto_start):
 			light.position = ((d.get_child(0).get_curve().get_baked_points()[0]) + Vector3(0, 3, 0))
 
 		var timer = Timer.new()
-		timer.autostart = light_auto_start 
+		timer.autostart = false
 		timer.wait_time = light_timer
 		n.add_child(timer)
 		n.set_script(script)
