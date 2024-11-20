@@ -62,9 +62,9 @@ func determine_speed_action(delta:float) -> String:
 	var next_car = get_next_car_safe() # Remember it returns a tuple
 	var next_car_distance:float = 0
 	var is_next_car_blocking:bool = next_car[1]
-	var free_space:bool = true
+	var free_space:bool = false 
 	if ROAD_DICT[next_road][0].get_child_count() != 0:
-		free_space = ROAD_DICT[next_road][0].get_child(-1).get_progress() > wanted_space
+		free_space = ROAD_DICT[next_road][0].get_child(-1).get_progress() > wanted_space * (1 + next_road.get_child_count())
 	
 	if is_next_car_blocking: # It seems weird to check this, but it so far is saying that if there is another car in the vicinity it can check if its problematic
 		next_car_distance = get_next_car_distance(next_car[0])
@@ -72,7 +72,7 @@ func determine_speed_action(delta:float) -> String:
 
 	# For debug printout
 	if is_in_group("selected_car"):
-		#print(get_distance_next_road())
+		#print(crossing_is_open)
 		pass
 
 	# The way to add logic is to find all the reasons to brake/hold back for something, and if there is nothing to stop for, allow it drive.
@@ -81,9 +81,13 @@ func determine_speed_action(delta:float) -> String:
 
 	if is_next_car_blocking:
 		return "brake"
-
-	if not crossing_is_open and is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true) and free_space:
-		return "brake"
+		
+	if not crossing_is_open and is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true):
+		if free_space:
+			return "accelerate"
+		else:
+			return "brake"
+	
 
 	return "accelerate"
 
