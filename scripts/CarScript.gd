@@ -62,17 +62,20 @@ func determine_speed_action(delta:float) -> String:
 	var next_car = get_next_car_safe() # Remember it returns a tuple
 	var next_car_distance:float = 0
 	var is_next_car_blocking:bool = next_car[1]
-	var free_space:bool = false 
-	if ROAD_DICT[next_road][0].get_child_count() != 0:
-		free_space = ROAD_DICT[next_road][0].get_child(-1).get_progress() > wanted_space * (1 + next_road.get_child_count())
-	
 	if is_next_car_blocking: # It seems weird to check this, but it so far is saying that if there is another car in the vicinity it can check if its problematic
 		next_car_distance = get_next_car_distance(next_car[0])
 		is_next_car_blocking = next_car_distance < wanted_space + get_stopping_distance(true)
 
+	var free_space:bool = false 
+	if ROAD_DICT[next_road][0].get_child_count() != 0:
+		free_space = ROAD_DICT[next_road][0].get_child(-1).get_progress() > wanted_space * (1 + next_road.get_child_count())
+	else: 
+		free_space = true
+
 	# For debug printout
 	if is_in_group("selected_car"):
-		#print(crossing_is_open)
+		#print("open: %s isCrossing: %s freespace: %s" % [crossing_is_open, is_next_road_crossing(), free_space])
+		#print()
 		pass
 
 	# The way to add logic is to find all the reasons to brake/hold back for something, and if there is nothing to stop for, allow it drive.
@@ -81,11 +84,8 @@ func determine_speed_action(delta:float) -> String:
 
 	if is_next_car_blocking:
 		return "brake"
-		
-	if not crossing_is_open and is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true):
-		if free_space:
-			return "accelerate"
-		else:
+	if is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true):
+		if not crossing_is_open or not free_space:
 			return "brake"
 	
 
@@ -94,6 +94,9 @@ func determine_speed_action(delta:float) -> String:
 #==================================================
 # Helper Functions to determine next speed setting
 #==================================================
+func get_distance_to_crossing(road_to_check:Path3D = next_road) -> float:
+	return is_next_road_crossing(road_to_check) and get_distance_next_road(road_to_check)
+
 func get_next_car_searchdepth():
 	"""To be implemented"""
 	return null

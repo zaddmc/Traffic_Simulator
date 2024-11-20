@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bektlde38ngdi"]
+[gd_scene load_steps=5 format=3 uid="uid://bektlde38ngdi"]
 
 [ext_resource type="Script" path="res://scripts/MainControl.gd" id="1_x7um8"]
 [ext_resource type="PackedScene" uid="uid://wlgtl62f3oam" path="res://assets/Models/road_mesh.fbx" id="2_n6a5q"]
+[ext_resource type="Script" path="res://scripts/camera_control.gd" id="2_xlvej"]
 [ext_resource type="PackedScene" uid="uid://vsukhu6d8u4" path="res://scenes/road_paths.tscn" id="3_0mlr0"]
 
 [node name="Node3D" type="Node3D"]
@@ -15,6 +16,7 @@ velocity_debug = true
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -600, 500, 0)
 size = 547.795
+script = ExtResource("2_xlvej")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.691677, 0.722207, 0, -0.722207, 0.691677, 0, 18, 0)
@@ -27,3 +29,5 @@ transform = Transform3D(3.76, 0, 0, 0, 3.76, 0, 0, 0, 3.76, 41.367, 2.545, -92.3
 [node name="road_paths" parent="." instance=ExtResource("3_0mlr0")]
 transform = Transform3D(3.76, 0, 0, 0, 3.76, 0, 0, 0, 3.76, -108.598, 2.915, -35.485)
 point_distance = 0.2
+
+[editable path="road_paths"]
