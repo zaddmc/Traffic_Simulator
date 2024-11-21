@@ -18,6 +18,7 @@ var speed: float
 var current_road: Path3D
 var current_roads = []
 var closest_car = null
+var wanted_space_time:float
 var wanted_space:float
 var velocity_debug:bool
 var breaking:bool = false
@@ -27,9 +28,10 @@ var next_road:Path3D
 
 
 func update_car(delta: float) -> void:
+	wanted_space = speed * wanted_space_time + 5
 	"""Called by MainControl, to update the cars in their new state.
 	But it mainly does coloring for the cars and the final call of the solution from 'determine_speed_action'"""
-	match determine_speed_action(delta):
+	match determine_speed_action():
 		"full_stop":
 			material.albedo_color = Color((speed/2)/max_speed+0.5, 0, 1) # Blue
 		"brake":
@@ -55,7 +57,7 @@ func update_car(delta: float) -> void:
 		update_car_color()
 	return
 
-func determine_speed_action(delta:float) -> String:
+func determine_speed_action() -> String:
 	var crossing_is_open:bool = (is_next_road_crossing() and is_next_crossing_green() and is_next_crossing_open())
 	
 	# Determine wheter next car is a problem or not
@@ -242,13 +244,13 @@ func change_road(new_road:Path3D):
 	return
 
 static func new_car(road_:Path3D, starting_offset_:float = 0, max_speed_:float = 13.88, velocity_debug_:bool = false,
-wanted_space_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0.1], reaction_time_:float = 50) -> Car:
+wanted_space_time:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0.1], reaction_time_:float = 50) -> Car:
 	var new_car_: Car = my_scene.instantiate()
 	road_.add_child(new_car_)
 	new_car_.current_road = road_
 	new_car_.change_road(road_)
 	
-	new_car_.wanted_space = wanted_space_
+	new_car_.wanted_space_time = wanted_space_time
 	new_car_.velocity_debug = velocity_debug_
 	new_car_.set_progress(starting_offset_) 
 	new_car_.reaction_time = reaction_time_

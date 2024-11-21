@@ -23,7 +23,7 @@ func bake_roads():
 				rod.get_curve().set_point_position(0,rod.to_local(point1))
 
 
-			elif space_between <= 5:
+			elif space_between <= 15:
 				backup_list.append(rod)
 
 		if close_roads == []:
