@@ -1034,7 +1034,6 @@ point_count = 7
 
 [node name="Roads" type="Node3D"]
 script = ExtResource("1_h6xg4")
-point_distance = null
 
 [node name="crossings" type="Node3D" parent="."]
 script = ExtResource("2_ydu4m")

@@ -4,6 +4,7 @@ extends Node3D
 @export var light_time: float = 10 
 @export var lights_on: bool = false
 @export var velocity_debug: bool = false
+@export var spacing_multiplier: int = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,7 +15,7 @@ func _on_all_loaded():
 	var roads = get_node("road_paths") # Gets road_baker.gd script
 	roads.bake_roads()
 	roads.assign_traffic_lights(light_time, lights_on)
-	roads.spawn_cars(car_spawn_count, wanted_space, velocity_debug)
+	roads.spawn_cars(car_spawn_count, wanted_space, velocity_debug, spacing_multiplier)
 	return
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

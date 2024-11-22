@@ -61,7 +61,7 @@ func recursive_road_finder(input):
 				return_value.append_array(result)
 		return return_value
 
-func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debug:bool = false):
+func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debug:bool = false, spacing_multiplier:float = 2):
 	# insure spawn count
 	if car_spawn_count <= 0:
 		car_spawn_count = 10
@@ -72,7 +72,7 @@ func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debu
 
 	# Get scalable spawning distance
 	var temp_car = load("res://prefabs/car.tscn").instantiate() # Only intended for next line
-	var desired_spawn_space = (temp_car.get_child(0).get_child(0).get_aabb().size.x) / (temp_car.get_child(0).scale.x) * 2
+	var desired_spawn_space = (temp_car.get_child(0).get_child(0).get_aabb().size.x) / (temp_car.get_child(0).scale.x) * spacing_multiplier
 
 	while true:
 		var spawned_cars_before = spawned_cars
