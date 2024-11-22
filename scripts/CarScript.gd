@@ -26,6 +26,7 @@ var reaction_time:float # in miliseconds
 var next_road:Path3D
 
 
+
 func update_car(delta: float) -> void:
 	"""Called by MainControl, to update the cars in their new state.
 	But it mainly does coloring for the cars and the final call of the solution from 'determine_speed_action'"""
@@ -235,6 +236,8 @@ static func set_crossings_dict(crossings_dict) -> void:
 	return
 
 func change_road(new_road:Path3D):
+	if get_parent().get_parent().get_parent().is_in_group("TrafficLights"):
+		get_parent().get_parent().get_parent().get_parent().call("add_through", get_parent().get_parent()) # makes the road change count
 	self.reparent(new_road)
 	self.set_progress_ratio(0)
 	current_road = new_road

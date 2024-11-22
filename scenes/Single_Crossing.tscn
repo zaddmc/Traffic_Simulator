@@ -1,7 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwn2llxmn64rw"]
+[gd_scene load_steps=18 format=3 uid="uid://bwn2llxmn64rw"]
 
 [ext_resource type="Script" path="res://scripts/MainControl.gd" id="1_k5hgp"]
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="2_sbrvt"]
+[ext_resource type="Script" path="res://scripts/analasys.gd" id="3_8uqox"]
+[ext_resource type="Script" path="res://scripts/camera_control.gd" id="3_jvfn5"]
+[ext_resource type="PackedScene" uid="uid://2qiqoydje62j" path="res://assets/Models/cross.fbx" id="4_uaxj8"]
 
 [sub_resource type="Curve3D" id="Curve3D_oo440"]
 _data = {
@@ -33,14 +36,14 @@ point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_5yv6e"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.49137, 0, 1.9962, 0, 0, 0, 0, 0, 0, 31.9481, 0, 2.03287),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.49137, 0, 1.9962, 0, 0, 0, 0, 0, 0, 24.5291, 0, 2.01953),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_iulhp"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 31.9677, 0, -1.97598, 0, 0, 0, 0, 0, 0, 3.50705, 0, -1.99396),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 24.4113, 0, -1.98956, 0, 0, 0, 0, 0, 0, 3.50705, 0, -1.99396),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -88,14 +91,16 @@ _data = {
 point_count = 2
 
 [node name="SingleCrossing" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.104395, -0.0149498, 0.0411501)
+transform = Transform3D(0.999998, 0, 0.00179769, 0, 1, 0, -0.00179769, 0, 0.999998, 0.104395, -0.0149498, 0.0411501)
 script = ExtResource("1_k5hgp")
 car_spawn_count = 100
+velocity_debug = true
 
 [node name="road_paths" type="Node3D" parent="."]
 script = ExtResource("2_sbrvt")
 
 [node name="Crossings" type="Node3D" parent="road_paths"]
+script = ExtResource("3_8uqox")
 
 [node name="Crossing" type="Node3D" parent="road_paths/Crossings" groups=["TrafficLights"]]
 
@@ -148,25 +153,25 @@ curve = SubResource("Curve3D_51h7w")
 
 [node name="straight" type="Node3D" parent="road_paths"]
 
-[node name="Path3D" type="Path3D" parent="road_paths/straight" groups=["road_allow_spawn"]]
+[node name="Path3D" type="Path3D" parent="road_paths/straight"]
 curve = SubResource("Curve3D_5yv6e")
 
 [node name="Path3D2" type="Path3D" parent="road_paths/straight" groups=["road_allow_spawn"]]
 curve = SubResource("Curve3D_iulhp")
 
-[node name="Path3D3" type="Path3D" parent="road_paths/straight" groups=["road_allow_spawn"]]
+[node name="Path3D3" type="Path3D" parent="road_paths/straight"]
 curve = SubResource("Curve3D_5ci12")
 
 [node name="Path3D4" type="Path3D" parent="road_paths/straight" groups=["road_allow_spawn"]]
 curve = SubResource("Curve3D_6d0wk")
 
-[node name="Path3D5" type="Path3D" parent="road_paths/straight" groups=["road_allow_spawn"]]
+[node name="Path3D5" type="Path3D" parent="road_paths/straight"]
 curve = SubResource("Curve3D_jo6ip")
 
 [node name="Path3D6" type="Path3D" parent="road_paths/straight" groups=["road_allow_spawn"]]
 curve = SubResource("Curve3D_qb4xj")
 
-[node name="Path3D7" type="Path3D" parent="road_paths/straight" groups=["road_allow_spawn"]]
+[node name="Path3D7" type="Path3D" parent="road_paths/straight"]
 curve = SubResource("Curve3D_3o7wj")
 
 [node name="Path3D8" type="Path3D" parent="road_paths/straight" groups=["road_allow_spawn"]]
@@ -179,3 +184,7 @@ transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 
 transform = Transform3D(-0.56643, 0.386317, -0.727953, 0, 0.883321, 0.468769, 0.82411, 0.265525, -0.50034, -17.5673, 8.77067, -12.0583)
 current = true
 fov = 58.0
+script = ExtResource("3_jvfn5")
+
+[node name="cross" parent="." instance=ExtResource("4_uaxj8")]
+transform = Transform3D(0.999998, 0, -0.00179769, 0, 1, 0, 0.00179769, 0, 0.999998, 0, 0, 0)
