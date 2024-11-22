@@ -11,6 +11,18 @@ var velocity = Vector3.ZERO
 
 func _process(delta):
 	var direction = Vector3.ZERO
+	
+	if Input.is_key_pressed(KEY_A):
+		for car in Car.CARS:
+			car.add_to_group("selected_car")
+
+	if Input.is_key_pressed(KEY_Z):
+		for car in get_tree().get_nodes_in_group("selected_car"):
+			car.remove_from_group("selected_car")
+
+	if Input.is_key_pressed(KEY_R):
+		for car in get_tree().get_nodes_in_group("highlighted_car"):
+			car.remove_from_group("highlighted_car")
 
 	# Only move the camera if the right mouse button is pressed.
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):

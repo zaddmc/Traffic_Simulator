@@ -25,7 +25,7 @@ var breaking:bool = false
 var material: StandardMaterial3D = StandardMaterial3D.new()
 var reaction_time:float # in miliseconds
 var next_road:Path3D
-
+var desired_wanted_space:float
 
 
 func update_car(delta: float) -> void:
@@ -67,10 +67,10 @@ func determine_speed_action() -> String:
 	var crossing_is_open:bool = (is_next_road_crossing() and is_next_crossing_green() and is_next_crossing_open())
 
 	# For debug printout
-	if is_in_group("selected_car"):
+	if is_in_group("selected_car") and false:
 		#print("open: %s isCrossing: %s freespace: %s" % [crossing_is_open, is_next_road_crossing(), free_space])
-		print("Full wandted space: %s and Distance: %s" % [wanted_space + get_stopping_distance(true), get_distance_next_road()])
-		print(is_next_car_blocking())
+		print("wanted space: %.2f and Distance2Road: %.2f and distance to next car: %.2f" % [wanted_space + get_stopping_distance(false), get_distance_next_road(), get_next_car_distance(get_next_car_unsafe())])
+		print("Is next car blocking: %s" % is_next_car_blocking())
 		print()
 		pass
 
@@ -81,13 +81,14 @@ func determine_speed_action() -> String:
 	if is_next_car_blocking():
 		return "brake"
 
-	if is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true):
-		if not crossing_is_open or not is_there_space():
+	if is_next_road_crossing() and is_space_to_road_free():
+		if not crossing_is_open or not is_there_space_to_next_car():
+			# To avoid blocks caused by cars attempting to enter full road, resulting in grid locks
 			if stuck_count > 60:
 				stuck_count = 0
 				return "change_next_road"
-
 			stuck_count += 1
+
 			return "brake"
 
 	return "accelerate"
@@ -95,6 +96,9 @@ func determine_speed_action() -> String:
 #==================================================
 # Helper Functions to determine next speed setting
 #==================================================
+func is_space_to_road_free():
+	return get_distance_next_road() < wanted_space + get_stopping_distance(false)
+
 func change_next_road() -> bool:
 	if len(ROAD_DICT[current_road]) == 1: return false
 	next_road = ROAD_DICT[current_road].pick_random()
@@ -109,21 +113,23 @@ func update_wanted_space():
 	for spd in speed_stamps:
 		speed_avg += spd
 	speed_avg /= len(speed_stamps)
-	if is_in_group("selected_car"):
-		print(speed_avg)
 	wanted_space = speed_avg * wanted_space_time + 5
+	return
 
 func is_next_car_blocking():
 	# Determine wheter next car is a problem or not
 	var next_car = get_next_car_safe() # Remember it returns a tuple
 	if next_car[1]: # It seems weird to check this, but it so far is saying that if there is another car in the vicinity it can check if its problematic
-		return get_next_car_distance(next_car[0]) < wanted_space + get_stopping_distance(true)
+		return get_next_car_distance(next_car[0]) < wanted_space + get_stopping_distance(false)
 	else: return false
 
-
-func is_there_space():
-	if ROAD_DICT[next_road][0].get_child_count() != 0:
-		return ROAD_DICT[next_road][0].get_child(-1).get_progress() > wanted_space * (1 + next_road.get_child_count())
+func is_there_space_to_next_car():
+	var road_after_crossing = ROAD_DICT[next_road][0]	
+	if road_after_crossing.get_child_count() != 0:
+		var next_car = road_after_crossing.get_child(-1) 
+		if is_in_group("selected_car"):
+			print("road_length: %.3f   needed free space: %.3f" % [next_car.get_parent().get_curve().get_baked_length(), wanted_space * (1 + next_road.get_child_count())])
+		return next_car.get_parent().get_curve().get_baked_length() > 1.5 * desired_wanted_space * (1 + next_road.get_child_count())
 	else: 
 		return true
 
@@ -277,7 +283,8 @@ func change_road(new_road:Path3D):
 	return
 
 static func new_car(road_:Path3D, starting_offset_:float = 0, max_speed_:float = 13.88, velocity_debug_:bool = false,
-wanted_space_time_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0.1], reaction_time_:float = 50) -> Car:
+wanted_space_time_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0.1], reaction_time_:float = 50,
+desired_wanted_space_:float = 7) -> Car:
 	var new_car_: Car = my_scene.instantiate()
 	road_.add_child(new_car_)
 	new_car_.current_road = road_
@@ -292,9 +299,9 @@ wanted_space_time_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0
 		new_car_.max_speed = randf_range(5, 15)
 	else:
 		new_car_.max_speed = max_speed_
-	new_car_.speed = new_car_.max_speed
 	new_car_.acceleration = acceleration_
 	new_car_.de_acceleration = de_acceleration_
+	new_car_.desired_wanted_space = desired_wanted_space_
 
 	new_car_.loop = false
 	add_button(new_car_)

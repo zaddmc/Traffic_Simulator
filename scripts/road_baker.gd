@@ -82,7 +82,7 @@ func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debu
 			var road_len = road.get_curve().get_baked_length()
 			var spot_on_road = road_len - desired_spawn_space * itteration
 			if spot_on_road > desired_spawn_space:
-				Car.new_car(road, spot_on_road, 10, velocity_debug, wanted_space, [1.1,0.1], [0.9, 0.1], 20)
+				Car.new_car(road, spot_on_road, 10, velocity_debug, wanted_space, [1.1,0.1], [0.9, 0.1], 20, desired_spawn_space)
 				spawned_cars += 1
 		if spawned_cars_before == spawned_cars or spawned_cars >= car_spawn_count:
 			break
