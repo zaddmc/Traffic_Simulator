@@ -24,6 +24,10 @@ func _process(delta):
 			direction -= transform.basis.x
 		if Input.is_action_pressed("ui_right"):
 			direction += transform.basis.x
+		if Input.is_action_pressed("ui_backward"):
+			direction -= transform.basis.y
+		if Input.is_action_pressed("ui_forward"):
+			direction += transform.basis.y
 		
 		if Input.is_key_pressed(KEY_SHIFT):
 			direction = direction.normalized() * movement_speed * delta

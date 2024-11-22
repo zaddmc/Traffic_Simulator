@@ -19,7 +19,6 @@ var current_road: Path3D
 var current_roads = []
 var closest_car = null
 var wanted_space_time:float
-var wanted_space:float
 var velocity_debug:bool
 var breaking:bool = false
 var material: StandardMaterial3D = StandardMaterial3D.new()
@@ -28,7 +27,6 @@ var next_road:Path3D
 
 
 func update_car(delta: float) -> void:
-	wanted_space = speed * wanted_space_time + 5
 	"""Called by MainControl, to update the cars in their new state.
 	But it mainly does coloring for the cars and the final call of the solution from 'determine_speed_action'"""
 	match determine_speed_action():
@@ -63,7 +61,7 @@ func determine_speed_action() -> String:
 	# For debug printout
 	if is_in_group("selected_car"):
 		#print("open: %s isCrossing: %s freespace: %s" % [crossing_is_open, is_next_road_crossing(), free_space])
-		#print()
+		print("Full wandted space: %s and Distance: %s" % [get_wanted_space() + get_stopping_distance(true), get_distance_next_road()])
 		pass
 
 	# The way to add logic is to find all the reasons to brake/hold back for something, and if there is nothing to stop for, allow it drive.
@@ -73,7 +71,7 @@ func determine_speed_action() -> String:
 	if is_next_car_blocking():
 		return "brake"
 
-	if is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true):
+	if is_next_road_crossing() and get_distance_next_road() < get_wanted_space() + get_stopping_distance(true):
 		if not crossing_is_open or not is_there_space():
 			return "brake"
 
@@ -82,6 +80,9 @@ func determine_speed_action() -> String:
 #==================================================
 # Helper Functions to determine next speed setting
 #==================================================
+func get_wanted_space():
+	return speed * wanted_space_time + 5
+
 func is_next_car_blocking():
 	# Determine wheter next car is a problem or not
 	var next_car = get_next_car_safe() # Remember it returns a tuple
@@ -89,13 +90,12 @@ func is_next_car_blocking():
 	var is_next_car_blocking:bool = next_car[1]
 	if is_next_car_blocking: # It seems weird to check this, but it so far is saying that if there is another car in the vicinity it can check if its problematic
 		next_car_distance = get_next_car_distance(next_car[0])
-		is_next_car_blocking = next_car_distance < wanted_space + get_stopping_distance(true)
+		is_next_car_blocking = next_car_distance < get_wanted_space() + get_stopping_distance(true)
 	return is_next_car_blocking
-
 
 func is_there_space():
 	if ROAD_DICT[next_road][0].get_child_count() != 0:
-		return ROAD_DICT[next_road][0].get_child(-1).get_progress() > wanted_space * (1 + next_road.get_child_count())
+		return ROAD_DICT[next_road][0].get_child(-1).get_progress() > get_wanted_space() * (1 + next_road.get_child_count())
 	else: 
 		return true
 
@@ -199,7 +199,7 @@ func get_stopping_distance(is_max_distance:bool = false) -> float:
 	return (0.278 * t * v) + v*v / (254 * f)
 
 var de_acceleration # def = [0.9, 0.1] # First part of acceleration is multiplier and second is constant aswell as the minimum value before flatlining zero
-func de_accelerate() -> bool:
+func de_accelerate(stop:bool = false) -> bool:
 	"""Returns true if it changed speed"""
 	var old_speed = self.speed
 	var new_speed = old_speed * de_acceleration[0] - de_acceleration[1]
@@ -247,13 +247,13 @@ func change_road(new_road:Path3D):
 	return
 
 static func new_car(road_:Path3D, starting_offset_:float = 0, max_speed_:float = 13.88, velocity_debug_:bool = false,
-wanted_space_time:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0.1], reaction_time_:float = 50) -> Car:
+wanted_space_time_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0.1], reaction_time_:float = 50) -> Car:
 	var new_car_: Car = my_scene.instantiate()
 	road_.add_child(new_car_)
 	new_car_.current_road = road_
 	new_car_.change_road(road_)
 	
-	new_car_.wanted_space_time = wanted_space_time
+	new_car_.wanted_space_time = wanted_space_time_
 	new_car_.velocity_debug = velocity_debug_
 	new_car_.set_progress(starting_offset_) 
 	new_car_.reaction_time = reaction_time_
