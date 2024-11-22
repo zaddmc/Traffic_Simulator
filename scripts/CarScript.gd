@@ -59,20 +59,6 @@ func update_car(delta: float) -> void:
 
 func determine_speed_action() -> String:
 	var crossing_is_open:bool = (is_next_road_crossing() and is_next_crossing_green() and is_next_crossing_open())
-	
-	# Determine wheter next car is a problem or not
-	var next_car = get_next_car_safe() # Remember it returns a tuple
-	var next_car_distance:float = 0
-	var is_next_car_blocking:bool = next_car[1]
-	if is_next_car_blocking: # It seems weird to check this, but it so far is saying that if there is another car in the vicinity it can check if its problematic
-		next_car_distance = get_next_car_distance(next_car[0])
-		is_next_car_blocking = next_car_distance < wanted_space + get_stopping_distance(true)
-
-	var free_space:bool = false 
-	if ROAD_DICT[next_road][0].get_child_count() != 0:
-		free_space = ROAD_DICT[next_road][0].get_child(-1).get_progress() > wanted_space * (1 + next_road.get_child_count())
-	else: 
-		free_space = true
 
 	# For debug printout
 	if is_in_group("selected_car"):
@@ -84,18 +70,35 @@ func determine_speed_action() -> String:
 	if self.get_progress_ratio() > 0.99:
 		return "change_road"
 
-	if is_next_car_blocking:
+	if is_next_car_blocking():
 		return "brake"
+
 	if is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true):
-		if not crossing_is_open or not free_space:
+		if not crossing_is_open or not is_there_space():
 			return "brake"
-	
 
 	return "accelerate"
 
 #==================================================
 # Helper Functions to determine next speed setting
 #==================================================
+func is_next_car_blocking():
+	# Determine wheter next car is a problem or not
+	var next_car = get_next_car_safe() # Remember it returns a tuple
+	var next_car_distance:float = 0
+	var is_next_car_blocking:bool = next_car[1]
+	if is_next_car_blocking: # It seems weird to check this, but it so far is saying that if there is another car in the vicinity it can check if its problematic
+		next_car_distance = get_next_car_distance(next_car[0])
+		is_next_car_blocking = next_car_distance < wanted_space + get_stopping_distance(true)
+	return is_next_car_blocking
+
+
+func is_there_space():
+	if ROAD_DICT[next_road][0].get_child_count() != 0:
+		return ROAD_DICT[next_road][0].get_child(-1).get_progress() > wanted_space * (1 + next_road.get_child_count())
+	else: 
+		return true
+
 func get_distance_to_crossing(road_to_check:Path3D = next_road) -> float:
 	return is_next_road_crossing(road_to_check) and get_distance_next_road(road_to_check)
 
