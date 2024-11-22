@@ -124,12 +124,13 @@ func is_next_car_blocking():
 	else: return false
 
 func is_there_space_to_next_car():
-	var road_after_crossing = ROAD_DICT[next_road][0]	
+	var road_after_crossing = ROAD_DICT[next_road][0]
 	if road_after_crossing.get_child_count() != 0:
 		var next_car = road_after_crossing.get_child(-1) 
 		if is_in_group("selected_car"):
-			print("road_length: %.3f   needed free space: %.3f" % [next_car.get_parent().get_curve().get_baked_length(), wanted_space * (1 + next_road.get_child_count())])
-		return next_car.get_parent().get_curve().get_baked_length() > 1.5 * desired_wanted_space * (1 + next_road.get_child_count())
+			print("road_length: %.3f   needed free space: %.3f" % [next_car.get_parent().get_curve().get_baked_length(), desired_wanted_space * (1 + road_after_crossing.get_child_count() + next_road.get_child_count())])
+			print("next road: %s  and road after: %s " % [next_road, road_after_crossing])
+		return next_car.get_parent().get_curve().get_baked_length() > desired_wanted_space * (1 + road_after_crossing.get_child_count() + next_road.get_child_count())
 	else: 
 		return true
 
