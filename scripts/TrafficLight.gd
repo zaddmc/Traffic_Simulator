@@ -21,6 +21,8 @@ func start() -> void:
 	for n in roads:
 		light_dic[n] = "red"
 		n.get_child(-1).get_child(0).set_surface_override_material(0, material_red)
+	light_dic[roads[0]] = "green"
+	roads[0].get_child(-1).get_child(0).set_surface_override_material(0, material_green)
 
 func update_trafficlight():
 	match light_dic[roads[current_light]]:
