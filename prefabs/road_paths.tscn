@@ -1,6 +1,7 @@
-[gd_scene load_steps=149 format=3 uid="uid://vsukhu6d8u4"]
+[gd_scene load_steps=150 format=3 uid="uid://vsukhu6d8u4"]
 
 [ext_resource type="Script" path="res://scripts/road_baker.gd" id="1_h6xg4"]
+[ext_resource type="Script" path="res://scripts/analasys.gd" id="2_ydu4m"]
 
 [sub_resource type="Curve3D" id="Curve3D_61vpn"]
 _data = {
@@ -1035,416 +1036,419 @@ point_count = 7
 script = ExtResource("1_h6xg4")
 point_distance = null
 
-[node name="cross" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="crossings" type="Node3D" parent="."]
+script = ExtResource("2_ydu4m")
 
-[node name="_Node3D_11" type="Node3D" parent="cross"]
+[node name="cross" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="Path3D118" type="Path3D" parent="cross/_Node3D_11"]
+[node name="_Node3D_11" type="Node3D" parent="crossings/cross"]
+
+[node name="Path3D118" type="Path3D" parent="crossings/cross/_Node3D_11"]
 curve = SubResource("Curve3D_61vpn")
 
-[node name="Path3D34" type="Path3D" parent="cross/_Node3D_11"]
+[node name="Path3D34" type="Path3D" parent="crossings/cross/_Node3D_11"]
 curve = SubResource("Curve3D_v1tid")
 
-[node name="Path3D119" type="Path3D" parent="cross/_Node3D_11"]
+[node name="Path3D119" type="Path3D" parent="crossings/cross/_Node3D_11"]
 curve = SubResource("Curve3D_8rnke")
 
-[node name="_Node3D_10" type="Node3D" parent="cross"]
+[node name="_Node3D_10" type="Node3D" parent="crossings/cross"]
 
-[node name="Path3D120" type="Path3D" parent="cross/_Node3D_10"]
+[node name="Path3D120" type="Path3D" parent="crossings/cross/_Node3D_10"]
 curve = SubResource("Curve3D_hjulh")
 
-[node name="Path3D30" type="Path3D" parent="cross/_Node3D_10"]
+[node name="Path3D30" type="Path3D" parent="crossings/cross/_Node3D_10"]
 curve = SubResource("Curve3D_daepb")
 
-[node name="Path3D121" type="Path3D" parent="cross/_Node3D_10"]
+[node name="Path3D121" type="Path3D" parent="crossings/cross/_Node3D_10"]
 curve = SubResource("Curve3D_kjq1a")
 
-[node name="_Node3D_25" type="Node3D" parent="cross"]
+[node name="_Node3D_25" type="Node3D" parent="crossings/cross"]
 
-[node name="Path3D116" type="Path3D" parent="cross/_Node3D_25"]
+[node name="Path3D116" type="Path3D" parent="crossings/cross/_Node3D_25"]
 curve = SubResource("Curve3D_s1t2j")
 
-[node name="Path3D78" type="Path3D" parent="cross/_Node3D_25"]
+[node name="Path3D78" type="Path3D" parent="crossings/cross/_Node3D_25"]
 curve = SubResource("Curve3D_7o0gh")
 
-[node name="Path3D117" type="Path3D" parent="cross/_Node3D_25"]
+[node name="Path3D117" type="Path3D" parent="crossings/cross/_Node3D_25"]
 curve = SubResource("Curve3D_0x2ux")
 
-[node name="_Node3D_23" type="Node3D" parent="cross"]
+[node name="_Node3D_23" type="Node3D" parent="crossings/cross"]
 
-[node name="Path3D72" type="Path3D" parent="cross/_Node3D_23"]
+[node name="Path3D72" type="Path3D" parent="crossings/cross/_Node3D_23"]
 curve = SubResource("Curve3D_4ab4u")
 
-[node name="Path3D71" type="Path3D" parent="cross/_Node3D_23"]
+[node name="Path3D71" type="Path3D" parent="crossings/cross/_Node3D_23"]
 curve = SubResource("Curve3D_18lvc")
 
-[node name="cross2" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross2" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_30" type="Node3D" parent="cross2"]
+[node name="_Node3D_30" type="Node3D" parent="crossings/cross2"]
 
-[node name="Path3D93" type="Path3D" parent="cross2/_Node3D_30"]
+[node name="Path3D93" type="Path3D" parent="crossings/cross2/_Node3D_30"]
 curve = SubResource("Curve3D_1f8k2")
 
-[node name="Path3D92" type="Path3D" parent="cross2/_Node3D_30"]
+[node name="Path3D92" type="Path3D" parent="crossings/cross2/_Node3D_30"]
 curve = SubResource("Curve3D_lw32s")
 
-[node name="Path3D94" type="Path3D" parent="cross2/_Node3D_30"]
+[node name="Path3D94" type="Path3D" parent="crossings/cross2/_Node3D_30"]
 curve = SubResource("Curve3D_3xrny")
 
-[node name="_Node3D_22" type="Node3D" parent="cross2"]
+[node name="_Node3D_22" type="Node3D" parent="crossings/cross2"]
 
-[node name="Path3D112" type="Path3D" parent="cross2/_Node3D_22"]
+[node name="Path3D112" type="Path3D" parent="crossings/cross2/_Node3D_22"]
 curve = SubResource("Curve3D_etjk1")
 
-[node name="Path3D69" type="Path3D" parent="cross2/_Node3D_22"]
+[node name="Path3D69" type="Path3D" parent="crossings/cross2/_Node3D_22"]
 curve = SubResource("Curve3D_dtuyq")
 
-[node name="Path3D113" type="Path3D" parent="cross2/_Node3D_22"]
+[node name="Path3D113" type="Path3D" parent="crossings/cross2/_Node3D_22"]
 curve = SubResource("Curve3D_eva2y")
 
-[node name="_Node3D_33" type="Node3D" parent="cross2"]
+[node name="_Node3D_33" type="Node3D" parent="crossings/cross2"]
 
-[node name="Path3D106" type="Path3D" parent="cross2/_Node3D_33"]
+[node name="Path3D106" type="Path3D" parent="crossings/cross2/_Node3D_33"]
 curve = SubResource("Curve3D_4r8m8")
 
-[node name="Path3D105" type="Path3D" parent="cross2/_Node3D_33"]
+[node name="Path3D105" type="Path3D" parent="crossings/cross2/_Node3D_33"]
 curve = SubResource("Curve3D_0m7gq")
 
-[node name="Path3D107" type="Path3D" parent="cross2/_Node3D_33"]
+[node name="Path3D107" type="Path3D" parent="crossings/cross2/_Node3D_33"]
 curve = SubResource("Curve3D_o6k3j")
 
-[node name="_Node3D_26" type="Node3D" parent="cross2"]
+[node name="_Node3D_26" type="Node3D" parent="crossings/cross2"]
 
-[node name="Path3D114" type="Path3D" parent="cross2/_Node3D_26"]
+[node name="Path3D114" type="Path3D" parent="crossings/cross2/_Node3D_26"]
 curve = SubResource("Curve3D_7dpar")
 
-[node name="Path3D80" type="Path3D" parent="cross2/_Node3D_26"]
+[node name="Path3D80" type="Path3D" parent="crossings/cross2/_Node3D_26"]
 curve = SubResource("Curve3D_w48ld")
 
-[node name="Path3D115" type="Path3D" parent="cross2/_Node3D_26"]
+[node name="Path3D115" type="Path3D" parent="crossings/cross2/_Node3D_26"]
 curve = SubResource("Curve3D_dx38f")
 
-[node name="cross3" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross3" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_21" type="Node3D" parent="cross3"]
+[node name="_Node3D_21" type="Node3D" parent="crossings/cross3"]
 
-[node name="Path3D126" type="Path3D" parent="cross3/_Node3D_21"]
+[node name="Path3D126" type="Path3D" parent="crossings/cross3/_Node3D_21"]
 curve = SubResource("Curve3D_abmwu")
 
-[node name="Path3D67" type="Path3D" parent="cross3/_Node3D_21"]
+[node name="Path3D67" type="Path3D" parent="crossings/cross3/_Node3D_21"]
 curve = SubResource("Curve3D_dqdr5")
 
-[node name="_Node3D_27" type="Node3D" parent="cross3"]
+[node name="_Node3D_27" type="Node3D" parent="crossings/cross3"]
 
-[node name="Path3D83" type="Path3D" parent="cross3/_Node3D_27"]
+[node name="Path3D83" type="Path3D" parent="crossings/cross3/_Node3D_27"]
 curve = SubResource("Curve3D_82v5r")
 
-[node name="Path3D82" type="Path3D" parent="cross3/_Node3D_27"]
+[node name="Path3D82" type="Path3D" parent="crossings/cross3/_Node3D_27"]
 curve = SubResource("Curve3D_42iwf")
 
-[node name="Node3D" type="Node3D" parent="cross3"]
+[node name="Node3D" type="Node3D" parent="crossings/cross3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02223, 0, 0.471531)
 
-[node name="Path3D125" type="Path3D" parent="cross3/Node3D"]
+[node name="Path3D125" type="Path3D" parent="crossings/cross3/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.945, 0, -0.615)
 curve = SubResource("Curve3D_v1guo")
 
-[node name="Path3D4" type="Path3D" parent="cross3/Node3D"]
+[node name="Path3D4" type="Path3D" parent="crossings/cross3/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02223, 0, -0.471531)
 curve = SubResource("Curve3D_b1qo3")
 
-[node name="cross4" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross4" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="Node3D" type="Node3D" parent="cross4"]
+[node name="Node3D" type="Node3D" parent="crossings/cross4"]
 
-[node name="Path3D56" type="Path3D" parent="cross4/Node3D"]
+[node name="Path3D56" type="Path3D" parent="crossings/cross4/Node3D"]
 curve = SubResource("Curve3D_of85r")
 
-[node name="Path3D59" type="Path3D" parent="cross4/Node3D"]
+[node name="Path3D59" type="Path3D" parent="crossings/cross4/Node3D"]
 curve = SubResource("Curve3D_yfr0m")
 
-[node name="Node3D2" type="Node3D" parent="cross4"]
+[node name="Node3D2" type="Node3D" parent="crossings/cross4"]
 
-[node name="Path3D63" type="Path3D" parent="cross4/Node3D2"]
+[node name="Path3D63" type="Path3D" parent="crossings/cross4/Node3D2"]
 curve = SubResource("Curve3D_ikjgc")
 
-[node name="_Node3D_4" type="Node3D" parent="cross4"]
+[node name="_Node3D_4" type="Node3D" parent="crossings/cross4"]
 
-[node name="Path3D128" type="Path3D" parent="cross4/_Node3D_4"]
+[node name="Path3D128" type="Path3D" parent="crossings/cross4/_Node3D_4"]
 curve = SubResource("Curve3D_fqkak")
 
-[node name="Path3D8" type="Path3D" parent="cross4/_Node3D_4"]
+[node name="Path3D8" type="Path3D" parent="crossings/cross4/_Node3D_4"]
 curve = SubResource("Curve3D_46bgi")
 
-[node name="cross5" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross5" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_20" type="Node3D" parent="cross5"]
+[node name="_Node3D_20" type="Node3D" parent="crossings/cross5"]
 
-[node name="Path3D64" type="Path3D" parent="cross5/_Node3D_20"]
+[node name="Path3D64" type="Path3D" parent="crossings/cross5/_Node3D_20"]
 curve = SubResource("Curve3D_5cael")
 
-[node name="Path3D61" type="Path3D" parent="cross5/_Node3D_20"]
+[node name="Path3D61" type="Path3D" parent="crossings/cross5/_Node3D_20"]
 curve = SubResource("Curve3D_r5ofj")
 
-[node name="Node3D" type="Node3D" parent="cross5"]
+[node name="Node3D" type="Node3D" parent="crossings/cross5"]
 
-[node name="Path3D58" type="Path3D" parent="cross5/Node3D"]
+[node name="Path3D58" type="Path3D" parent="crossings/cross5/Node3D"]
 curve = SubResource("Curve3D_4upf1")
 
-[node name="Path3D127" type="Path3D" parent="cross5/Node3D"]
+[node name="Path3D127" type="Path3D" parent="crossings/cross5/Node3D"]
 curve = SubResource("Curve3D_p12em")
 
-[node name="_Node3D_3" type="Node3D" parent="cross5"]
+[node name="_Node3D_3" type="Node3D" parent="crossings/cross5"]
 
-[node name="Path3D65" type="Path3D" parent="cross5/_Node3D_3"]
+[node name="Path3D65" type="Path3D" parent="crossings/cross5/_Node3D_3"]
 curve = SubResource("Curve3D_hjxff")
 
-[node name="Path3D6" type="Path3D" parent="cross5/_Node3D_3"]
+[node name="Path3D6" type="Path3D" parent="crossings/cross5/_Node3D_3"]
 curve = SubResource("Curve3D_kiotg")
 
-[node name="cross6" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross6" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_2" type="Node3D" parent="cross6"]
+[node name="_Node3D_2" type="Node3D" parent="crossings/cross6"]
 
-[node name="Path3D111" type="Path3D" parent="cross6/_Node3D_2"]
+[node name="Path3D111" type="Path3D" parent="crossings/cross6/_Node3D_2"]
 curve = SubResource("Curve3D_jhpqy")
 
-[node name="Path3D2" type="Path3D" parent="cross6/_Node3D_2"]
+[node name="Path3D2" type="Path3D" parent="crossings/cross6/_Node3D_2"]
 curve = SubResource("Curve3D_4d27i")
 
-[node name="_Node3D_34" type="Node3D" parent="cross6"]
+[node name="_Node3D_34" type="Node3D" parent="crossings/cross6"]
 
-[node name="Path3D110" type="Path3D" parent="cross6/_Node3D_34"]
+[node name="Path3D110" type="Path3D" parent="crossings/cross6/_Node3D_34"]
 curve = SubResource("Curve3D_fnfkg")
 
-[node name="Path3D109" type="Path3D" parent="cross6/_Node3D_34"]
+[node name="Path3D109" type="Path3D" parent="crossings/cross6/_Node3D_34"]
 curve = SubResource("Curve3D_jyorx")
 
-[node name="_Node3D_28" type="Node3D" parent="cross6"]
+[node name="_Node3D_28" type="Node3D" parent="crossings/cross6"]
 
-[node name="Path3D90" type="Path3D" parent="cross6/_Node3D_28"]
+[node name="Path3D90" type="Path3D" parent="crossings/cross6/_Node3D_28"]
 curve = SubResource("Curve3D_ryhv8")
 
-[node name="Path3D85" type="Path3D" parent="cross6/_Node3D_28"]
+[node name="Path3D85" type="Path3D" parent="crossings/cross6/_Node3D_28"]
 curve = SubResource("Curve3D_pbfk1")
 
-[node name="cross7" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross7" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_29" type="Node3D" parent="cross7"]
+[node name="_Node3D_29" type="Node3D" parent="crossings/cross7"]
 
-[node name="Path3D88" type="Path3D" parent="cross7/_Node3D_29"]
+[node name="Path3D88" type="Path3D" parent="crossings/cross7/_Node3D_29"]
 curve = SubResource("Curve3D_gm10o")
 
-[node name="Path3D87" type="Path3D" parent="cross7/_Node3D_29"]
+[node name="Path3D87" type="Path3D" parent="crossings/cross7/_Node3D_29"]
 curve = SubResource("Curve3D_b4f3a")
 
-[node name="_Node3D_19" type="Node3D" parent="cross7"]
+[node name="_Node3D_19" type="Node3D" parent="crossings/cross7"]
 
-[node name="Path3D54" type="Path3D" parent="cross7/_Node3D_19"]
+[node name="Path3D54" type="Path3D" parent="crossings/cross7/_Node3D_19"]
 curve = SubResource("Curve3D_p3cc1")
 
-[node name="Path3D53" type="Path3D" parent="cross7/_Node3D_19"]
+[node name="Path3D53" type="Path3D" parent="crossings/cross7/_Node3D_19"]
 curve = SubResource("Curve3D_rq2rg")
 
-[node name="_Node3D_5" type="Node3D" parent="cross7"]
+[node name="_Node3D_5" type="Node3D" parent="crossings/cross7"]
 
-[node name="Path3D14" type="Path3D" parent="cross7/_Node3D_5"]
+[node name="Path3D14" type="Path3D" parent="crossings/cross7/_Node3D_5"]
 curve = SubResource("Curve3D_tfy04")
 
-[node name="Path3D13" type="Path3D" parent="cross7/_Node3D_5"]
+[node name="Path3D13" type="Path3D" parent="crossings/cross7/_Node3D_5"]
 curve = SubResource("Curve3D_xcg5o")
 
-[node name="cross8" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross8" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_6" type="Node3D" parent="cross8"]
+[node name="_Node3D_6" type="Node3D" parent="crossings/cross8"]
 
-[node name="Path3D17" type="Path3D" parent="cross8/_Node3D_6"]
+[node name="Path3D17" type="Path3D" parent="crossings/cross8/_Node3D_6"]
 curve = SubResource("Curve3D_d68rl")
 
-[node name="Path3D16" type="Path3D" parent="cross8/_Node3D_6"]
+[node name="Path3D16" type="Path3D" parent="crossings/cross8/_Node3D_6"]
 curve = SubResource("Curve3D_qgp1r")
 
-[node name="Node3D" type="Node3D" parent="cross8"]
+[node name="Node3D" type="Node3D" parent="crossings/cross8"]
 
-[node name="Path3D32" type="Path3D" parent="cross8/Node3D"]
+[node name="Path3D32" type="Path3D" parent="crossings/cross8/Node3D"]
 curve = SubResource("Curve3D_cyfvs")
 
-[node name="Path3D124" type="Path3D" parent="cross8/Node3D"]
+[node name="Path3D124" type="Path3D" parent="crossings/cross8/Node3D"]
 curve = SubResource("Curve3D_2edo5")
 
-[node name="_Node3D_18" type="Node3D" parent="cross8"]
+[node name="_Node3D_18" type="Node3D" parent="crossings/cross8"]
 
-[node name="Path3D51" type="Path3D" parent="cross8/_Node3D_18"]
+[node name="Path3D51" type="Path3D" parent="crossings/cross8/_Node3D_18"]
 curve = SubResource("Curve3D_dopvj")
 
-[node name="Path3D50" type="Path3D" parent="cross8/_Node3D_18"]
+[node name="Path3D50" type="Path3D" parent="crossings/cross8/_Node3D_18"]
 curve = SubResource("Curve3D_vds0t")
 
-[node name="cross9" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross9" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_24" type="Node3D" parent="cross9"]
+[node name="_Node3D_24" type="Node3D" parent="crossings/cross9"]
 
-[node name="Path3D75" type="Path3D" parent="cross9/_Node3D_24"]
+[node name="Path3D75" type="Path3D" parent="crossings/cross9/_Node3D_24"]
 curve = SubResource("Curve3D_gcw6b")
 
-[node name="Path3D74" type="Path3D" parent="cross9/_Node3D_24"]
+[node name="Path3D74" type="Path3D" parent="crossings/cross9/_Node3D_24"]
 curve = SubResource("Curve3D_2ccgw")
 
-[node name="_Node3D_17" type="Node3D" parent="cross9"]
+[node name="_Node3D_17" type="Node3D" parent="crossings/cross9"]
 
-[node name="Path3D122" type="Path3D" parent="cross9/_Node3D_17"]
+[node name="Path3D122" type="Path3D" parent="crossings/cross9/_Node3D_17"]
 curve = SubResource("Curve3D_vt1qd")
 
-[node name="Path3D48" type="Path3D" parent="cross9/_Node3D_17"]
+[node name="Path3D48" type="Path3D" parent="crossings/cross9/_Node3D_17"]
 curve = SubResource("Curve3D_w4qdr")
 
-[node name="_Node3D_7" type="Node3D" parent="cross9"]
+[node name="_Node3D_7" type="Node3D" parent="crossings/cross9"]
 
-[node name="Path3D76" type="Path3D" parent="cross9/_Node3D_7"]
+[node name="Path3D76" type="Path3D" parent="crossings/cross9/_Node3D_7"]
 curve = SubResource("Curve3D_jrfgx")
 
-[node name="Path3D19" type="Path3D" parent="cross9/_Node3D_7"]
+[node name="Path3D19" type="Path3D" parent="crossings/cross9/_Node3D_7"]
 curve = SubResource("Curve3D_685m0")
 
-[node name="cross10" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross10" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_12" type="Node3D" parent="cross10"]
+[node name="_Node3D_12" type="Node3D" parent="crossings/cross10"]
 
-[node name="Path3D134" type="Path3D" parent="cross10/_Node3D_12"]
+[node name="Path3D134" type="Path3D" parent="crossings/cross10/_Node3D_12"]
 curve = SubResource("Curve3D_hqxyx")
 
-[node name="Path3D36" type="Path3D" parent="cross10/_Node3D_12"]
+[node name="Path3D36" type="Path3D" parent="crossings/cross10/_Node3D_12"]
 curve = SubResource("Curve3D_ebg6g")
 
-[node name="Path3D137" type="Path3D" parent="cross10/_Node3D_12"]
+[node name="Path3D137" type="Path3D" parent="crossings/cross10/_Node3D_12"]
 curve = SubResource("Curve3D_7ba4k")
 
-[node name="_Node3D_36" type="Node3D" parent="cross10"]
+[node name="_Node3D_36" type="Node3D" parent="crossings/cross10"]
 
-[node name="Path3D135" type="Path3D" parent="cross10/_Node3D_36"]
+[node name="Path3D135" type="Path3D" parent="crossings/cross10/_Node3D_36"]
 curve = SubResource("Curve3D_k7qfb")
 
-[node name="Path3D133" type="Path3D" parent="cross10/_Node3D_36"]
+[node name="Path3D133" type="Path3D" parent="crossings/cross10/_Node3D_36"]
 curve = SubResource("Curve3D_4p3g5")
 
-[node name="Path3D139" type="Path3D" parent="cross10/_Node3D_36"]
+[node name="Path3D139" type="Path3D" parent="crossings/cross10/_Node3D_36"]
 curve = SubResource("Curve3D_rd13g")
 
-[node name="_Node3D_9" type="Node3D" parent="cross10"]
+[node name="_Node3D_9" type="Node3D" parent="crossings/cross10"]
 
-[node name="Path3D140" type="Path3D" parent="cross10/_Node3D_9"]
+[node name="Path3D140" type="Path3D" parent="crossings/cross10/_Node3D_9"]
 curve = SubResource("Curve3D_74yr0")
 
-[node name="Path3D28" type="Path3D" parent="cross10/_Node3D_9"]
+[node name="Path3D28" type="Path3D" parent="crossings/cross10/_Node3D_9"]
 curve = SubResource("Curve3D_d7jl7")
 
-[node name="Path3D141" type="Path3D" parent="cross10/_Node3D_9"]
+[node name="Path3D141" type="Path3D" parent="crossings/cross10/_Node3D_9"]
 curve = SubResource("Curve3D_kabi8")
 
-[node name="_Node3D_37" type="Node3D" parent="cross10"]
+[node name="_Node3D_37" type="Node3D" parent="crossings/cross10"]
 
-[node name="Path3D138" type="Path3D" parent="cross10/_Node3D_37"]
+[node name="Path3D138" type="Path3D" parent="crossings/cross10/_Node3D_37"]
 curve = SubResource("Curve3D_h0pek")
 
-[node name="Path3D136" type="Path3D" parent="cross10/_Node3D_37"]
+[node name="Path3D136" type="Path3D" parent="crossings/cross10/_Node3D_37"]
 curve = SubResource("Curve3D_0st4w")
 
-[node name="Path3D142" type="Path3D" parent="cross10/_Node3D_37"]
+[node name="Path3D142" type="Path3D" parent="crossings/cross10/_Node3D_37"]
 curve = SubResource("Curve3D_6c55h")
 
-[node name="cross11" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross11" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_35" type="Node3D" parent="cross11"]
+[node name="_Node3D_35" type="Node3D" parent="crossings/cross11"]
 
-[node name="Path3D130" type="Path3D" parent="cross11/_Node3D_35"]
+[node name="Path3D130" type="Path3D" parent="crossings/cross11/_Node3D_35"]
 curve = SubResource("Curve3D_pwoft")
 
-[node name="Path3D129" type="Path3D" parent="cross11/_Node3D_35"]
+[node name="Path3D129" type="Path3D" parent="crossings/cross11/_Node3D_35"]
 curve = SubResource("Curve3D_sl4v8")
 
-[node name="_Node3D_32" type="Node3D" parent="cross11"]
+[node name="_Node3D_32" type="Node3D" parent="crossings/cross11"]
 
-[node name="Path3D103" type="Path3D" parent="cross11/_Node3D_32"]
+[node name="Path3D103" type="Path3D" parent="crossings/cross11/_Node3D_32"]
 curve = SubResource("Curve3D_op15w")
 
-[node name="Path3D102" type="Path3D" parent="cross11/_Node3D_32"]
+[node name="Path3D102" type="Path3D" parent="crossings/cross11/_Node3D_32"]
 curve = SubResource("Curve3D_qqnc4")
 
-[node name="_Node3D_31" type="Node3D" parent="cross11"]
+[node name="_Node3D_31" type="Node3D" parent="crossings/cross11"]
 
-[node name="Path3D97" type="Path3D" parent="cross11/_Node3D_31"]
+[node name="Path3D97" type="Path3D" parent="crossings/cross11/_Node3D_31"]
 curve = SubResource("Curve3D_etvcn")
 
-[node name="Path3D96" type="Path3D" parent="cross11/_Node3D_31"]
+[node name="Path3D96" type="Path3D" parent="crossings/cross11/_Node3D_31"]
 curve = SubResource("Curve3D_xg5fj")
 
-[node name="cross12" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross12" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_13" type="Node3D" parent="cross12"]
+[node name="_Node3D_13" type="Node3D" parent="crossings/cross12"]
 
-[node name="Path3D100" type="Path3D" parent="cross12/_Node3D_13"]
+[node name="Path3D100" type="Path3D" parent="crossings/cross12/_Node3D_13"]
 curve = SubResource("Curve3D_8b4gt")
 
-[node name="Path3D38" type="Path3D" parent="cross12/_Node3D_13"]
+[node name="Path3D38" type="Path3D" parent="crossings/cross12/_Node3D_13"]
 curve = SubResource("Curve3D_8th6o")
 
-[node name="Node3D" type="Node3D" parent="cross12"]
+[node name="Node3D" type="Node3D" parent="crossings/cross12"]
 
-[node name="Path3D99" type="Path3D" parent="cross12/Node3D"]
+[node name="Path3D99" type="Path3D" parent="crossings/cross12/Node3D"]
 curve = SubResource("Curve3D_l6rbt")
 
-[node name="Node3D2" type="Node3D" parent="cross12"]
+[node name="Node3D2" type="Node3D" parent="crossings/cross12"]
 
-[node name="Path3D26" type="Path3D" parent="cross12/Node3D2"]
+[node name="Path3D26" type="Path3D" parent="crossings/cross12/Node3D2"]
 curve = SubResource("Curve3D_6c6ha")
 
-[node name="cross13" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross13" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_14" type="Node3D" parent="cross13"]
+[node name="_Node3D_14" type="Node3D" parent="crossings/cross13"]
 
-[node name="Path3D89" type="Path3D" parent="cross13/_Node3D_14"]
+[node name="Path3D89" type="Path3D" parent="crossings/cross13/_Node3D_14"]
 curve = SubResource("Curve3D_ob4u1")
 
-[node name="Path3D40" type="Path3D" parent="cross13/_Node3D_14"]
+[node name="Path3D40" type="Path3D" parent="crossings/cross13/_Node3D_14"]
 curve = SubResource("Curve3D_os23e")
 
-[node name="_Node3D_15" type="Node3D" parent="cross13"]
+[node name="_Node3D_15" type="Node3D" parent="crossings/cross13"]
 
-[node name="Path3D44" type="Path3D" parent="cross13/_Node3D_15"]
+[node name="Path3D44" type="Path3D" parent="crossings/cross13/_Node3D_15"]
 curve = SubResource("Curve3D_f8cbq")
 
-[node name="Path3D43" type="Path3D" parent="cross13/_Node3D_15"]
+[node name="Path3D43" type="Path3D" parent="crossings/cross13/_Node3D_15"]
 curve = SubResource("Curve3D_7fa14")
 
-[node name="Node3D" type="Node3D" parent="cross13"]
+[node name="Node3D" type="Node3D" parent="crossings/cross13"]
 
-[node name="Path3D24" type="Path3D" parent="cross13/Node3D"]
+[node name="Path3D24" type="Path3D" parent="crossings/cross13/Node3D"]
 curve = SubResource("Curve3D_toy1f")
 
-[node name="cross14" type="Node3D" parent="." groups=["TrafficLights"]]
+[node name="cross14" type="Node3D" parent="crossings" groups=["TrafficLights"]]
 
-[node name="_Node3D_38" type="Node3D" parent="cross14"]
+[node name="_Node3D_38" type="Node3D" parent="crossings/cross14"]
 
-[node name="Path3D146" type="Path3D" parent="cross14/_Node3D_38"]
+[node name="Path3D146" type="Path3D" parent="crossings/cross14/_Node3D_38"]
 curve = SubResource("Curve3D_mpw15")
 
-[node name="Path3D145" type="Path3D" parent="cross14/_Node3D_38"]
+[node name="Path3D145" type="Path3D" parent="crossings/cross14/_Node3D_38"]
 curve = SubResource("Curve3D_j552c")
 
-[node name="_Node3D_16" type="Node3D" parent="cross14"]
+[node name="_Node3D_16" type="Node3D" parent="crossings/cross14"]
 
-[node name="Path3D148" type="Path3D" parent="cross14/_Node3D_16"]
+[node name="Path3D148" type="Path3D" parent="crossings/cross14/_Node3D_16"]
 curve = SubResource("Curve3D_qcwyn")
 
-[node name="Path3D46" type="Path3D" parent="cross14/_Node3D_16"]
+[node name="Path3D46" type="Path3D" parent="crossings/cross14/_Node3D_16"]
 curve = SubResource("Curve3D_2oia7")
 
-[node name="_Node3D_8" type="Node3D" parent="cross14"]
+[node name="_Node3D_8" type="Node3D" parent="crossings/cross14"]
 
-[node name="Path3D147" type="Path3D" parent="cross14/_Node3D_8"]
+[node name="Path3D147" type="Path3D" parent="crossings/cross14/_Node3D_8"]
 curve = SubResource("Curve3D_n4pt8")
 
-[node name="Path3D22" type="Path3D" parent="cross14/_Node3D_8"]
+[node name="Path3D22" type="Path3D" parent="crossings/cross14/_Node3D_8"]
 curve = SubResource("Curve3D_scaw6")
 
 [node name="straight_roads" type="Node3D" parent="."]
