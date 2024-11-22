@@ -19,6 +19,7 @@ var current_road: Path3D
 var current_roads = []
 var closest_car = null
 var wanted_space_time:float
+var wanted_space:float
 var velocity_debug:bool
 var breaking:bool = false
 var material: StandardMaterial3D = StandardMaterial3D.new()
@@ -61,13 +62,16 @@ func update_car(delta: float) -> void:
 var stuck_count:int = 0
 
 func determine_speed_action() -> String:
+	update_wanted_space()
+
 	var crossing_is_open:bool = (is_next_road_crossing() and is_next_crossing_green() and is_next_crossing_open())
 
 	# For debug printout
 	if is_in_group("selected_car"):
 		#print("open: %s isCrossing: %s freespace: %s" % [crossing_is_open, is_next_road_crossing(), free_space])
-		#print("Full wandted space: %s and Distance: %s" % [get_wanted_space() + get_stopping_distance(true), get_distance_next_road()])
+		print("Full wandted space: %s and Distance: %s" % [wanted_space + get_stopping_distance(true), get_distance_next_road()])
 		print(is_next_car_blocking())
+		print()
 		pass
 
 	# The way to add logic is to find all the reasons to brake/hold back for something, and if there is nothing to stop for, allow it drive.
@@ -77,7 +81,7 @@ func determine_speed_action() -> String:
 	if is_next_car_blocking():
 		return "brake"
 
-	if is_next_road_crossing() and get_distance_next_road() < get_wanted_space() + get_stopping_distance(true):
+	if is_next_road_crossing() and get_distance_next_road() < wanted_space + get_stopping_distance(true):
 		if not crossing_is_open or not is_there_space():
 			if stuck_count > 60:
 				stuck_count = 0
@@ -96,20 +100,30 @@ func change_next_road() -> bool:
 	next_road = ROAD_DICT[current_road].pick_random()
 	return true
 
-func get_wanted_space():
-	return speed * wanted_space_time + 5
+var speed_stamps = []
+func update_wanted_space():
+	speed_stamps.append(speed)
+	if len(speed_stamps) > 5:
+		speed_stamps.remove_at(0)
+	var speed_avg = 0
+	for spd in speed_stamps:
+		speed_avg += spd
+	speed_avg /= len(speed_stamps)
+	if is_in_group("selected_car"):
+		print(speed_avg)
+	wanted_space = speed_avg * wanted_space_time + 5
 
 func is_next_car_blocking():
 	# Determine wheter next car is a problem or not
 	var next_car = get_next_car_safe() # Remember it returns a tuple
 	if next_car[1]: # It seems weird to check this, but it so far is saying that if there is another car in the vicinity it can check if its problematic
-		return get_next_car_distance(next_car[0]) < get_wanted_space() + get_stopping_distance(true)
+		return get_next_car_distance(next_car[0]) < wanted_space + get_stopping_distance(true)
 	else: return false
 
 
 func is_there_space():
 	if ROAD_DICT[next_road][0].get_child_count() != 0:
-		return ROAD_DICT[next_road][0].get_child(-1).get_progress() > get_wanted_space() * (1 + next_road.get_child_count())
+		return ROAD_DICT[next_road][0].get_child(-1).get_progress() > wanted_space * (1 + next_road.get_child_count())
 	else: 
 		return true
 

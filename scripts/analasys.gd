@@ -16,17 +16,4 @@ func _ready() -> void:
 
 func add_through(road):
 	total_cars_through += 1
-	print(road)
 	cars_through_direction[road.get_index()] += 1
-	print("yes")
-
-
-
-
-
-
-
-
-
-
-
