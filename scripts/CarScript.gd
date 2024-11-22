@@ -278,6 +278,7 @@ static func add_button(car):
 	var area_node = mesh.get_child(0)
 	var collision_node = area_node.get_child(0)
 	collision_node.shape.size = mesh.get_aabb().size
+	print(mesh.get_aabb().size)
 	return
 
 func update_car_color():
