@@ -2,7 +2,7 @@ class_name  Analasys
 extends Node
 """Class / script to be placed on a traffic light root node 'cross' to count the 
 throughput through it"""
-
+#Git setup check
 
 var total_cars_through: int = 0 
 var cars_through_direction = []
