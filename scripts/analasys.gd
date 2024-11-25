@@ -32,5 +32,6 @@ func save_data():
 	var file = FileAccess.open("res://save_game.csv", FileAccess.WRITE)
 	print("step2")
 	for x in range(0, total_cars_through_histo.size()):
-		file.store_csv_line(PackedStringArray([x ,total_cars_through_histo[x]]))
+		file.store_csv_line(PackedStringArray([total_cars_through_histo[x]]))
 	file.close()
+	get_tree().quit()
