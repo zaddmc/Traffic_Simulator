@@ -36,56 +36,56 @@ point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_5yv6e"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.49137, 0, 1.9962, 0, 0, 0, 0, 0, 0, 24.5291, 0, 2.01953),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.49137, 0, 1.9962, 0, 0, 0, 0, 0, 0, 56.6589, 0, 2.07729),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_iulhp"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 24.4113, 0, -1.98956, 0, 0, 0, 0, 0, 0, 3.50705, 0, -1.99396),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 56.7377, 0, -1.93145, 0, 0, 0, 0, 0, 0, 3.50705, 0, -1.99396),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_5ci12"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 1.97544, 0, -3.48334, 0, 0, 0, 0, 0, 0, 2.03833, 0, -24.1462),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 1.97544, 0, -3.48334, 0, 0, 0, 0, 0, 0, 2.09486, 0, -55.5947),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_6d0wk"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1.97508, 0, -23.9991, 0, 0, 0, 0, 0, 0, -1.91804, 0, -3.45873),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1.91781, 0, -55.8561, 0, 0, 0, 0, 0, 0, -1.91804, 0, -3.45873),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_jo6ip"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -3.46445, 0, -1.97998, 0, 0, 0, 0, 0, 0, -24.0781, 0, -1.97139),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -3.46445, 0, -1.97998, 0, 0, 0, 0, 0, 0, -56.1393, 0, -2.02903),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_qb4xj"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -24.2066, 0, 2.0709, 0, 0, 0, 0, 0, 0, -3.50875, 0, 2.04645),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -55.0425, 0, 2.01547, 0, 0, 0, 0, 0, 0, -3.50875, 0, 2.04645),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_3o7wj"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1.98434, 0, 3.56972, 0, 0, 0, 0, 0, 0, -1.88633, 0, 24.0476),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1.98434, 0, 3.56972, 0, 0, 0, 0, 0, 0, -1.94285, 0, 55.489),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_nvsfb"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.02601, 0, 23.9979, 0, 0, 0, 0, 0, 0, 1.95265, 0, 3.52767),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 1.97034, 0, 54.9629, 0, 0, 0, 0, 0, 0, 1.95265, 0, 3.52767),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -99,6 +99,7 @@ velocity_debug = true
 spacing_multiplier = 1
 
 [node name="road_paths" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0944229, 0, -0.0947611)
 script = ExtResource("2_sbrvt")
 
 [node name="Crossings" type="Node3D" parent="road_paths"]
@@ -159,6 +160,7 @@ curve = SubResource("Curve3D_51h7w")
 curve = SubResource("Curve3D_5yv6e")
 
 [node name="Path3D2" type="Path3D" parent="road_paths/straight" groups=["road_allow_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00620647, 0.160839, -0.589887)
 curve = SubResource("Curve3D_iulhp")
 
 [node name="Path3D3" type="Path3D" parent="road_paths/straight"]
@@ -183,9 +185,10 @@ curve = SubResource("Curve3D_nvsfb")
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 4, 0, -5)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.56643, 0.386317, -0.727953, 0, 0.883321, 0.468769, 0.82411, 0.265525, -0.50034, -17.5673, 8.77067, -12.0583)
+transform = Transform3D(1, 0.00179769, 7.85796e-11, 0, -4.37114e-08, 1, 0.00179769, -0.999999, -4.37113e-08, 1.90036, 46.9592, -0.665864)
+h_offset = -0.085
 current = true
-fov = 58.0
+fov = 52.9
 script = ExtResource("3_jvfn5")
 
 [node name="cross" parent="." instance=ExtResource("4_uaxj8")]
