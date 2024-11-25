@@ -287,7 +287,7 @@ func change_road(new_road:Path3D):
 
 static func new_car(road_:Path3D, starting_offset_:float = 0, max_speed_:float = 13.88, velocity_debug_:bool = false,
 wanted_space_time_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0.1], reaction_time_:float = 50,
-desired_wanted_space_:float = 7) -> Car:
+desired_wanted_space_:float = 7, scale_int:float = 1) -> Car:
 	var new_car_: Car = my_scene.instantiate()
 	road_.add_child(new_car_)
 	new_car_.current_road = road_
@@ -297,6 +297,7 @@ desired_wanted_space_:float = 7) -> Car:
 	new_car_.velocity_debug = velocity_debug_
 	new_car_.set_progress(starting_offset_) 
 	new_car_.reaction_time = reaction_time_
+	new_car_.scale = scale_int * Vector3(1,1,1)
 	
 	if (max_speed_ == 0):
 		new_car_.max_speed = randf_range(5, 15)

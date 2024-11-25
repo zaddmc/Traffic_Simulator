@@ -7,6 +7,7 @@
 
 [node name="Car" type="PathFollow3D"]
 transform = Transform3D(0.999943, 0, 0, 0, 0.99995, 0, 0, 0, 0.999958, 0, 0, 0.0174198)
+top_level = true
 script = ExtResource("1_2aw4a")
 selected_color = Color(1, 1, 1, 1)
 

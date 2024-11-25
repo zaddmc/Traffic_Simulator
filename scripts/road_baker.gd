@@ -18,7 +18,7 @@ func bake_roads():
 			var points2 = rod.get_curve().get_baked_points()
 			var point2 = rod.to_global(points2[0])
 			var space_between = (point1 - point2).length()
-			if space_between <= 2:
+			if space_between <= 3:
 				close_roads.append(rod)
 				rod.get_curve().set_point_position(0,rod.to_local(point1))
 
@@ -61,7 +61,7 @@ func recursive_road_finder(input):
 				return_value.append_array(result)
 		return return_value
 
-func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debug:bool = false, spacing_multiplier:float = 2):
+func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debug:bool = false, spacing_multiplier:float = 2, scale_int:float = 1):
 	# insure spawn count
 	if car_spawn_count <= 0:
 		car_spawn_count = 10
@@ -82,7 +82,7 @@ func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debu
 			var road_len = road.get_curve().get_baked_length()
 			var spot_on_road = road_len - desired_spawn_space * itteration
 			if spot_on_road > desired_spawn_space:
-				Car.new_car(road, spot_on_road, 10, velocity_debug, wanted_space, [1.1,0.1], [0.9, 0.1], 20, desired_spawn_space)
+				Car.new_car(road, spot_on_road, 13.8, velocity_debug, wanted_space, [1.1,0.1], [0.9, 0.1], 20, desired_spawn_space, scale_int)
 				spawned_cars += 1
 		if spawned_cars_before == spawned_cars or spawned_cars >= car_spawn_count:
 			break
