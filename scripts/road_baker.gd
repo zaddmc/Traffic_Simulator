@@ -18,12 +18,12 @@ func bake_roads():
 			var points2 = rod.get_curve().get_baked_points()
 			var point2 = rod.to_global(points2[0])
 			var space_between = (point1 - point2).length()
-			if space_between <= 2:
+			if space_between <= 1:
 				close_roads.append(rod)
 				rod.get_curve().set_point_position(0,rod.to_local(point1))
 
 
-			elif space_between <= 15:
+			elif space_between <= 10:
 				backup_list.append(rod)
 
 		if close_roads == []:
@@ -61,11 +61,13 @@ func recursive_road_finder(input):
 				return_value.append_array(result)
 		return return_value
 
-func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debug:bool = false, spacing_multiplier:float = 2):
+func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debug:bool = false, spacing_multiplier:float = 2, percent_fast:float = 0.5):
 	# insure spawn count
 	if car_spawn_count <= 0:
 		car_spawn_count = 10
-		
+	
+	reaction_time(car_spawn_count, percent_fast)
+	
 	var spawnable_roads = get_tree().get_nodes_in_group("road_allow_spawn")
 	var itteration = 1
 	var spawned_cars = 0
@@ -82,13 +84,20 @@ func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debu
 			var road_len = road.get_curve().get_baked_length()
 			var spot_on_road = road_len - desired_spawn_space * itteration
 			if spot_on_road > desired_spawn_space:
-				Car.new_car(road, spot_on_road, 10, velocity_debug, wanted_space, [1.1,0.1], [0.9, 0.1], 20, desired_spawn_space)
+				Car.new_car(road, spot_on_road, 10, velocity_debug, wanted_space, [1.1,0.1], [0.9, 0.1], reaction_times.pick_random(), desired_spawn_space)
 				spawned_cars += 1
 		if spawned_cars_before == spawned_cars or spawned_cars >= car_spawn_count:
 			break
 		itteration += 1
 	print("Spawned cars: %s" % spawned_cars)
 	return
+
+var reaction_times = []
+func reaction_time(car_spawn_count: int, procent:float):
+	for car in range(int(car_spawn_count * procent)): # Fast / computer
+		reaction_times.append(clamp(randfn(0.02, 0.01),0.01, 0.03))
+	for car in range(int(car_spawn_count * (1 - procent))): # Slow / human
+		reaction_times.append(clamp(randfn(0.25, 0.1), 0.15, 0.35))
 
 @export var point_distance: float = 0.2
 func find_divering_paths():
@@ -115,7 +124,7 @@ func find_divering_paths():
 		else:
 			print(road.get_name())
 
-func assign_traffic_lights(light_timer, light_auto_start):
+func assign_traffic_lights(light_timer, _light_auto_start):
 	var crossings = get_tree().get_nodes_in_group("TrafficLights")
 	var script = load("res://scripts/TrafficLight.gd") 
 	const lightsphere: PackedScene = preload("res://prefabs/light.tscn")
