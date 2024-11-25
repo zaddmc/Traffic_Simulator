@@ -4,6 +4,7 @@ extends Node
 throughput through it"""
 #Git setup check
 
+@export var itterations: int = 10
 var total_cars_through: int = 0
 var total_cars_through_histo: Array[int]
 var cars_through_direction = []
@@ -22,4 +23,15 @@ func add_through(road):
 
 func update_histo():
     total_cars_through_histo.append(total_cars_through)
-    
+    if total_cars_through_histo.size() >= itterations:
+        print("step1")
+        save_data()
+
+
+func save_data():
+    var file = FileAccess.open("res://save_game.csv", FileAccess.WRITE)
+    print("step2")
+    for x in range(0, total_cars_through_histo.size()):
+        file.store_csv_line(PackedStringArray([x ,total_cars_through_histo[x]]))
+    file.close()
+
