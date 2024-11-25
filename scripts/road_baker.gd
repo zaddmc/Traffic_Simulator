@@ -18,7 +18,7 @@ func bake_roads():
             var points2 = rod.get_curve().get_baked_points()
             var point2 = rod.to_global(points2[0])
             var space_between = (point1 - point2).length()
-            if space_between <= 3:
+            if space_between <= 1:
                 close_roads.append(rod)
                 rod.get_curve().set_point_position(0,rod.to_local(point1))
 
