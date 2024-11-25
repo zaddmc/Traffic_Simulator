@@ -15,7 +15,7 @@ func _ready() -> void:
 func _on_all_loaded():
 	var roads = get_node("road_paths") # Gets road_baker.gd script
 	roads.bake_roads()
-	roads.assign_traffic_lights(light_time, lights_on)
+	roads.assign_traffic_lights(light_time, lights_on, scale_int)
 	roads.spawn_cars(car_spawn_count, wanted_space, velocity_debug, spacing_multiplier, scale_int)
 	return
 

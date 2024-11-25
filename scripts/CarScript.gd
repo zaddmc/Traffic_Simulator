@@ -115,7 +115,7 @@ func update_wanted_space():
 	for spd in speed_stamps:
 		speed_avg += spd
 	speed_avg /= len(speed_stamps)
-	wanted_space = speed_avg * wanted_space_time + 3
+	wanted_space = speed_avg * wanted_space_time + 3 * self.scale.x
 	return
 
 func is_next_car_blocking():
@@ -230,7 +230,7 @@ func is_next_road_crossing(road_to_check:Path3D = current_roads[1]) -> bool:
 	return crossing.is_in_group("TrafficLights")
 
 func get_stopping_distance(is_max_distance:bool = false) -> float:
-	var v = self.speed if not is_max_distance else self.max_speed
+	var v = self.speed * 3.6 if not is_max_distance else self.max_speed * 3.6
 	var f = de_acceleration[0]
 	var t = reaction_time * 0.001 # Reaction time is in miliseconds but the formula needs it in seconds
 	return (0.278 * t * v) + v*v / (254 * f)
