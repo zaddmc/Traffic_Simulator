@@ -26,53 +26,55 @@ func bake_roads():
 			elif space_between <= 10:
 				backup_list.append(rod)
 
-        if close_roads == []:
-            close_roads = backup_list
+		if close_roads == []:
+			close_roads = backup_list
 
-        road_dict[road] = close_roads
-        for croad in close_roads:
-            if inv_road_dict.has(croad):
-                inv_road_dict[croad].append(road)
-            else:
-                inv_road_dict[croad] = [road]
-    for droad in inv_road_dict:
-        var point3 = droad.to_global(droad.get_curve().get_point_position(0))
-        for eroad in inv_road_dict[droad]:
-            var temp_points = eroad.get_curve().get_baked_points()
-            if (point3 - eroad.to_global(temp_points[temp_points.size()-1])).length() < 1:
-                eroad.get_curve().set_point_position(eroad.get_curve().get_point_count() -1, eroad.to_local(point3))
+		road_dict[road] = close_roads
+		for croad in close_roads:
+			if inv_road_dict.has(croad):
+				inv_road_dict[croad].append(road)
+			else:
+				inv_road_dict[croad] = [road]
+	for droad in inv_road_dict:
+		var point3 = droad.to_global(droad.get_curve().get_point_position(0))
+		for eroad in inv_road_dict[droad]:
+			var temp_points = eroad.get_curve().get_baked_points()
+			if (point3 - eroad.to_global(temp_points[temp_points.size()-1])).length() < 1:
+				eroad.get_curve().set_point_position(eroad.get_curve().get_point_count() -1, eroad.to_local(point3))
 
 
-    # Giving the result to the cars
-    #print(road_dict)
-    Car.set_baked_roads(road_dict, inv_road_dict)
-    return
+	# Giving the result to the cars
+	#print(road_dict)
+	Car.set_baked_roads(road_dict, inv_road_dict)
+	return
 
 func recursive_road_finder(input):
-    if input is Path3D:
-        return [input]
-    elif input is MeshInstance3D:
-        return null
-    else: # Presumably Node3D, which is kind of treated as a list
-        var return_value = []
-        for child in input.get_children():
-            var result = recursive_road_finder(child)
-            if result != null:
-                return_value.append_array(result)
-        return return_value
+	if input is Path3D:
+		return [input]
+	elif input is MeshInstance3D:
+		return null
+	else: # Presumably Node3D, which is kind of treated as a list
+		var return_value = []
+		for child in input.get_children():
+			var result = recursive_road_finder(child)
+			if result != null:
+				return_value.append_array(result)
+		return return_value
 
-func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debug:bool = false, spacing_multiplier:float = 2, percent_fast:flaot = 0.5, scale_int:float = 1):
-    # insure spawn count
-    if car_spawn_count <= 0:
-        car_spawn_count = 10
-        
-    var spawnable_roads = get_tree().get_nodes_in_group("road_allow_spawn")
-    var itteration = 1
-    var spawned_cars = 0
+func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debug:bool = false, spacing_multiplier:float = 2, percent_fast:float = 0.5, scale_int:float = 1):
+	# insure spawn count
+	if car_spawn_count <= 0:
+		car_spawn_count = 10
+	
+	reaction_time(car_spawn_count, percent_fast)
+	
+	var spawnable_roads = get_tree().get_nodes_in_group("road_allow_spawn")
+	var itteration = 1
+	var spawned_cars = 0
 
-    # Get scalable spawning distance
-    var temp_car = load("res://prefabs/car.tscn").instantiate() # Only intended for next line
-    var desired_spawn_space = (temp_car.get_child(0).get_child(0).get_aabb().size.x) / (temp_car.get_child(0).scale.x) * spacing_multiplier * scale_int
+	# Get scalable spawning distance
+	var temp_car = load("res://prefabs/car.tscn").instantiate() # Only intended for next line
+	var desired_spawn_space = (temp_car.get_child(0).get_child(0).get_aabb().size.x) / (temp_car.get_child(0).scale.x) * spacing_multiplier * scale_int
 
 	while true:
 		var spawned_cars_before = spawned_cars
@@ -99,52 +101,52 @@ func reaction_time(car_spawn_count: int, procent:float):
 
 @export var point_distance: float = 0.2
 func find_divering_paths():
-    for road in roads:
-        var roadpoints = road.get_curve().get_baked_points()
-        if roadpoints.size() > 0:
-            var roadpoint1 = road.to_global(roadpoints[0])
-        
-            for rod in roads:
-                if rod != road:
-                    var rodpoints = rod.get_curve().get_baked_points()
-                    if rodpoints.size() > 0:
-                        var rodpoint1 = rod.to_global(rodpoints[0])
-                        var distance = (rodpoint1 - roadpoint1).length()
-                        if distance < point_distance:
-                            if road.get_parent().get_name() == "Roads":
-                                var DivPath = Node3D.new()
-                                add_child(DivPath)
-                                DivPath.add_to_group("div_path")
-                                rod.reparent(DivPath)
-                                road.reparent(DivPath)
-                            else:
-                                rod.reparent(road.get_parent())
-        else:
-            print(road.get_name())
+	for road in roads:
+		var roadpoints = road.get_curve().get_baked_points()
+		if roadpoints.size() > 0:
+			var roadpoint1 = road.to_global(roadpoints[0])
+		
+			for rod in roads:
+				if rod != road:
+					var rodpoints = rod.get_curve().get_baked_points()
+					if rodpoints.size() > 0:
+						var rodpoint1 = rod.to_global(rodpoints[0])
+						var distance = (rodpoint1 - roadpoint1).length()
+						if distance < point_distance:
+							if road.get_parent().get_name() == "Roads":
+								var DivPath = Node3D.new()
+								add_child(DivPath)
+								DivPath.add_to_group("div_path")
+								rod.reparent(DivPath)
+								road.reparent(DivPath)
+							else:
+								rod.reparent(road.get_parent())
+		else:
+			print(road.get_name())
 
 func assign_traffic_lights(light_timer, light_auto_start, scale_int):
-    var crossings = get_tree().get_nodes_in_group("TrafficLights")
-    var script = load("res://scripts/TrafficLight.gd") 
-    const lightsphere: PackedScene = preload("res://prefabs/light.tscn")
-    for n in crossings:
-        var directions = n.get_children()
-        for d in directions:
-            # Used to get a dictoinary of crossings and their roads
-            if crossings_dict.has(n):
-                crossings_dict[n].append_array(d.get_children())
-            else:
-                crossings_dict[n] = d.get_children()
+	var crossings = get_tree().get_nodes_in_group("TrafficLights")
+	var script = load("res://scripts/TrafficLight.gd") 
+	const lightsphere: PackedScene = preload("res://prefabs/light.tscn")
+	for n in crossings:
+		var directions = n.get_children()
+		for d in directions:
+			# Used to get a dictoinary of crossings and their roads
+			if crossings_dict.has(n):
+				crossings_dict[n].append_array(d.get_children())
+			else:
+				crossings_dict[n] = d.get_children()
 
-            var light = lightsphere.instantiate()
-            d.add_child(light)
-            light.position = ((d.get_child(0).get_curve().get_baked_points()[0]) + Vector3(0, 3, 0))
-            light.scale = scale_int * Vector3(1, 1, 1)
+			var light = lightsphere.instantiate()
+			d.add_child(light)
+			light.position = ((d.get_child(0).get_curve().get_baked_points()[0]) + Vector3(0, 3, 0))
+			light.scale = scale_int * Vector3(1, 1, 1)
 
-        var timer = Timer.new()
-        timer.autostart = false
-        timer.wait_time = light_timer
-        n.add_child(timer)
-        n.set_script(script)
-        n.set_process(true)
-        n.call("start")
-    Car.set_crossings_dict(crossings_dict)
+		var timer = Timer.new()
+		timer.autostart = false
+		timer.wait_time = light_timer
+		n.add_child(timer)
+		n.set_script(script)
+		n.set_process(true)
+		n.call("start")
+	Car.set_crossings_dict(crossings_dict)
