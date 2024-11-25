@@ -12,7 +12,7 @@ var velocity = Vector3.ZERO
 func _process(delta):
 	var direction = Vector3.ZERO
 	
-	if Input.is_key_pressed(KEY_A):
+	if Input.is_key_pressed(KEY_X):
 		for car in Car.CARS:
 			car.add_to_group("selected_car")
 

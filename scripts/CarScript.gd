@@ -67,7 +67,7 @@ func determine_speed_action() -> String:
 	var crossing_is_open:bool = (is_next_road_crossing() and is_next_crossing_green() and is_next_crossing_open())
 
 	# For debug printout
-	if is_in_group("selected_car") and false:
+	if is_in_group("selected_car"):
 		#print("open: %s isCrossing: %s freespace: %s" % [crossing_is_open, is_next_road_crossing(), free_space])
 		print("wanted space: %.2f and Distance2Road: %.2f and distance to next car: %.2f" % [wanted_space + get_stopping_distance(false), get_distance_next_road(), get_next_car_distance(get_next_car_unsafe())])
 		print("Is next car blocking: %s" % is_next_car_blocking())
@@ -82,14 +82,16 @@ func determine_speed_action() -> String:
 		return "brake"
 
 	if is_next_road_crossing() and is_space_to_road_free():
-		if not crossing_is_open or not is_there_space_to_next_car():
+		if is_there_space_to_next_car() and crossing_is_open:
 			# To avoid blocks caused by cars attempting to enter full road, resulting in grid locks
 			if stuck_count > 60:
 				stuck_count = 0
 				return "change_next_road"
 			stuck_count += 1
-
+			return "accelerate"
+		else:
 			return "brake"
+
 
 	return "accelerate"
 
@@ -113,7 +115,7 @@ func update_wanted_space():
 	for spd in speed_stamps:
 		speed_avg += spd
 	speed_avg /= len(speed_stamps)
-	wanted_space = speed_avg * wanted_space_time + 5
+	wanted_space = speed_avg * wanted_space_time + 3
 	return
 
 func is_next_car_blocking():
@@ -130,7 +132,7 @@ func is_there_space_to_next_car():
 		if is_in_group("selected_car"):
 			print("road_length: %.3f   needed free space: %.3f" % [next_car.get_parent().get_curve().get_baked_length(), desired_wanted_space * (1 + road_after_crossing.get_child_count() + next_road.get_child_count())])
 			print("next road: %s  and road after: %s " % [next_road, road_after_crossing])
-		return next_car.get_parent().get_curve().get_baked_length() > desired_wanted_space * (1 + road_after_crossing.get_child_count() + next_road.get_child_count())
+		return next_car.get_parent().get_curve().get_baked_length() > desired_wanted_space * (2 + road_after_crossing.get_child_count() + next_road.get_child_count())
 	else: 
 		return true
 
