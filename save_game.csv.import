@@ -3,13 +3,11 @@
 importer="csv_translation"
 type="Translation"
 uid="uid://cmpsvxwg38pqy"
+valid=false
 
 [deps]
 
-files=["res://save_game.28.translation"]
-
 source_file="res://save_game.csv"
-dest_files=["res://save_game.28.translation"]
 
 [params]
 

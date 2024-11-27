@@ -66,7 +66,8 @@ func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debu
 	if car_spawn_count <= 0:
 		car_spawn_count = 10
 	
-	reaction_time(car_spawn_count, percent_fast)
+	var reaction_times = generate_reaction_time(car_spawn_count, percent_fast)
+	var acceleration = generate_acceleration_and_deacceleration(car_spawn_count, percent_fast)
 	
 	var spawnable_roads = get_tree().get_nodes_in_group("road_allow_spawn")
 	var itteration = 1
@@ -84,7 +85,9 @@ func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debu
 			var road_len = road.get_curve().get_baked_length()
 			var spot_on_road = road_len - desired_spawn_space * itteration
 			if spot_on_road > desired_spawn_space:
-				Car.new_car(road, spot_on_road, 13.8 * scale_int, velocity_debug, wanted_space, [1.1,0.1], [0.9, 0.1], reaction_times.pick_random(), desired_spawn_space, scale_int)
+				var chosen_reaction_time = reaction_times.pick_random()
+				var chosen_acceleration = acceleration[chosen_reaction_time < 0.05].pick_random()
+				Car.new_car(road, spot_on_road, 13.8 * scale_int, velocity_debug, wanted_space, chosen_acceleration, chosen_reaction_time, desired_spawn_space, scale_int)
 				spawned_cars += 1
 		if spawned_cars_before == spawned_cars or spawned_cars >= car_spawn_count:
 			break
@@ -92,12 +95,26 @@ func spawn_cars(car_spawn_count: int = 10, wanted_space:float = 2, velocity_debu
 	print("Spawned cars: %s" % spawned_cars)
 	return
 
-var reaction_times = []
-func reaction_time(car_spawn_count: int, procent:float):
+@export var slow_mean:float = 2
+@export var slow_deviation:float = 0.5
+func generate_acceleration_and_deacceleration(car_spawn_count:int, procent:float):
+	var values = {true : [], false : []} # True in this dict is fast/ai car
+	values[true].append([[1 + (6 * 1.0/60.0), 0.1], [1 - (6 * 1.0/60.0), 0.1]]) # Fast acceleration at 6 m/s²
+	
+	for car in range(int(car_spawn_count * (1 - procent))): # Slow / human
+		var rand_val = clamp(randfn(slow_mean, slow_deviation),slow_mean-slow_deviation, slow_mean+slow_deviation)
+		values[false].append([[1 + (rand_val * 1.0/60.0), 0.1], [1 - (rand_val * 1.0/60.0), 0.1]])
+	
+	print(values)
+	return values
+
+func generate_reaction_time(car_spawn_count:int, procent:float):
+	var reaction_times = []
 	for car in range(int(car_spawn_count * procent)): # Fast / computer
 		reaction_times.append(clamp(randfn(0.02, 0.01),0.01, 0.03))
 	for car in range(int(car_spawn_count * (1 - procent))): # Slow / human
 		reaction_times.append(clamp(randfn(0.25, 0.1), 0.15, 0.35))
+	return reaction_times
 
 @export var point_distance: float = 0.2
 func find_divering_paths():

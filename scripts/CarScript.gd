@@ -87,6 +87,7 @@ func determine_speed_action(delta) -> String:
 		#print("wanted space: %.2f and Distance2Road: %.2f and distance to next car: %.2f" % [wanted_space + get_stopping_distance(false), get_distance_next_road(), get_next_car_distance(get_next_car_unsafe())])
 		#print("Is next car blocking: %s" % is_next_car_blocking())
 		#print()
+		print(self.acceleration)
 		pass
 
 	# The way to add logic is to find all the reasons to brake/hold back for something, and if there is nothing to stop for, allow it drive.
@@ -308,7 +309,7 @@ func change_road(new_road:Path3D):
 	return
 
 static func new_car(road_:Path3D, starting_offset_:float = 0, max_speed_:float = 13.88, velocity_debug_:bool = false,
-wanted_space_time_:float = 2, acceleration_ = [1.1, 0.1], de_acceleration_: = [0.9, 0.1], reaction_time_:float = 0.050,
+wanted_space_time_:float = 2, acceleration_ = [1.1, 0.1], reaction_time_:float = 0.050,
 desired_wanted_space_:float = 7, scale_int:float = 1) -> Car:
 	var new_car_: Car = my_scene.instantiate()
 	road_.add_child(new_car_)
@@ -330,8 +331,8 @@ desired_wanted_space_:float = 7, scale_int:float = 1) -> Car:
 		new_car_.max_speed = randf_range(5, 15)
 	else:
 		new_car_.max_speed = max_speed_
-	new_car_.acceleration = acceleration_
-	new_car_.de_acceleration = de_acceleration_
+	new_car_.acceleration = acceleration_[0]
+	new_car_.de_acceleration = acceleration_[1]
 	new_car_.desired_wanted_space = desired_wanted_space_
 
 	new_car_.loop = false
