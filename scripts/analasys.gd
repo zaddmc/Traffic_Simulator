@@ -29,9 +29,13 @@ func update_histo():
 
 
 func save_data():
-	var file = FileAccess.open("res://save_game.csv", FileAccess.WRITE)
+	var args = Array(OS.get_cmdline_args())
+	print(args)
+	var file = FileAccess.open(("res://data/save_game%s.csv" % args[1]), FileAccess.WRITE)
 	print("step2")
 	for x in range(0, total_cars_through_histo.size()):
+		print(total_cars_through_histo[x])
 		file.store_csv_line(PackedStringArray([total_cars_through_histo[x]]))
+		file.flush()
 	file.close()
 	get_tree().quit()
