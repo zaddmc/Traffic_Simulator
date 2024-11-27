@@ -2,12 +2,12 @@
 
 importer="csv_translation"
 type="Translation"
-uid="uid://cemlyt8l7bbwy"
+uid="uid://cf7ai5i1xp75u"
 valid=false
 
 [deps]
 
-source_file="res://data/data01/save_game6.csv"
+source_file="res://data/data02/save_game8.csv"
 
 [params]
 
