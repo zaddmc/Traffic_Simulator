@@ -104,8 +104,6 @@ func generate_acceleration_and_deacceleration(car_spawn_count:int, procent:float
 	for car in range(int(car_spawn_count * (1 - procent))): # Slow / human
 		var rand_val = clamp(randfn(slow_mean, slow_deviation),slow_mean-slow_deviation, slow_mean+slow_deviation)
 		values[false].append([[1 + (rand_val * 1.0/60.0), 0.1], [1 - (rand_val * 1.0/60.0), 0.1]])
-	
-	print(values)
 	return values
 
 func generate_reaction_time(car_spawn_count:int, procent:float):

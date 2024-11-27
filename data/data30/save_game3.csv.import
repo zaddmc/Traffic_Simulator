@@ -7,7 +7,7 @@ valid=false
 
 [deps]
 
-source_file="res://data/save_game3.csv"
+source_file="res://data/data30/save_game3.csv"
 
 [params]
 

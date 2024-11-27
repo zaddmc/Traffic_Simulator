@@ -1,0 +1,15 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bywvyl83860ui"
+valid=false
+
+[deps]
+
+source_file="res://data/data40/save_game7.csv"
+
+[params]
+
+compress=true
+delimiter=0

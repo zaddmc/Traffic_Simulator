@@ -28,8 +28,5 @@ transform = Transform3D(3.76, 0, 0, 0, 3.76, 0, 0, 0, 3.76, 41.367, 2.545, -92.3
 
 [node name="road_paths" parent="." instance=ExtResource("4_2veom")]
 transform = Transform3D(3.76, 0, 0, 0, 3.76, 0, 0, 0, 3.76, -108.598, 2.915, -35.485)
-slow_mean = null
-slow_deviation = null
-point_distance = null
 
 [editable path="road_paths"]

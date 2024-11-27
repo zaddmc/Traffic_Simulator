@@ -24,15 +24,13 @@ func add_through(road):
 func update_histo():
 	total_cars_through_histo.append(total_cars_through)
 	if total_cars_through_histo.size() >= itterations:
-		print("step1")
 		save_data()
 
 
 func save_data():
 	var args = Array(OS.get_cmdline_args())
 	print(args)
-	var file = FileAccess.open(("res://data/save_game%s.csv" % args[1]), FileAccess.WRITE)
-	print("step2")
+	var file = FileAccess.open(("res://data/data%s/save_game%s.csv" % [args[1], args[0]]), FileAccess.WRITE)
 	for x in range(0, total_cars_through_histo.size()):
 		print(total_cars_through_histo[x])
 		file.store_csv_line(PackedStringArray([total_cars_through_histo[x]]))

@@ -101,12 +101,10 @@ percent_fast_cars = 0.3
 [node name="road_paths" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0944229, 0, -0.0947611)
 script = ExtResource("2_sbrvt")
-slow_mean = null
-slow_deviation = null
-point_distance = null
 
 [node name="Crossings" type="Node3D" parent="road_paths"]
 script = ExtResource("3_8uqox")
+itterations = 2
 
 [node name="Crossing" type="Node3D" parent="road_paths/Crossings" groups=["TrafficLights"]]
 

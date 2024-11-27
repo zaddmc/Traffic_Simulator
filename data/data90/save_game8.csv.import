@@ -1,0 +1,15 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dquadhamnwovn"
+valid=false
+
+[deps]
+
+source_file="res://data/data90/save_game8.csv"
+
+[params]
+
+compress=true
+delimiter=0
