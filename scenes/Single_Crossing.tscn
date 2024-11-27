@@ -96,7 +96,7 @@ script = ExtResource("1_k5hgp")
 car_spawn_count = 50
 wanted_space = 0.6
 spacing_multiplier = 1
-percent_fast_cars = 0.0
+percent_fast_cars = 0.3
 
 [node name="road_paths" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0944229, 0, -0.0947611)
