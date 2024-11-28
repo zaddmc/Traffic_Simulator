@@ -104,7 +104,6 @@ script = ExtResource("2_sbrvt")
 
 [node name="Crossings" type="Node3D" parent="road_paths"]
 script = ExtResource("3_8uqox")
-itterations = 2
 
 [node name="Crossing" type="Node3D" parent="road_paths/Crossings" groups=["TrafficLights"]]
 

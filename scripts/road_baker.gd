@@ -101,7 +101,7 @@ func generate_acceleration_and_deacceleration(car_spawn_count:int, procent:float
 	var values = {true : [], false : []} # True in this dict is fast/ai car
 	values[true].append([[1 + (6 * 1.0/60.0), 0.1], [1 - (6 * 1.0/60.0), 0.1]]) # Fast acceleration at 6 m/s²
 	
-	for car in range(int(car_spawn_count * (1 - procent))): # Slow / human
+	for car in range(int(car_spawn_count * (1 - procent)) + 1): # Slow / human
 		var rand_val = clamp(randfn(slow_mean, slow_deviation),slow_mean-slow_deviation, slow_mean+slow_deviation)
 		values[false].append([[1 + (rand_val * 1.0/60.0), 0.1], [1 - (rand_val * 1.0/60.0), 0.1]])
 	return values

@@ -19,7 +19,9 @@ func _on_all_loaded():
 	roads.bake_roads()
 	roads.assign_traffic_lights(light_time, lights_on, scale_int)
 	var args = Array(OS.get_cmdline_args())
-	roads.spawn_cars(car_spawn_count, wanted_space, velocity_debug, spacing_multiplier, percent_fast_cars, scale_int)
+	var percent_given = float(float(args[1])/100.0)
+	print(percent_given)
+	roads.spawn_cars(car_spawn_count, wanted_space, velocity_debug, spacing_multiplier, percent_given, scale_int)
 	return
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
