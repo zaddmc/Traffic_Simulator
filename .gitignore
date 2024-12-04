@@ -2,3 +2,4 @@
 .godot/
 /android/
 @Area3D@16.tscn
+.venv
