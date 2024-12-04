@@ -15,6 +15,10 @@ run/main_scene="res://scenes/Single_Crossing.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://assets/textures/icon.svg"
 
+[editor]
+
+run/main_run_args="0"
+
 [global_group]
 
 road_allow_spawn=""
