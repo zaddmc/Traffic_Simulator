@@ -8,7 +8,6 @@ def start(percent_ = 0, csv_file_count_ = 0):
     master_dict = {i : 0 for i in range(csv_file_count)}
 
     for idx in range(csv_file_count):
-        #master_dict[idx] = []
         master_dict[idx] = import_csv_file(f"data/data{percent}/save_game{idx}.csv")
     
     result = []
@@ -20,12 +19,12 @@ def start(percent_ = 0, csv_file_count_ = 0):
                 result.append(val)
     
     for idx, value in enumerate(result):
-        result[idx] = value/len(result)
+        result[idx] = value/(csv_file_count)
 
     export_csv_file(result, percent)
     
 def export_csv_file(data, percent):
-    with open(f"data/data{percent}/exported_{percent}.csv", "w") as file:
+    with open(f"data/Data_combined/exported_{percent}.csv", "w") as file:
         writer = csv.writer(file)
         for val in data:
             writer.writerow([val])

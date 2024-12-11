@@ -111,7 +111,7 @@ func generate_reaction_time(car_spawn_count:int, procent:float):
 	for car in range(int(car_spawn_count * procent)): # Fast / computer
 		reaction_times.append(clamp(randfn(0.02, 0.01),0.01, 0.03))
 	for car in range(int(car_spawn_count * (1 - procent))): # Slow / human
-		reaction_times.append(clamp(randfn(0.25, 0.1), 0.15, 0.35))
+		reaction_times.append(clamp(randfn(0.75, 0.1), 0.6, 0.9))
 	return reaction_times
 
 @export var point_distance: float = 0.2

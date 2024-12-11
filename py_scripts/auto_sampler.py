@@ -2,7 +2,7 @@ import subprocess
 import threading
 
 def start_thead(percent):
-    for i in range(10):
+    for i in range(20):
         subprocess.run(["godot", "--quiet", "--headless", "--path", "./", f"{i}", f"{percent:02}"])
         print(f"percent: {percent:02} finished run: {i}")
     return

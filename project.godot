@@ -17,7 +17,7 @@ config/icon="res://assets/textures/icon.svg"
 
 [editor]
 
-run/main_run_args="0"
+run/main_run_args="50"
 
 [global_group]
 
